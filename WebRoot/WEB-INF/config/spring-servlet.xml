@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+            http://www.springframework.org/schema/context    
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+            http://www.springframework.org/schema/aop    
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   
+            http://www.springframework.org/schema/tx    
+            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd   
+            http://www.springframework.org/schema/mvc    
+            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+            http://www.springframework.org/schema/context    
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+            
+    <!-- 静态文件访问,主要是针对DispatcherServlet的拦截是/的-->
+    <mvc:annotation-driven />
+    <mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/img/" mapping="/img/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射顺序有关放前 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+		<property name="webBindingInitializer">
+			<bean class="com.tools.sys.MyBindingInitializer" />
+		</property>
+		<property name="messageConverters"> 
+         <list> 
+             <bean class = "org.springframework.http.converter.StringHttpMessageConverter"> 
+                <property name = "supportedMediaTypes"> 
+                     <list> 
+                         <value>text/plain;charset=UTF-8</value> 
+                     </list> 
+                </property> 
+             </bean> 
+         </list> 
+   		 </property> 
+	</bean>
+	
+	<!-- 启动Spring MVC的注解功能-->
+	<context:annotation-config />
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<context:component-scan base-package="com" />
+	
+	<!-- 配置首页访问页面 -->
+	<mvc:view-controller path="/" view-name="forwardIndex"/>
+	
+	<!-- 启用  @Controller 编程模式 -->
+	<mvc:annotation-driven />
+	
+	<context:annotation-config />
+
+	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+		p:viewClass="org.springframework.web.servlet.view.JstlView"
+		p:prefix="/" p:suffix=".jsp" />
+	
+	<!-- 系统异常处理 -->
+	
+	<!-- 设置多文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
+		p:defaultEncoding="utf-8" p:maxUploadSize="104857600"/>
+	
+	<!-- 拦截器配置 -->
+	<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />   
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>  
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">   
+	    <property name="interceptors">  
+	        <list>  
+	            <bean class="com.yida.core.interceptors.LoginCheckInterceptor"/>
+	        </list>  
+	    </property>  
+	</bean>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>  
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.yida.core.interceptors.LoginCheckInterceptor" >
+					<property name="excludeUrls">
+						<list>
+							<value>/toLogin</value>
+							<value>/login</value>
+							<value>/logout</value>
+							<value>/js/</value>
+							<value>/css/</value>
+							<value>/img/</value>
+							<value>/images/</value>
+						</list>
+					</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 国际化文件加载 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 定时器 -->
+	<!-- <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	      <list>
+	        <ref local="checkOpenTimeTrigger"/>
+	      </list>
+	    </property>
+	 </bean> -->
+</beans>

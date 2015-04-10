@@ -1,0 +1,501 @@
+		/* ul list styles */
+		.list_a,.list_b,.list_c,.list_d {margin-left:0;list-style:none}
+		.list_a li {background: url(../img/bullet_blue.png) no-repeat 3px 4px;padding-left:25px}
+		.list_b li {background: url(../img/bullet_green.png) no-repeat 3px 4px;padding-left:25px}
+		.list_c li {background: url(../img/bullet_orange.png) no-repeat 3px 4px;padding-left:25px}
+		.list_d li {background: url(../img/bullet_red.png) no-repeat 3px 4px;padding-left:25px}		
+
+		/* backgrounds */
+		.ptrn_a {background-image: url(../img/bg_a.png)}
+		.ptrn_b {background-image: url(../img/bg_b.png)}
+		.ptrn_c {background-image: url(../img/bg_c.png)}
+		.ptrn_d {background-image: url(../img/bg_d.png)}
+		.ptrn_e {background-image: url(../img/bg_e.png)}
+		.ptrn_f {background-image: url(../img/bg_f.png)}
+		.ptrn_g {background-image: url(../img/bg_g.png)}
+		.ptrn_h {background-image: url(../img/bg_h.png)}
+		
+	/* forms */
+		.formRow:last-child input, .formRow:last-child textarea, .formRow:last-child select, .uneditable-input {margin-bottom: 0}
+		.formRow small {display:block;font-size:11px;color:#999;line-height:14px}
+		.formSep {margin-bottom:12px;padding-bottom:12px;border-bottom:1px dashed #dcdcdc}
+		
+		.stacked select, .stacked input[type="text"],.stacked textarea {display:block}
+		
+		.help-inline,.help-block {font-size:11px;margin:-4px 0 0 2px}
+		
+		.form-horizontal .help-block {margin-top:2px}
+		.form-horizontal .control-group {margin-bottom:14px}
+		
+		input.focused {border-color: rgba(82,168,236,.8);-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px rgba(82,168,236,.6);-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px rgba(82,168,236,.6);box-shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px rgba(82,168,236,.6);outline: 0;z-index:2;position:relative}
+		
+		.f_warning > label,.f_warning .help-block,.f_warning .help-inline{color:#c09853}
+		.f_warning input,.f_warning select,.f_warning textarea{color:#c09853;border-color:#c09853}
+		.f_warning input:focus,.f_warning select:focus,.f_warning textarea:focus{-webkit-box-shadow:0 0 6px #dbc59e;-moz-box-shadow:0 0 6px #dbc59e;box-shadow:0 0 6px #dbc59e;border-color:#a47e3c}
+		.f_warning .input-prepend .add-on,.f_warning .input-append .add-on{color:#c09853;background-color:#fcf8e3;border-color:#c09853}
+		
+		.f_error input,.f_error select,.f_error textarea{color:#b94a48;border-color:#b94a48}
+		.f_error input:focus,.f_error select:focus,.f_error textarea:focus{-webkit-box-shadow:0 0 6px #d59392;-moz-box-shadow:0 0 6px #d59392;box-shadow:0 0 6px #d59392;border-color:#953b39}
+		.f_error .input-prepend .add-on,.f_error .input-append .add-on{color:#b94a48;background-color:#f2dede;border-color:#b94a48}
+		.f_error label.error {display:block;font-size:11px;font-weight:700;color:#C62626}
+		input[type="text"] + label.error,input[type="password"] + label.error, select + label.error, textarea + label.error {margin-top:-6px}
+		.f_error label.radio + label.error,.f_error label.checkbox + label.error {margin-top:5px}
+		.input-prepend.f_error label.error,.input_append.f_error  label.error {margin-top:4px}
+		.control-group.f_error label.error {margin-top:2px}
+		
+		.f_success > label,.f_success .help-block,.f_success .help-inline{color:#468847}
+		.f_success input,.f_success select,.f_success textarea{color:#468847;border-color:#468847}
+		.f_success input:focus,.f_success select:focus,.f_success textarea:focus{-webkit-box-shadow:0 0 6px #7aba7b;-moz-box-shadow:0 0 6px #7aba7b;box-shadow:0 0 6px #7aba7b;border-color:#356635}
+		.f_success .input-prepend .add-on,.f_success .input-append .add-on{color:#468847;background-color:#dff0d8;border-color:#468847}
+		
+		.ui-tooltip label {margin-bottom:0}
+		.f_legend {font-size:16px;line-height:16px;padding-bottom:10px;margin-bottom:22px;border-bottom:1px solid #dcdcdc}
+		.radio.inline, .checkbox.inline {margin-left:0 !important;margin-right:10px}
+		
+        .f_req {font-size:13px;color:#ff0000;font-family: helvetica, arial, sans-serif}
+		.form-horizontal .controls.text_line {line-height:25px}
+		
+		.row-fluid input[class*="span"],.row-fluid textarea[class*="span"],.row-fluid select[class*="span"] {display:inline-block}
+		.row-fluid input[class*="span"] + input[class*="span"], .row-fluid textarea[class*="span"] + textarea[class*="span"], .row-fluid select[class*="span"] + select[class*="span"] {display:block}
+		
+        textarea {resize: none}
+        
+    /* file upload */
+        .btn.btn-file{overflow:hidden;position:relative;vertical-align:middle}
+        .btn.btn-file > input[type=file]{width:100%;position:absolute;left:0;top:0;opacity:0;cursor:pointer}
+        .fileupload{margin-bottom:9px}
+        .fileupload .uneditable-input{display:inline-block;margin-bottom:0;vertical-align:middle;height:28px !important;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;-ms-box-sizing: border-box;box-sizing: border-box}
+        .fileupload .thumbnail{overflow:hidden;display:inline-block;margin-bottom:5px;vertical-align:middle;text-align:center}
+        .fileupload .thumbnail > img{display:block;vertical-align:middle;max-height:100%}
+        .fileupload .btn{vertical-align:middle}
+        .fileupload-exists .fileupload-new,.fileupload-new .fileupload-exists{display:none}
+        .fileupload-inline .fileupload-controls{display:inline}
+        .fileupload-new .input-append .btn-file{-webkit-border-radius:0 3px 3px 0;-moz-border-radius:0 3px 3px 0;border-radius:0 3px 3px 0}
+        .fileupload .fileupload-preview {vertical-align:middle}
+        .fileupload .close.fileupload-exists {vertical-align:middle}
+        
+	/* input spinner */
+		.ui-spinner button {height:14px;position:absolute;background:none;border:none;width:18px;padding:0;background: url(../img/spinner_arrows.gif) no-repeat 0 -100px;cursor:pointer}
+		.ui-spinner .ui-spinner-up {top:0;right:0;background-position:0 0}
+		.ui-spinner .ui-spinner-down {top:14px;right:0;background-position:0 -14px}
+		.ui-spinner .ui-spinner-up:hover {background-position:-18px 0}
+		.ui-spinner .ui-spinner-down:hover {background-position:-18px -14px}
+		.ui-spinner input,.ui-spinner input:focus {display:block !important;margin:0 !important;padding:0;min-height:28px !important;height:28px !important;-webkit-box-shadow:none;-moz-box-shadow:none;-ms-box-shadow:none;box-shadow:none}
+		.ui-spinner ul {margin:0}
+		.ui-spinner li {line-height:28px}
+		.ui-spinner{-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);position:relative;margin-bottom:10px;font-size:13px;height:28px;line-height:28px;color:#555;background-color:#fff;border:1px solid #ccc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;overflow:hidden;padding:0 24px 0 8px}
+		.ui-spinner .ui-spinner-box {background: none;border: none !important}	
+
+
+/*步骤标题*/
+/* 项目基本信息--工程信息 */
+.project-base-info {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-base-info:after {
+  content: "项目基本信息--工程信息";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+
+/* 项目基本信息--招标人（发包人）信息 */
+.project-zhaobiao-info {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-zhaobiao-info:after {
+  content: "项目基本信息--招标人（发包人）信息";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+/* 业务信息 */
+.project-business-info {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-info:after {
+  content: "业务信息";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+/* 业务资料 */
+.project-business-info-data {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-info-data:after {
+  content: "业务资料";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 接收资料 */
+.project-business-info-receive {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-info-receive:after {
+  content: "接收资料";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 业务详细资料 */
+.project-businessDeatail-info {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-businessDeatail-info:after {
+  content: "业务详细资料";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 项目分配 */
+.project-business-assign{
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-assign:after {
+  content: "项目分配";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 项目经理签名*/
+.project-business-project-manager-sign{
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-project-manager-sign:after {
+  content: "项目经理签名";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+/* 部门主任签名*/
+.project-business-department-manager-sign{
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-department-manager-sign:after {
+  content: "部门主任签名";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 审批意见*/
+.project-business-manager-sign{
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-manager-sign:after {
+  content: "审批意见";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 文件清单*/
+.project-business-wenjianList{
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-wenjianList:after {
+  content: "文件清单";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 历史记录*/
+.project-business-historyList{
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-historyList:after {
+  content: "历史记录";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 资料清单*/
+.project-business-dataList{
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-business-dataList:after {
+  content: "资料清单";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* 附件列表*/
+.project-costTree-fileList{
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.project-costTree-fileList:after {
+  content: "附件列表";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/*ie兼容透明*/
+.file{filter:alpha(opacity:0);opacity: 0;}
+
+/*红色星号*/
+.text-need{
+	color:red;
+}

@@ -1,0 +1,395 @@
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat center center;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat center center;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat center center;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat center center;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat center center;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat center center;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat center center;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat center center;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat center center;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat center center;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat center center;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat center center;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat center center;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat center center;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat center center;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat center center;
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat center center;
+}
+.icon-tip{
+	background:url('icons/tip.png') no-repeat center center;
+}
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat center center;
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat center center;
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat center center;
+}
+
+.icon-adt_atach{
+	margin-top:-2px;
+	position:relative;
+	display: inline-block;
+	width: 16px;height: 16px;
+	line-height: 16px;vertical-align: text-top;
+	background-image: url("icons/adt-icons.png");background-repeat: no-repeat;*margin-right: .3em;
+	background-position: 0 -0px
+}
+
+/*增加图标*/
+/*桌面*/
+.icon-desk{
+	background:url('icons/monitor.png') no-repeat;
+}
+.icon-desk1{
+	background:url('extjs_icons/house.png') no-repeat;
+}
+/*导航菜单*/
+.icon-direction{
+	background:url('icons/direction.png') no-repeat;
+}
+/*控制面板*/
+.icon-cog{
+	background:url('icons/cog.png') no-repeat;
+}
+/*注销*/
+.icon-key{
+	background:url('icons/key.png') no-repeat;
+}
+/*用户*/
+.icon-user_gray{
+	background:url('icons/user_gray.png') no-repeat;
+}
+/*修改密码*/
+.icon-wrench{
+	background:url('icons/wrench.png') no-repeat;
+}
+/*更换主题*/
+.icon-rainbow{
+	background:url('icons/rainbow.png') no-repeat;
+}
+/*default*/
+.icon-default{
+	background:url('icons/default.png') no-repeat;
+}
+/*gray*/
+.icon-gray{
+	background:url('icons/gray.png') no-repeat;
+}
+/*锁定窗口*/
+.icon-lock{
+	background:url('icons/lock.png') no-repeat;
+}
+/*退出系统*/
+.icon-system-log-out{
+	background:url('icons/system-log-out.png') no-repeat;
+}
+/*重新登录*/
+.icon-transmit_go{
+	background:url('icons/transmit_go.png') no-repeat;
+}
+
+
+/*
+extjs图标
+*/
+
+
+
+/*公司*/
+.icon-building{
+	background:url('extjs_icons/building.png') no-repeat;
+}
+/*总公司*/
+.icon-flag_yellow{
+	background:url('extjs_icons/flag/flag_yellow.png') no-repeat;
+}
+/*分公司*/
+.icon-flag_orange{
+	background:url('extjs_icons/flag/flag_orange.png') no-repeat;
+}
+/*公共通知*/
+.icon-comments{
+	background:url('extjs_icons/comments.png') no-repeat;
+}
+/*个人邮件通知*/
+.icon-email{
+	background:url('icons/letter.png') no-repeat;
+}
+/*公司大件事*/
+.icon-calendar_day_event{
+	background:url('icons/calendar_day_event.png') no-repeat;
+}
+/*系统介绍*/
+.icon-server{
+	background:url('extjs_icons/server.png') no-repeat;
+}
+/*申请公示*/
+.icon-user_comment{
+	background:url('extjs_icons/user/user_comment.png') no-repeat;
+}
+/*代办事项*/
+.icon-note_edit{
+	background:url('extjs_icons/notes/note_edit.png') no-repeat;
+}
+/*业务进度*/
+.icon-process{
+	background:url('icons/process1.png') no-repeat;
+}
+/*问题反馈*/
+.icon-feed{
+	background:url('extjs_icons/feed/feed.png') no-repeat;
+}
+
+
+/*邮件状态*/
+/*已读*/
+.icon-emailRead{
+	background:url('extjs_icons/feed/emailState.png') no-repeat;
+}
+/*未读*/
+.icon-emailNoRead{
+	background:url('extjs_icons/feed/emailState.png') no-repeat;
+}
+/*已回复*/
+.icon-emailAnswer{
+	background:url('extjs_icons/feed/emailState.png') no-repeat;
+}
+/*转发*/
+.icon-emailTranspond{
+	background:url('extjs_icons/feed/emailState.png') no-repeat;
+}
+/*新建招标流程*/
+.icon-table_add{
+	background:url('extjs_icons/table/table_add.png') no-repeat;
+}
+
+/*增加用户*/
+.icon-user_add{
+	background:url('extjs_icons/user/user_add.png') no-repeat;
+	
+}
+/*编辑用户*/
+.icon-userPwd_edit{
+	background:url('extjs_icons/user/user_edit.png') no-repeat;
+	
+}
+/*用户头像*/
+.icon-user_photo{
+	background:url('extjs_icons/photoAndPic/photo.png') no-repeat;
+	
+}
+/*清空数据*/
+.icon-table_delete{
+	background:url('extjs_icons/table/table_delete.png') no-repeat;
+	
+}
+/*删除tab*/
+.icon-deleteTab{
+	background:url('extjs_icons/delete.png') no-repeat;
+	
+}
+/*子窗口*/
+.icon-applicationTab{
+	background:url('extjs_icons/application/application.png') no-repeat;
+	
+}
+/*档案管理*/
+.icon-noteWin{
+	background:url('extjs_icons/notes/note.png') no-repeat;
+	
+}
+/*档案管理*/
+.icon-note_add{
+	background:url('extjs_icons/notes/note_add.png') no-repeat;
+	
+}
+/*授权*/
+.icon-authorization{
+	background:url('extjs_icons/wrench_orange.png') no-repeat;
+}
+/*业务授权*/
+.icon-bussAuthorization{
+	background:url('extjs_icons/page/report_key.png') no-repeat;
+}
+/*人员授权*/
+.icon-peopleAuthorization{
+	background:url('extjs_icons/group/group.png') no-repeat;
+}
+/*展开全部*/
+.icon-arrow_out{
+	background:url('extjs_icons/arrow/arrow_out.png') no-repeat;
+	
+}
+/*折叠全部*/
+.icon-arrow_in{
+	background:url('extjs_icons/arrow/arrow_in.png') no-repeat;
+	
+}
+/*全选*/
+.icon-flag_orange{
+	background:url('extjs_icons/flag/flag_orange.png') no-repeat;
+	
+}
+/*审核中心*/
+.icon-auditOrg{
+	background:url('extjs_icons/server_chart.png') no-repeat;
+}
+/*部门*/
+.icon-department{
+	background:url('extjs_icons/shape_align_left.png') no-repeat;
+}
+/*员工--男*/
+.icon-userMale{
+	background:url('extjs_icons/user/user.png') no-repeat;
+}
+/*员工--女*/
+.icon-userFemale{
+	background:url('extjs_icons/user/user_female.png') no-repeat;
+}
+/*增加功能*/
+.icon-server_add{
+	background:url('extjs_icons/server_add.png') no-repeat;
+}
+/*左侧导航图标*/
+.icon-bullet_white{
+	background:url('extjs_icons/bullet_white.png') no-repeat;
+}
+/*清空图标*/
+.icon-bin{
+	background:url('extjs_icons/bin.png') no-repeat;
+}
+/*更多条件图标*/
+.icon-arrow_green{
+	background:url('extjs_icons/arrow_green.png') no-repeat;
+}
+/*更多条件图标*/
+.icon-arrow_green{
+	background:url('extjs_icons/arrow_green.png') no-repeat;
+}
+/*系统logo 16x16*/
+.icon-yiDaLogo{
+	background:url('icons/gczj_pic_16x16.png') no-repeat;
+}
+/*财政系统logo 16x16*/
+.icon-auditLogo{
+	background:url('icons/tip.png') no-repeat;
+}
+/*更多*/
+.icon-format_indent_more{
+	background:url('icons/format_indent_more.png') no-repeat;
+}
+/*提示*/
+.icons-tip{
+	background:url('icons/tip.png') no-repeat;
+}
+/*下载文件*/
+.icons-basket_put{
+	background:url('extjs_icons/carAndCartAndBasket/basket_put.png') no-repeat;
+}
+/*上传文件*/
+.icons-folder_add{
+	background:url('extjs_icons/folder/folder_add.png') no-repeat;
+}
+/*删除文件*/
+.icons-folder_delete{
+	background:url('extjs_icons/folder/folder_delete.png') no-repeat;
+}
+/*申借文件*/
+.icons-folder_user{
+	background:url('extjs_icons/folder/folder_user.png') no-repeat;
+}
+/*申借记录*/
+.icons-folder_link{
+	background:url('extjs_icons/folder/folder_link.png') no-repeat;
+}
+/*历史记录*/
+.icons-folder_table{
+	background:url('extjs_icons/folder/folder_table.png') no-repeat;
+}
+
+/*左侧菜单图标*/
+/*办公精灵*/
+.icons-business_contact{
+	background:url('menu/business_contact.png') no-repeat;
+}
+
+/*项目管理*/
+.icons-future_projects{
+	background:url('menu/future_projects.png') no-repeat;
+}
+/*业务管理*/
+.icons-business_clipboard_report_bar{
+	background:url('menu/business_clipboard_report_bar.png') no-repeat;
+}
+/*行政管理*/
+.icons-x_office_spreadsheet_template{
+	background:url('menu/x_office_spreadsheet_template.png') no-repeat;
+}
+/*财务管理*/
+.icons-coins{
+	background:url('menu/coins.png') no-repeat;
+}
+/*客户管理*/
+.icons-client{
+	background:url('menu/client.png') no-repeat;
+}
+/*流程管理*/
+.icons-current_work{
+	background:url('menu/current_work.png') no-repeat;
+}
+/*基础数据*/
+.icons-database_yellow{
+	background:url('menu/database_yellow.png') no-repeat;
+}
+/*系统管理*/
+.icons-package_system{
+	background:url('menu/package_system.png') no-repeat;
+}
+/*系统管理
+.icons-business_application{
+	background:url('menu/business_application.png') no-repeat;
+}
+
+.icons-monitor_cast{
+	background:url('menu/monitor_cast.png') no-repeat;
+}
+*/
+

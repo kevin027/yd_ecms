@@ -1,0 +1,38 @@
+@charset "utf-8";
+/* CSS Document */
+
+.input_txt{
+	width:120px;
+	height:20px;
+	color:#434343;
+}
+
+.input_txt2{
+	width:80px;
+	height:20px;
+}
+
+.table{
+	font-size:12px;
+	background-color:#ebebec;
+	color:#434343;
+}
+
+.title_txt{
+	font-size:14px;
+	color:#FFF;
+}
+
+.tr1{
+	background-color:#48403E;
+	height:28px;
+}
+.butImgae{
+	background-image:url(../img/button.png);
+	border:0 px;
+   margin: 0px;
+   padding: 0px;
+   height: 22px;
+   width: 70px; 
+   font-size: 12px;
+}

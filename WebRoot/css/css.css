@@ -1,0 +1,227 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	background-color: #aaaaaa;
+}
+
+.nav input:hover {
+	cursor:pointer;
+}
+
+.head{
+	height:43px;
+	width:1024px;
+	background:url(../img/nva_bg.png) no-repeat;
+}
+.head_left{
+	height:20px;
+	width:158px;
+	margin-top:8px;
+	float:left;
+}
+.head_time{
+	width:165px;
+	height:15px;
+	margin-top:10px;
+	margin-right:25px;
+	font-size:12px;
+	color:#eeeeee;
+	float:right;
+}
+.left{
+	width:180px;
+	height:610px;
+	margin:auto;
+	float:left
+}
+.user{
+	width:180px;
+	float:left;
+	padding-bottom:10px;
+}
+.user_top{
+	height:28px;
+	width:180px;
+	background:url(../img/left_top.png) no-repeat;
+}
+.user_information_tops{
+	height:60px;
+	width:180px;
+	float:left;
+	padding-top:10px;
+	background:url(../img/lc.png) repeat-y;
+}
+.information_lefts{
+	height:60px;
+	width:70px;
+	margin-left:10px;
+	float:left;
+	text-align:center;
+}
+
+.user_information{
+	height:auto;
+	width:180px;
+	margin:auto;
+	background:url(../img/lc.png) repeat-y;
+}
+
+.user_information_top{
+	cursor:pointer;
+	height:60px;
+	width:180px;
+	float:left;
+	padding-top:10px;
+	background:url(../img/lc.png) repeat-y;
+}
+
+.user_information_top_bg{
+	cursor:pointer;
+	height:60px;
+	width:180px;
+	float:left;
+	padding-top:10px;
+	background:url(../img/lc2.png) repeat-y;
+}
+
+.information_left{
+	height:60px;
+	width:70px;
+	margin-left:10px;
+	float:left;
+	text-align:center;
+}
+.information_right{
+	height:60px;
+	width:90px;
+	margin:auto;
+	float:left;
+}
+.name{
+	height:20px;
+	width:60px;
+	padding-top:4px;
+	padding-left:10px;
+	float:left;
+	text-align:left;
+	font-size:14px;
+	color:#434343;
+	font-weight:bold;
+}
+.post{
+	height:14px;
+	width:80px;
+	margin-top:10px;
+	padding-left:10px;
+	font-size:12px;
+	float:left;
+	color:#626262;
+}
+.divide{
+	height:2px;
+	width:180px;
+	margin:auto;
+	padding-top:10px;
+	float:left;
+	background:url(../img/lc.png) repeat-y;
+}
+.install{
+	height:26px;
+	width:180px;
+	padding-top:5px;
+	float:left;
+	background:url(../img/lc.png) repeat-y;
+}
+.site{
+	height:26px;
+	width:76px;
+	padding-left:10px;
+	float:left;
+	margin:auto;
+}
+.site1{
+	height:26px;
+	width:76px;
+	float:left;
+	margin:auto;
+}
+.nav{
+	height:29px;
+	width:180px;
+	margin:auto;
+	padding-top:8px;
+	float:left;
+	background:url(../img/lc.png) repeat-y;
+}
+.frame{
+	height:20px;
+	width:180px;
+	margin:auto;
+	float:left;
+}
+.friends{
+	height:auto;
+	width:180px;
+	margin-top:5px;
+	float:left;
+}
+.right{
+	height:610px;
+	width:825px;
+	margin-left:15px;
+	float:left;
+	background-color:#fbfbfb;
+}
+.mail_top{
+	height:28px;
+	width:825px;
+	background:url(../img/right_top.png) no-repeat;
+}
+.mail_treat{
+	height:22px;
+	width:800px;
+	margin-top:20px;
+	margin-left:10px;
+	float:left;
+}
+.mail_bg{
+	width:825px;
+	height:100%;
+	background:url(../img/right_conter.png) repeat-y;
+}
+.mail_treat_left{
+	height:22px;
+	width:70px;
+	margin-left:10px;
+	float:left;
+}
+.mail_treat_right{
+	height:22px;
+	width:130px;
+	font-size:12px;
+	color:#000000;
+	margin-right:10px;
+	float:right;
+}
+.mail_head{
+	height:25px;
+	width:790px;
+	margin-left:15px;
+	margin-top:15px;
+	float:left;
+	background-color:#f3f3f3;
+}
+.mail_content{
+	height:30px;
+	width:790px;
+	margin-left:15px;
+	float:left;
+}
+.mail_content1{
+	height:30px;
+	width:790px;
+	float:left;
+	margin-left:15px;
+	background:url(../img/right_bg.png) repeat-x;
+}

@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* CSS Document */
+
+.land_bg {
+	background:url(../img/land_bg.jpg) repeat-x;
+	margin:0;
+	padding:0;
+	height:100%
+}
+
+.land{
+	height:220px;
+	width:400px;
+	margin:auto;
+	vertical-algin:middle;
+}
+
+.land_top{
+	height:40px;
+	widows:400px;
+	background-color:#48403e;
+}
+
+.land_logo{
+	height:20px;
+	width:158px;
+	float:left;
+	margin-top:10px;
+}
+
+.land_conter{
+	height:180px;
+	width:400px;
+	float:left;
+	background:#e7e7e7;
+	margin:auto;
+}
+
+.land_key {
+	width:30%; 
+	text-align:right; 
+	color:#aaaaaa; 
+	font-family:'微软雅黑';
+	font-weight:bold;
+}
+
+.land_val {
+	
+}
+
+.land_input{
+	height:22px;
+	line-height:22px;
+	width:230px;
+	font-family:"微软雅黑";
+	font-weight:bold;
+	text-align:left;
+	padding-left:3px;
+}
+
+.land_btn {
+	border-radius: 4px;
+	padding:4px;
+	font-family:"微软雅黑";
+	font-weight:600;
+	width:70px;
+	background:#e7e7e7;
+}
