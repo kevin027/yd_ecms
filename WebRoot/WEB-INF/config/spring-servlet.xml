@@ -52,15 +52,12 @@
 	<!-- 配置首页访问页面 -->
 	<mvc:view-controller path="/" view-name="forwardIndex"/>
 	
-	<!-- 启用  @Controller 编程模式 -->
-	<mvc:annotation-driven />
-	
 	<context:annotation-config />
 
 	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
 		p:viewClass="org.springframework.web.servlet.view.JstlView"
-		p:prefix="/" p:suffix=".jsp" />
+		p:prefix="/view/" p:suffix=".jsp" />
 	
 	<!-- 系统异常处理 -->
 	
@@ -86,12 +83,8 @@
 					<property name="excludeUrls">
 						<list>
 							<value>/toLogin</value>
-							<value>/login</value>
+                            <value>/signin</value>
 							<value>/logout</value>
-							<value>/js/</value>
-							<value>/css/</value>
-							<value>/img/</value>
-							<value>/images/</value>
 						</list>
 					</property>
 			</bean>

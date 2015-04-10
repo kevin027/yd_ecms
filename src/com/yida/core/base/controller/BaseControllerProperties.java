@@ -117,8 +117,7 @@ public class BaseControllerProperties {
 	public SaveStaffForm saveStaffForm;
 	
 	public ModifyPasswordForm modifyPasswordForm;
-	public LoginForm loginForm;
-	
+
 	//参数项
 	public String selDepartmentIds;
 	public String departmentId;

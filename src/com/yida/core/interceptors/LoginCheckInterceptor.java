@@ -1,22 +1,20 @@
 package com.yida.core.interceptors;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.tools.sys.SysConstant;
+import com.yida.core.base.entity.Account;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
-import com.tools.sys.SysConstant;
-import com.yida.core.base.entity.Account;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
 	
@@ -51,7 +49,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			isFlag = true;
 		}else{
 			Map<String, List<String>> operas  =  (Map<String, List<String>>) session.getAttribute(SysConstant.KEY_SESSION_PERMISSION);
-			/*outer:
+			outer:
 			for (Map.Entry<String, List<String>> map : operas.entrySet()){
 				for (String opera : map.getValue()){
 					if (servletPath.indexOf(opera) != -1){ 
@@ -60,7 +58,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 						break outer;
 					}
 				}
-			}*/
+			}
 			return true;
 			
 		}

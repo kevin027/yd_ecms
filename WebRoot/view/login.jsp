@@ -45,7 +45,7 @@
 					"border" : "1px solid red"
 				});
 			} else {
-				$('#login_form').submit();
+                $('#login_form').submit();
 				$(".error-box").text("正在登录系统，请稍后...");
 			}
 		};
@@ -59,17 +59,6 @@
 
 		$('#login').bind('click', function(ev) {
 			return subimtLoginForm() && false;
-		});
-
-		if (window.localStorage) {
-			var lastLoginAccounts = localStorage.getItem('lastLoginAccounts');
-			if (lastLoginAccounts)
-				$('#accounts').val(lastLoginAccounts);
-		}
-
-		$('#loginReset').bind('click', function(ev) {
-			$("#accounts").val("");
-			$("#password").val("");
 		});
 		
 		$(window).resize(function(){
@@ -101,7 +90,7 @@
 				<%-- <img alt="logo" id="loginLogo" src="images/<fmt:message key="LOGIN_LOGO" />"> --%> 
 			</a>
 			<h1 class="hide">
-			<a title="<fmt:message key="SYSTEM_NAME" />" target="_self" href="#"><fmt:message key="SYSTEM_NAME" /></a>
+			    <a title="<fmt:message key="SYSTEM_NAME" />" target="_self" href="#"><fmt:message key="SYSTEM_NAME" /></a>
 			</h1>
 		</div>
 		<div class="headerNav">
@@ -117,16 +106,16 @@
 			<div id="o-box-up"></div>
 			<div id="o-box-down" style="table-layout:fixed;">
 				<div class="error-box">${error_msg}</div>
-				<form id="login_form" namespace="/" action="login" method="post">
+				<form id="login_form" action="${ctx}signin" method="post">
 					<div class="fm-item">
 						<label for="logonId" class="form-label">帐 号</label>
-						<input type="text" id="accounts" name="loginForm.accounts" placeholder="输入用户名" class="i-text">
+						<input type="text" id="accounts" name="accounts" placeholder="输入用户名" class="i-text">
 						<div class="ui-form-explain"></div>
 					</div>
 
 					<div class="fm-item">
 						<label for="logonId" class="form-label">密 码</label>
-						<input id="password" name="loginForm.password" type="password" placeholder="输入密码" class="i-text">
+						<input id="password" name="password" type="password" placeholder="输入密码" class="i-text">
 						<div class="ui-form-explain"></div>
 					</div>
 					
