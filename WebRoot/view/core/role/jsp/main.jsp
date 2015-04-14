@@ -11,7 +11,7 @@
 	<base href="<%=basePath %>"/>
 	<title>人员管理主页面</title>
 	<meta charset="utf-8" />
-	<jsp:include page="/inc.jsp"></jsp:include>
+	<jsp:include page="/view/inc.jsp"></jsp:include>
 	<style type="text/css">
 	.dbn{display:none}
 	.dbb{display:block}

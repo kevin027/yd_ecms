@@ -11,7 +11,7 @@ int num =0;
     <base href="<%=basePath%>">
     <title></title>
     <meta charset="utf-8" />
-	<jsp:include page="/inc.jsp"></jsp:include>
+	<jsp:include page="/view/inc.jsp"></jsp:include>
 	<script id="pluginsBootstrap" type="text/javascript" src="<%=basePath %>core/staff/js/bootstrap.plugins.js"></script>
 	
 	<style type="text/css">

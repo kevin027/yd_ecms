@@ -1,22 +1,11 @@
 package com.yida.core.base.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "s_role")
@@ -40,14 +29,14 @@ public class Role implements Serializable {
 	private Boolean invalid;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
-	@JoinColumn(name="auditOrg", nullable=true)
+	@JoinColumn(name="auditOrgId", nullable=true)
 	private AuditOrg auditOrg;
 	
 	@ManyToMany(fetch=FetchType.LAZY, mappedBy="roles")
 	private Set<Account> accounts;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="mp_role_function", joinColumns=@JoinColumn(name="roleId"), inverseJoinColumns=@JoinColumn(name="function_id"))
+	@JoinTable(name="mp_role_function", joinColumns=@JoinColumn(name="roleId"), inverseJoinColumns=@JoinColumn(name="functionId"))
 	@OrderBy("hierarchy asc, sortCode asc")
 	private List<Function> functions;
 	

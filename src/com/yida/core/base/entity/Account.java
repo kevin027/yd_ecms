@@ -1,26 +1,12 @@
 package com.yida.core.base.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "s_account")
@@ -56,7 +42,7 @@ public class Account implements Serializable, Comparable<Account> {
 	protected Date createDate;
 	
 	@ManyToMany(cascade={CascadeType.REFRESH}, fetch=FetchType.LAZY)
-	@JoinTable(name="mp_account_role", joinColumns=@JoinColumn(name="accountId"), inverseJoinColumns=@JoinColumn(name="role_id"))
+	@JoinTable(name="mp_account_role", joinColumns=@JoinColumn(name="accountId"), inverseJoinColumns=@JoinColumn(name="roleId"))
 	private Set<Role> roles;
 	
 	@ManyToOne(cascade={CascadeType.REFRESH}, fetch=FetchType.LAZY, optional=true)
@@ -95,7 +81,7 @@ public class Account implements Serializable, Comparable<Account> {
 			if (null != staff) return staff.getName();
 		}
 		else if (Type.ADMIN == this.getType()) {
-			return "";
+			return "系统管理员";
 		}
 		return null;
 	}

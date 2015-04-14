@@ -1,14 +1,5 @@
 package com.yida.core.base.service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.tools.utils.Regexp;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.AuditOrg;
@@ -18,6 +9,10 @@ import com.yida.core.base.vo.ListStaffForm;
 import com.yida.core.base.vo.SaveStaffForm;
 import com.yida.core.common.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 @Service
 public class StaffService extends BaseService {
@@ -29,7 +24,7 @@ public class StaffService extends BaseService {
 
 	/**
 	 * 获取人员列表
-	 * @param listStaffForm
+	 * @param query
 	 * @param pageInfo
 	 * @return
 	 */
@@ -40,7 +35,7 @@ public class StaffService extends BaseService {
 		if (null != query) {
 			
 			if (StringUtils.isMeaningFul(query.getAuditOrgId())) {
-				sb.append(" and o.id in (select mp.staff_id from mp_staff_org mp where dbo.getAuditOrgIdByOrgId(mp.org_id) = ?)");
+				sb.append(" and o.id in (select mp.staffId from mp_staff_org mp where dbo.getAuditOrgIdByOrgId(mp.orgId) = ?)");
 				params.add(query.getAuditOrgId());
 			}
 
@@ -50,7 +45,7 @@ public class StaffService extends BaseService {
 			}
 			
 			if (null != query.getCreateDateFrom()) {
-				sb.append(" and o.create_date > ?");
+				sb.append(" and o.createDate > ?");
 				params.add(query.getCreateDateFrom());
 			}
 			
@@ -58,14 +53,14 @@ public class StaffService extends BaseService {
 				Calendar delayCalendar = Calendar.getInstance();
 				delayCalendar.setTime(query.getCreateDateTo());
 				delayCalendar.add(Calendar.DAY_OF_YEAR, 1);
-				sb.append(" and o.create_date < ?");
+				sb.append(" and o.createDate < ?");
 				params.add(delayCalendar.getTime());
 			}
 			
 			if (null != query.getOrgId() && !"".equals(query.getOrgId())) {
 				Org org = this.orgDao.get(query.getOrgId());
 				if (null != org) {
-					sb.append(" and o.id in (select mp.staff_id from mp_staff_org mp where mp.org_id in (");
+					sb.append(" and o.id in (select mp.staffId from mp_staff_org mp where mp.orgId in (");
 					List<Org> stack = new ArrayList<Org>();
 					stack.add(0, org);
 					while (!stack.isEmpty()) {

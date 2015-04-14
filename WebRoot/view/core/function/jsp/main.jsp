@@ -13,7 +13,7 @@
 	<base href="<%=basePath %>"/>
 	<title>系统功能管理主页面</title>
 	<meta charset="utf-8" />
-	<jsp:include page="/inc.jsp"></jsp:include>
+	<jsp:include page="/view/inc.jsp"></jsp:include>
 	<link type="text/css" href="js/jquery/zTree3.5.14/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
 </head>
 <body>

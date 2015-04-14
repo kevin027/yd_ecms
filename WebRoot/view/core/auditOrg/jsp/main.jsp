@@ -10,7 +10,7 @@
 	<base href="<%=basePath %>"/>
 	<title>账号管理主页面</title>
 	<meta charset="utf-8" />
-	<jsp:include page="/inc.jsp"></jsp:include>
+	<jsp:include page="/view/inc.jsp"></jsp:include>
 <script type="text/javascript" charset="UTF-8">
 	var datagrid;
 	var userDialog;

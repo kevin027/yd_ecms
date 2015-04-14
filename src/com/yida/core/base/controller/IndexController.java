@@ -10,6 +10,7 @@ import com.yida.core.interfaces.IFunctionTreeFilter;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -81,33 +82,28 @@ public class IndexController extends BaseController {
             request.setAttribute("error_msg", "帐号或密码错误。");
             return "login";
         }
-        return "index";
+        return this.index(request,null);
     }
 
 	@RequestMapping("index")
-	public String index(HttpServletRequest request) {
+	public String index(HttpServletRequest request,String selAuditOrgId) {
 		// 判断是否登录，如果没有登录则返回空
 		HttpSession session = getCurSession();
-
 		if (null != session) {
 			// 获取登录账号的菜单权限
 			Account loginAccount = (Account) session.getAttribute(SysConstant.LOGIN_ACCOUNT);
-
 			// 机构数据可见选择
 			List<AuditOrg> auditOrgs = this.auditOrgService.findAssociateAuditOrgByAccountId(loginAccount.getId());
 			request.setAttribute("auditOrgs", auditOrgs);
-
 			// 判断是否切换机构权限
 			if (StringUtils.isMeaningFul(selAuditOrgId) && !selAuditOrgId.equals(super.getCurrentAuditOrgId())) {
 				if (auditOrgs.contains(new AuditOrg(selAuditOrgId))) {
 					super.getCurrentAccount().setCurrentAuditOrgId(selAuditOrgId);
-
 					// 添加账号的访问权限
 					List<Function> funs = this.functionService.findAccountFunctions(loginAccount);
 					loginAccount.setFunctions(funs);
 				}
 			}
-
 			// 通过账号已有的权限来初始化首页左边菜单的数据
 			List<Function> menus = functionService.listToFunctionTree(loginAccount.getFunctions(), new IFunctionTreeFilter(){
 				@Override
@@ -128,7 +124,7 @@ public class IndexController extends BaseController {
 	 */
 	@RequestMapping("logout")
 	public String logout() {
-		HttpSession session = BaseController.getCurRequest().getSession(false);
+		HttpSession session = getCurSession();
 		if (null != session) {
 			session.invalidate();
 		}
@@ -138,6 +134,7 @@ public class IndexController extends BaseController {
 	/**
 	 * 锁定账号
 	 */
+    @ResponseBody
 	@RequestMapping("lockAccount")
 	public String lockAccount() {
 		JSONObject result = new JSONObject();
@@ -151,12 +148,13 @@ public class IndexController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 解锁账号
 	 */
+    @ResponseBody
 	@RequestMapping("unlockAccount")
 	public String unlockAccount(String password) {
 		JSONObject result = new JSONObject();
@@ -177,7 +175,7 @@ public class IndexController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "解锁失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 
 }

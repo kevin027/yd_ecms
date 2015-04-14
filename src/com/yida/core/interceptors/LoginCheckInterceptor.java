@@ -44,10 +44,12 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		HandlerMethod handlerMethod =(HandlerMethod)obj;
 		String controller=handlerMethod.getBeanType().getSimpleName();
 		String method=handlerMethod.getMethod().getName();
-		System.out.println("["+new SimpleDateFormat("MM-dd HH:mm:ss").format(new Date())+"]访问【"+controller+"】=>【"+method+"】");
+		String fowardStr="["+new SimpleDateFormat("MM-dd HH:mm:ss").format(new Date())+"]访问【"+controller+"】=>【"+method+"】";
 		if(eb){
 			isFlag = true;
-		}else{
+            System.out.println("----->正常访问："+fowardStr);
+        }else{
+            System.out.println("----->异常访问："+fowardStr);
 			Map<String, List<String>> operas  =  (Map<String, List<String>>) session.getAttribute(SysConstant.KEY_SESSION_PERMISSION);
 			outer:
 			for (Map.Entry<String, List<String>> map : operas.entrySet()){
@@ -60,7 +62,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 				}
 			}
 			return true;
-			
 		}
 		if (isFlag){
 			return  true;

@@ -17,15 +17,17 @@
   </listener>
   
   <!-- Session监听器 -->
-  <listener>
-	<listener-class>com.yida.core.webxml.listener.SessionListenerHandle</listener-class>
-	<listener-class>com.yida.core.webxml.listener.SessionAttributeListenerHandle</listener-class>
-  </listener>
+    <listener>
+        <listener-class>com.yida.core.webxml.listener.SessionListenerHandle</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.yida.core.webxml.listener.SessionAttributeListenerHandle</listener-class>
+    </listener>
 	
   <!-- 此配置,可以在BaseController中,获取当前线程的request对象 -->
-  <listener>  
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
-  </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
   
   <!-- Spring MVC配置 -->
   <servlet>
@@ -72,8 +74,13 @@
   <filter>
     <filter-name>lazyLoadingFilter</filter-name>
     <filter-class>
-			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
+    </filter-class>
   </filter>
+    <filter-mapping>
+        <filter-name>lazyLoadingFilter</filter-name>
+        <servlet-name>springmvc</servlet-name>
+    </filter-mapping>
   
   <!--Spring MVC FORM 的 Method 转换 -->
   <filter>

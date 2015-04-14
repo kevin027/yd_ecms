@@ -1,15 +1,5 @@
 package com.yida.core.base.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Account;
 import com.yida.core.base.entity.Function;
@@ -17,6 +7,15 @@ import com.yida.core.base.entity.Role;
 import com.yida.core.base.vo.ListFunctionForm;
 import com.yida.core.common.PageInfo;
 import com.yida.core.interfaces.IFunctionTreeFilter;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service("functionService")
 @Scope("singleton")
@@ -122,7 +121,7 @@ public class FunctionService extends BaseService {
 			}
 			
 			if (StringUtils.isMeaningFul(query.getParentFunctionId())) {
-				sb.append(" o.parent_id = ?");
+				sb.append(" o.parentId = ?");
 				params.add(query.getParentFunctionId().trim());
 			}
 			

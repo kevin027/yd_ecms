@@ -14,13 +14,13 @@ $(document).ready(function () {
   $('#loginOut').on('click', function() {
     $.messager.confirm('系统提示', '您确定要退出本次登录吗?', function(r) {
       if (r) {
-        location.href = 'logout.do';
+        location.href = 'logout';
       }
     });
   });
   
   // 右侧iframe加载系统桌面页面
-  document.getElementsByName('contentBody')[0].src='desktop/main.do';
+  document.getElementsByName('contentBody')[0].src='desktop/main';
 });
 
 // 注册左侧二级菜单事件
@@ -123,7 +123,7 @@ function registerTabMenuEvent() {
   // 全部关闭
   $('#mm-tabcloseall').on('click', function(){
     $('#tabs').find('.tabs-title').each(function() {
-    	if($(this).text() != '系统桌面' && $(this).text() != '全部任务' && $(this).text() != '参与任务' && $(this).text() != '当前任务'){
+    	if($(this).text() != '系统桌面'){
     		$('#tabs').tabs('close', $(this).text());
     	}
     });
@@ -134,7 +134,7 @@ function registerTabMenuEvent() {
 	var currTitle = $('#mm').data('currTitle');
     $('#tabs').find('.tabs-title').each(function() {
       if (currTitle != $(this).text()) {
-    	  if($(this).text() != '系统桌面' && $(this).text() != '全部任务' && $(this).text() != '参与任务' && $(this).text() != '当前任务'){
+    	  if($(this).text() != '系统桌面'){
     		  $('#tabs').tabs('close', $(this).text());  
     	  }
       }

@@ -1,11 +1,10 @@
 package com.yida.core.base.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.yida.core.base.entity.Department;
 import org.springframework.stereotype.Repository;
 
-import com.yida.core.base.entity.Department;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class DepartmentDao extends BaseDao<Department, String> {

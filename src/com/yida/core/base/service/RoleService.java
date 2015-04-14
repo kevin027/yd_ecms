@@ -143,7 +143,7 @@ public class RoleService extends BaseService {
 			
 			String staffName = StringUtils.notNull(query.getStaffName());
 			if (!staffName.equals("")) {
-				sb.append(" and exists (select s.id from s_staff s inner join mp_staff_role mp_sr on s.id = mp_sr.staff_id and mp_sr.role_id = o.id and s.name like ?)");
+				sb.append(" and exists (select s.id from s_staff s inner join mp_staff_role mp_sr on s.id = mp_sr.staff_id and mp_sr.roleId = o.id and s.name like ?)");
 				params.add("%" + query.getStaffName() + "%");
 			}
 			
@@ -153,7 +153,7 @@ public class RoleService extends BaseService {
 			}
 			
 			if (null != query.getAuditOrgId() && !"".equals(query.getAuditOrgId())) {
-				sb.append(" and o.audit_org_id = ?");
+				sb.append(" and o.auditOrgId = ?");
 				params.add(query.getAuditOrgId());
 			}
 			

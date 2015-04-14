@@ -33,7 +33,7 @@ public class FunctionDao extends BaseDao<Function, String> {
 			@Override
 			public List<Function> doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				SQLQuery q = session.createSQLQuery("select * from s_function where id in (select function_id from V_STAFF_FUNCTION where account_id = ?) order by hierarchy, sort_code");
+				SQLQuery q = session.createSQLQuery("select * from s_function where id in (select functionId from V_STAFF_FUNCTION where accountId = ?) order by hierarchy, sortCode");
 				q.addEntity(Function.class);
 				q.setParameter(0, accountId);
 				List<Function> list = q.list();
@@ -57,9 +57,9 @@ public class FunctionDao extends BaseDao<Function, String> {
 			@Override
 			public List<Function> doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String subSql = "select r.id from mp_account_role mar inner join s_role r on mar.role_id = r.id where mar.account_id = ? and r.audit_org_id = ? and r.invalid <> 1";
-				StringBuilder sb = new StringBuilder("select distinct o.* from s_function o inner join mp_role_function mrf on o.id = mrf.function_id where mrf.role_id in (").append(subSql).append(")");
-				sb.append(" order by o.hierarchy, o.sort_code");
+				String subSql = "select r.id from mp_account_role mar inner join s_role r on mar.roleId = r.id where mar.accountId = ? and r.audit_org_id = ? and r.invalid <> 1";
+				StringBuilder sb = new StringBuilder("select distinct o.* from s_function o inner join mp_role_function mrf on o.id = mrf.functionId where mrf.roleId in (").append(subSql).append(")");
+				sb.append(" order by o.hierarchy, o.sortCode");
 				SQLQuery q = session.createSQLQuery(sb.toString());
 				q.addEntity(Function.class);
 				q.setParameter(0, accountId);
@@ -78,7 +78,7 @@ public class FunctionDao extends BaseDao<Function, String> {
 			public List<Function> doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				StringBuilder sb = new StringBuilder("select o.* from s_function o where o.invalid = 0");
-				sb.append(" order by o.hierarchy, o.sort_code");
+				sb.append(" order by o.hierarchy, o.sortCode");
 				SQLQuery q = session.createSQLQuery(sb.toString());
 				q.addEntity(Function.class);
 				List<Function> list = q.list();

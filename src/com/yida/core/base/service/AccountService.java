@@ -59,7 +59,7 @@ public class AccountService extends BaseService {
 			}
 			
 			if (null != query.getCreateDateFrom()) {
-				sb.append(" and o.create_date > ?");
+				sb.append(" and o.createDate > ?");
 				paramList.add(query.getCreateDateFrom());
 			}
 			
@@ -67,20 +67,20 @@ public class AccountService extends BaseService {
 				Calendar delayCalendar = Calendar.getInstance();
 				delayCalendar.setTime(query.getCreateDateTo());
 				delayCalendar.add(Calendar.DAY_OF_YEAR, 1);
-				sb.append(" and o.create_date < ?");
+				sb.append(" and o.createDate < ?");
 				paramList.add(delayCalendar.getTime());
 			}
 			
 			String auditOrgId = StringUtils.notNull(query.getAuditOrgId()).trim();
 			if (0 < auditOrgId.length()) {
-				sb.append(" and (o.audit_org_id = ? or o.staff_id in (select s.id from s_staff s inner join mp_staff_org mp on s.id = mp.staff_id where dbo.getAuditOrgIdByOrgId(mp.org_id) = ?))");
+				sb.append(" and (o.auditOrgId = ? or o.staffId in (select s.id from s_staff s inner join mp_staff_org mp on s.id = mp.staffId where dbo.getAuditOrgIdByOrgId(mp.orgId) = ?))");
 				paramList.add(auditOrgId);
 				paramList.add(auditOrgId);
 			}
 			
 			String staffName = StringUtils.notNull(query.getStaffName()).trim();
 			if (0 < staffName.length()) {
-				sb.append(" and o.staff_id in (select s.id from s_staff s where name like ?)");
+				sb.append(" and o.staffId in (select s.id from s_staff s where name like ?)");
 				paramList.add("%" + staffName + "%");
 			}
 		}

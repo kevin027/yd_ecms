@@ -1,17 +1,16 @@
 package com.yida.core.base.dao;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.yida.core.base.entity.Account;
+import com.yida.core.base.entity.AuditOrg;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
-import com.yida.core.base.entity.Account;
-import com.yida.core.base.entity.AuditOrg;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class AuditOrgDao extends BaseDao<AuditOrg, String> {
@@ -58,8 +57,8 @@ public class AuditOrgDao extends BaseDao<AuditOrg, String> {
 				StringBuilder sb = new StringBuilder();
 				sb.append("select distinct c.*, o.* from s_audit_org c inner join s_org o on c.id = o.id");
 				sb.append(" where exists (select a.id from s_account a where a.type = ? and a.id = ?)");
-				sb.append(" or c.id in (select dbo.getAuditOrgIdByOrgId(org_id) from s_account a inner join s_staff s on a.staff_id = s.id inner join mp_staff_org mpso on mpso.staff_id = s.id where a.id = ?)");
-				sb.append(" or c.id in (select r.audit_org_id from s_account a inner join mp_account_role mar on a.id = mar.account_id inner join s_role r on mar.role_id = r.id where a.id = ?)");
+				sb.append(" or c.id in (select dbo.getAuditOrgIdByOrgId(orgId) from s_account a inner join s_staff s on a.staffId = s.id inner join mp_staff_org mpso on mpso.staffId = s.id where a.id = ?)");
+				sb.append(" or c.id in (select r.auditOrgId from s_account a inner join mp_account_role mar on a.id = mar.accountId inner join s_role r on mar.roleId = r.id where a.id = ?)");
 				SQLQuery query = session.createSQLQuery(sb.toString());
 				query.addEntity(AuditOrg.class);
 				query.setParameter(0, Account.Type.ADMIN.ordinal());
@@ -73,7 +72,7 @@ public class AuditOrgDao extends BaseDao<AuditOrg, String> {
 
 	
 	public AuditOrg getHeadAuditOrg() {
-		String sql = "select c.*, o.* from s_audit_org c inner join s_org o on c.id = o.id where c.is_head = 1";
+		String sql = "select c.*, o.* from s_audit_org c inner join s_org o on c.id = o.id where c.isHead = 1";
 		List<AuditOrg> list = this.findListBySql(sql);
 		return (0 == list.size() ? null : list.get(0));
 	}

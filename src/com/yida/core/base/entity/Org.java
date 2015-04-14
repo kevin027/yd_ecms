@@ -1,27 +1,12 @@
 package com.yida.core.base.entity;
 
+import com.yida.core.common.ztree.IZtreeData;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.yida.core.common.ztree.IZtreeData;
 
 @Entity
 @Table(name="s_org")
@@ -57,7 +42,7 @@ public class Org implements Serializable, IZtreeData<Org>{
 	protected List<Org> children;
 	
 	@ManyToOne(optional=true, fetch=FetchType.LAZY)
-	@JoinColumn(name="leader_id", columnDefinition="varchar(32)")
+	@JoinColumn(name="leaderId", columnDefinition="varchar(32)")
 	protected Staff leader;
 	
 	@ManyToMany(mappedBy="orgs", cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.LAZY)

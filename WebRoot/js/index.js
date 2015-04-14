@@ -39,7 +39,7 @@ $(function(){
 		        iconCls:'icon-no',
 		        handler:function(){
 		           $('#tabs').find('.tabs-title').each(function() {
-			           	if($(this).text() != '系统桌面' && $(this).text() != '全部任务' && $(this).text() != '参与任务' && $(this).text() != '当前任务'){
+			           	if($(this).text() != '系统桌面'){
 			           		$('#tabs').tabs('close', $(this).text());
 			           	}
 		           });
@@ -87,12 +87,12 @@ $(function(){
 		
        //收起顶栏
        $("#btnHideNorth").click(function(){
-       	$("#main").layout('collapse','north');
+            $("#main").layout('collapse','north');
        });
        
        //锁定窗口
        $("#lockWin").click(function(){
-    	$.post('lockAccount.do', function(result){
+    	$.post('lockAccount', function(result){
     		$("#loginDialog").window({ 
            		title:'锁定窗口',
            	    width:400,    
@@ -110,7 +110,7 @@ $(function(){
        	return false;
        });
        
-       $('[name="loginForm.password"]').on('keypress', function(ev) {
+       $('[name="password"]').on('keypress', function(ev) {
     	   if (13 == ev.keyCode) {
     		   unlock();
     		   return false;

@@ -11,7 +11,7 @@
 	<base href="<%=basePath %>"/>
 	<title>系统操作日志查询主页面</title>
 	<meta charset="utf-8" />
-	<jsp:include page="/inc.jsp"></jsp:include>
+	<jsp:include page="/view/inc.jsp"></jsp:include>
 </head>
 <body>
 	

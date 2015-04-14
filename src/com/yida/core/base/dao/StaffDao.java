@@ -1,19 +1,18 @@
 package com.yida.core.base.dao;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import com.tools.utils.StringUtils;
+import com.yida.core.base.entity.Staff;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
-import com.tools.utils.StringUtils;
-import com.yida.core.base.entity.Staff;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class StaffDao extends BaseDao<Staff, String> {
@@ -40,10 +39,10 @@ public class StaffDao extends BaseDao<Staff, String> {
 			
 			@Override
 			public List<Staff> doInHibernate(Session session) throws HibernateException, SQLException {
-				StringBuilder sb = new StringBuilder("select o.*, a.* from s_staff o inner join s_account a on o.id = a.id inner join mp_staff_org mp on o.id = mp.staff_id");
-				sb.append(" where mp.org_id = ?");
-				sb.append(" and mp.org_id in (");
-				sb.append("select top 1 mp1.org_id from mp_staff_org mp1 inner join s_org o1 on mp1.org_id = o1.id where mp1.staff_id = mp.staff_id order by o1.hierarchy desc");
+				StringBuilder sb = new StringBuilder("select o.*, a.* from s_staff o inner join s_account a on o.id = a.id inner join mp_staff_org mp on o.id = mp.staffId");
+				sb.append(" where mp.orgId = ?");
+				sb.append(" and mp.orgId in (");
+				sb.append("select top 1 mp1.orgId from mp_staff_org mp1 inner join s_org o1 on mp1.orgId = o1.id where mp1.staffId = mp.staffId order by o1.hierarchy desc");
 				sb.append(")");
 				SQLQuery query = session.createSQLQuery(sb.toString());
 				query.addEntity(Staff.class);

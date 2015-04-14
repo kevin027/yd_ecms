@@ -1,23 +1,14 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%
-if (null == request.getSession(false)) {
-	System.out.println("session is null");
-	response.sendRedirect("login.jsp");
-	return;
-}
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1">
-	<base href="<%=basePath %>" />
+	<base href="${ctx}" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><c: value="${SYSTEM_NAME}" /></title>
+    <title><fmt:message key="SYSTEM_NAME" /></title>
     <style type="text/css">
      .window-mask {
 	  position: absolute;
@@ -34,29 +25,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  z-index: 9013;
 	}
     </style>
-    <link href="<%=basePath %>js/jquery/grumble/css/grumble.css" rel="stylesheet" type="text/css" />
-    <link rel = "Shortcut Icon" href="<%=basePath %>img/favicon/favicon.ico">
+    <link href="${ctx}js/jquery/grumble/css/grumble.css" rel="stylesheet" type="text/css" />
+    <link rel = "Shortcut Icon" href="${ctx}img/favicon/favicon.ico"/>
     <jsp:include page="inc.jsp"></jsp:include>
-    <script type="text/javascript" src="js/index.js"> </script>
+    <script type="text/javascript" src="${ctx}js/index.js"> </script>
 </head>
 <body class="easyui-layout ptrn_e" id="main" style="overflow-y: hidden" scroll="no">
-	<input type="hidden" id="basePath" value="<%=basePath %>" />
-	<input type="hidden" id="loginAccounts" value="<s:property value="#session.LOGIN_ACCOUNT.accounts" />" />
-	<input type="hidden" id="lockFlag" value="<s:property value="#session.LOGIN_ACCOUNT.lock" />" />
+	<input type="hidden" id="basePath" value="${ctx}" />
+	<input type="hidden" id="loginAccounts" value="${LOGIN_ACCOUNT.accounts}" />
+	<input type="hidden" id="lockFlag" value="${LOGIN_ACCOUNT.lock}" />
 
 	<!--top信息-->
     <div region="north"  split="false" class="ptrn_bg" border="false" style="overflow: hidden; height: 80px;
         line-height: 60px;">
         
 	        <div style="width:500px;height:80px;padding-left:0px; margin-top:0px;float:left">
-	        <img src="img/<s:text name='INDEX_LOGO' />" align="absmiddle" style="float:left;"/> 
+	            <img src="${ctx}img/${INDEX_LOGO}" align="absmiddle" style="float:left;"/>
 	        </div>	
 	        		
 			<div id="timerSpan" style="position: absolute;right: 30px; top: 5px;height:26px ;line-height:26px"></div>
 			<div id="grumble2" style="position: absolute; right: 0px; bottom: 0px;height:26px ;line-height:26px">
-				<span><c:out value="#session.LOGIN_ACCOUNT.showName" /></span>
-				<c:if test="#request.auditOrgs.size != 0">
-				<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_gsxzbMenu" iconCls="icon-building">机构</a>
+				<span>${LOGIN_ACCOUNT.showName}</span>
+				<c:if test="${auditOrgs != null}">
+				    <a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_gsxzbMenu" iconCls="icon-building">机构</a>
 				</c:if>
 				<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_kzmbMenu" iconCls="icon-cog">控制面板</a>
 				<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_zxMenu" iconCls="icon-key">注销</a>
@@ -64,8 +55,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 			<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
-				<div onclick="userInfo();" iconCls="icon-user_gray" >个人信息</div>
-				<div onclick="editPwd()" iconCls="icon-wrench">修改密码</div>
+				<div onclick="userInfo();" iconCls="icon-user_gray">个人信息</div>
+				<div onclick="editPwd();" iconCls="icon-wrench">修改密码</div>
 				<div class="menu-sep"></div>
 				<div iconCls="icon-rainbow">
 					<span>更换主题</span>
@@ -91,11 +82,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		
 			<div id="layout_north_gsxzbMenu" style="width: 100px; display: none;">
-				<c:forEach var="c" items="#request.auditOrgs" varStatus="st">
-					<div id="<c:out value="#c.id" />" 
-						onclick="window.location.href = 'index.do?selAuditOrgId=<c:out value="#c.id" />';"
-						<c:if test="#session.LOGIN_ACCOUNT.currentAuditOrgId == #c.id" >iconCls="icon-flag_orange"</s:if>>
-						<c:out value="#c.name" />
+				<c:forEach var="c" items="${auditOrgs}" varStatus="st">
+                    <div id="${c.id}" onclick="window.location.href = '${ctx}index?selAuditOrgId=${c.id}';"
+                         <c:if test="${LOGIN_ACCOUNT.currentAuditOrgId eq c.id}">iconCls="icon-flag_orange"</c:if>
+                    >
+                     ${c.name}
 					</div>
 				</c:forEach>
 			</div>		
@@ -106,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a id="grumble1" style="position:absolute;display:block;top:40%;left:80px"></a>
 		<div id="nav" class="easyui-accordion" data-options="animate:false" fit="true" border="false" >
 		<!--  导航内容 -->
-			<c:forEach var="menu1" items="%{#request.menus}" varStatus="st">
+			<c:forEach var="menu1" items="${menus}" varStatus="st">
 				<div title="${menu1.name}" class="ptrn_e" iconCls=" ${menu1.icon}">
 					<ul>
 						<c:forEach var="menu2" items="${children}" varStatus="st">
@@ -130,22 +121,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div title="系统桌面" class="ptrn_e" iconCls="icon-desk1" style="padding:10px;overflow:hidden; color:red; " >
               <iframe name="contentBody" id="contentBody" src="" frameborder="0" class="ptrn_e" style="border: 0; width: 100%; height: 98%;"></iframe>
 			</div>
-			<div title="全部任务" class="ptrn_e" iconCls="splashy-folder_classic" style="padding:10px;overflow:hidden; color:red; " >
-              <iframe name="contentBody1" id="contentBody1" src="" frameborder="0" class="ptrn_e" style="border: 0; width: 100%; height: 98%;"></iframe>
-			</div>
-			<div title="参与任务" class="ptrn_e" iconCls="splashy-folder_classic" style="padding:10px;overflow:hidden; color:red; " >
-              <iframe name="contentBody2" id="contentBody2" src="" frameborder="0" class="ptrn_e" style="border: 0; width: 100%; height: 98%;"></iframe>
-			</div>
-			<div title="当前任务" class="ptrn_e" iconCls="splashy-folder_classic" style="padding:10px;overflow:hidden; color:red; " >
-              <iframe name="contentBody3" id="contentBody3" src="<%=basePath %>budget/main.do" frameborder="0" class="ptrn_e" style="border: 0; width: 100%; height: 98%;"></iframe>
-			</div>
 		</div>
     </div>
     <a id="grumble3" style="position: absolute;display:block;bottom:200px;right:400px"></a>
     
     <!--bottom信息-->
 	<div region="south" split="false" class="ptrn_e" style="height: 30px;  ">
-        <div class="footer"><a href="<c:out value="${COMPANY_INDEX}" />" target="_blank"><c:out value="${COMPANY_NAME}" /></a></div>
+        <div class="footer"><a href="#" target="_blank"><fmt:message key="COPYRIGHT" /></a></div>
     </div>
   
 	<!--页签右键操作-->
@@ -163,15 +145,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--用户密码修改 -->
 	<div id="editPwd" style="padding:20px;overflow:hidden">
 	<!--修改密码-->
-	<form id="pwdForm" namespace="/account" action="modAccountPassword">
-        <table class="table table-bordered"  >
+	<form id="pwdForm" action="${ctx}account/modAccountPassword" method="post">
+        <table class="table table-bordered">
            <tr>
            		<td style="text-align:center;width:60px">原密码</td>
-           		<td style="text-align:left"><input id="opwd" type="text" name="modifyPasswordForm.oldPassword" width="50px" class="easyui-validatebox" data-options="required:true,missingMessage:'密码必须填',tipPosition:'top'"></td>
+           		<td style="text-align:left"><input id="opwd" type="text" name="oldPassword" width="50px" class="easyui-validatebox" data-options="required:true,missingMessage:'密码必须填',tipPosition:'top'"></td>
            	</tr>
            <tr>
            		<td style="text-align:center">新密码</td>
-           		<td style="text-align:left"><input id="pwd" type="password" name="modifyPasswordForm.newPassword" width="50px" class="easyui-validatebox" data-options="required:true,missingMessage:'新密码必须填',tipPosition:'top'"></td>
+           		<td style="text-align:left"><input id="pwd" type="password" name="newPassword" width="50px" class="easyui-validatebox" data-options="required:true,missingMessage:'新密码必须填',tipPosition:'top'"></td>
            	</tr>
            <tr>
            		<td style="text-align:center">重复密码</td>
@@ -191,11 +173,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!--用户锁定 -->
 	<div id="loginDialog" style="padding:20px; overflow:hidden">
-	<form id="loginDialogForm" namespace="/" action="unlockAccount">
-        <table class="table table-bordered"  >
+	<form id="loginDialogForm" action="${ctx}unlockAccount" method="post">
+        <table class="table table-bordered">
            <tr>
            		<td style="text-align:center">密码：</td>
-           		<td style="text-align:left"><input type="password" name="loginForm.password" width="50px" class="easyui-validatebox"  data-options="required:true,missingMessage:'密码必填',tipPosition:'top'"></td>
+           		<td style="text-align:left"><input type="password" name="password" width="50px" class="easyui-validatebox"  data-options="required:true,missingMessage:'密码必填',tipPosition:'top'"></td>
            </tr>
         </table>
     </form>
@@ -206,9 +188,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<span class="btn btn-large btn-block btn-inverse" id="startOa" style="position:absolute; left:50%; top:50%; display:none;width:300px;height:100px;margin:-50px -150px;line-height:85px;font-size:30px;z-index:9015;font-family:'Comic Sans MS';filter: alpha(opacity=80);opacity: 0.80;" >开始体验</span>
 	
 	<!-- 更换主题 -->
-	<script type="text/javascript" src="<%=basePath %>js/jquery/customjs/changeEasyuiTheme.js" charset="utf-8"></script>	
-	<script type="text/javascript" src="<%=basePath %>js/jquery/EasyUi/js/outlook2.js" charset="utf-8"></script>
-	<script src="js/jquery/grumble/js/Bubble.js"></script>
-	<script src="js/jquery/grumble/js/jquery.grumble.js"></script>
+	<script type="text/javascript" src="${ctx}js/jquery/customjs/changeEasyuiTheme.js" charset="utf-8"></script>	
+	<script type="text/javascript" src="${ctx}js/jquery/EasyUi/js/outlook2.js" charset="utf-8"></script>
+	<script src="${ctx}js/jquery/grumble/js/Bubble.js"></script>
+	<script src="${ctx}js/jquery/grumble/js/jquery.grumble.js"></script>
 </body>
 </html>

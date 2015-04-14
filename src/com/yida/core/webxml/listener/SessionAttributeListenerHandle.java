@@ -1,12 +1,8 @@
 package com.yida.core.webxml.listener;
 
-import java.util.Collection;
-
-import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionBindingEvent;
-
+import com.tools.sys.OnlineAccountSet;
+import com.tools.sys.SysConstant;
+import com.yida.core.base.entity.Account;
 import org.directwebremoting.Browser;
 import org.directwebremoting.ScriptBuffer;
 import org.directwebremoting.ScriptSession;
@@ -14,9 +10,11 @@ import org.directwebremoting.ScriptSessionFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tools.sys.OnlineAccountSet;
-import com.tools.sys.SysConstant;
-import com.yida.core.base.entity.Account;
+import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionAttributeListener;
+import javax.servlet.http.HttpSessionBindingEvent;
+import java.util.Collection;
 
 @WebListener
 public class SessionAttributeListenerHandle implements HttpSessionAttributeListener {
@@ -50,7 +48,7 @@ public class SessionAttributeListenerHandle implements HttpSessionAttributeListe
 		try {
 			if (SysConstant.LOGIN_ACCOUNT.equals(key) && val instanceof Account) {
 				OnlineAccountSet.INSTANCE.remove(Account.class.cast(val));
-				forwardLoginPage(event.getSession()); // 如果移除的是登录标识，就通知该会话的页面。跳到登录页面。
+				//forwardLoginPage(event.getSession()); // 如果移除的是登录标识，就通知该会话的页面。跳到登录页面。
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,10 +73,11 @@ public class SessionAttributeListenerHandle implements HttpSessionAttributeListe
 	}
 
 	private void forwardLoginPage(final HttpSession httpSession) {
-		Browser.withAllSessionsFiltered(new ScriptSessionFilter(){
+        Browser.withAllSessionsFiltered(new ScriptSessionFilter(){
 			@Override
 			public boolean match(ScriptSession scriptSession) {
-				return httpSession.getId().equals(scriptSession.getAttribute(SysConstant.HTTP_SESSION_ID));
+                System.out.println(httpSession.getId()+"-----------------"+scriptSession.getAttribute(SysConstant.HTTP_SESSION_ID));
+                return httpSession.getId().equals(scriptSession.getAttribute(SysConstant.HTTP_SESSION_ID));
 			}
 		}, new Runnable(){
 			@Override

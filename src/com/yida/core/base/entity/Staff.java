@@ -1,28 +1,13 @@
 package com.yida.core.base.entity;
 
+import com.yida.core.common.enums.Sex;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.yida.core.common.enums.Sex;
 
 @Entity
 @Table(name="s_staff")
@@ -62,7 +47,7 @@ public class Staff implements Serializable {
 	private Set<Account> accounts;
 	
 	@ManyToMany(cascade={CascadeType.REFRESH}, fetch=FetchType.LAZY)
-	@JoinTable(name="mp_staff_org", joinColumns = @JoinColumn(name="staffId"), inverseJoinColumns=@JoinColumn(name="org_id"))
+	@JoinTable(name="mp_staff_org", joinColumns = @JoinColumn(name="staffId"), inverseJoinColumns=@JoinColumn(name="orgId"))
 	@OrderBy("hierarchy, sortCode")
 	private List<Org> orgs;
 	

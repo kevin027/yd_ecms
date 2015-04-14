@@ -11,7 +11,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-    <jsp:include page="/inc.jsp"></jsp:include>
+    <jsp:include page="/view/inc.jsp"></jsp:include>
   
 <body class="easyui-layout" style="overflow-y: hidden"  scroll="no" >
 	
