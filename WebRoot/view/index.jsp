@@ -100,7 +100,7 @@
 			<c:forEach var="menu1" items="${menus}" varStatus="st">
 				<div title="${menu1.name}" class="ptrn_e" iconCls=" ${menu1.icon}">
 					<ul>
-						<c:forEach var="menu2" items="${children}" varStatus="st">
+						<c:forEach var="menu2" items="${menu1.children}" varStatus="st">
 							<li>
 								<div>
 									<a ref="${menu2.id}" href="javascript:void(0);" rel="${menu2.href}">

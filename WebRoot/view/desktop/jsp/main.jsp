@@ -6,7 +6,7 @@
 <html>
 <head>
 <title></title>
-<jsp:include page="/view/inc.jsp"></jsp:include>
+<jsp:include page="${ctx}view/inc.jsp"></jsp:include>
 <script type="text/javascript" charset="utf-8">
 	var portalLayout;
 	var portal;
@@ -32,11 +32,11 @@
 				handler:function(){
 					parent.$("#tabs").tabs("add", {
 						  title : "待办任务",
-					      content : '<iframe scrolling="auto" frameborder="0" src="desktop/personalTodosMore.do" style="width:100%;height:99%;"></iframe>',
+					      content : '<iframe scrolling="auto" frameborder="0" src="${ctx}desktop/personalTodosMore" style="width:100%;height:99%;"></iframe>',
 						  closable : true
 						});
 				}
-			}], 
+			}],
 			collapsible : true,
 			closable:false,
 			href : '${ctx}desktop/personalTodos'
@@ -51,7 +51,7 @@
 			tools:[{
 				iconCls:'more',
 				handler:function(){
-					
+
 				}
 			}]
 		}, {
@@ -67,7 +67,7 @@
 				handler:function(){
 					parent.$("#tabs").tabs("add", {
 						  title : "评审任务",
-					      content : '<iframe scrolling="auto" frameborder="0" src="desktop/personalTodosMore.do" style="width:100%;height:99%;"></iframe>',
+					      content : '<iframe scrolling="auto" frameborder="0" src="desktop/personalTodosMore" style="width:100%;height:99%;"></iframe>',
 						  closable : true
 						});
 				}
@@ -83,7 +83,7 @@
 			tools:[{
 				iconCls:'more',
 				handler:function(){
-					
+
 				}
 			}]
 		}, {
@@ -97,7 +97,7 @@
 			tools:[{
 				iconCls:'more',
 				handler:function(){
-					
+
 				}
 			}]
 		}, {
@@ -111,7 +111,7 @@
 			tools:[{
 				iconCls:'more',
 				handler:function(){
-					
+
 				}
 			}]
 		}];
@@ -131,15 +131,15 @@
 		}
 		addPortalPanels(state);
 		portal.portal('resize');
-		
-		
+
+
 		//td背景
 		//$("table td").addClass("ptrn_e");
-		
-		
+
+
 		//更多代办提示
 		//$.easyui.tooltip.init($(".icon-format_indent_more",$("#p1").prev()), { content: "点击查看更多评审任务", trackMouse: false});
-	
+
 		$(".more").text('更多').css({"width":"30px","color":"#333","margin-top":"-2px"});
 	});
    //获取面板对象
@@ -182,7 +182,7 @@
 			}
 		}
 	}
-   
+
 	//获取待处理消息数量
 	function getTodos(num,id){
 		if(num == 0){
@@ -193,7 +193,7 @@
 		//显示数量
 		//$("span.badge-important",$(id).prev()).text(num);
 	}
-	
+
 	//打开连接
 	function getLink(tabTitle,url){
 		_tabs.tabs('add', {
