@@ -1,14 +1,11 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%    
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName()+":" + request.getServerPort() + path + "/";
-%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="<%=basePath %>"/>
+	<base href="${ctx}"/>
 	<title>人员管理主页面</title>
 	<meta charset="utf-8" />
 	<jsp:include page="/view/inc.jsp"></jsp:include>
@@ -55,10 +52,11 @@
 				<!-- 菜单栏 -->
 				<div id="toolbar" class="datagrid-toolbar" style="height: auto;display: none;">			
 					<div>
-						<s:iterator id="o" value="#request.pageMenuFuns.{? #this.type.toString().equals('BUTTON') && #this.groups.equals('left')}">
-							<a class="easyui-linkbutton" iconCls="${o.icon}" plain="false" href="javascript:void(0);" id="${o.code}">${o.name}</a>
-						</s:iterator>
-				 
+                        <c:forEach items="${pageMenuFuns}" var="o" varStatus="st">
+                            <c:if test="${o.type eq 'BUTTON'}">
+                                <a class="easyui-linkbutton" iconCls="${o.icon}" plain="false" href="javascript:void(0);" id="${o.code}">${o.name}</a>
+                            </c:if>
+                        </c:forEach>
 						<a class="easyui-linkbutton" iconCls="icon-undo" plain="false" href="javascript:void(0);" id="cancelSelectBtn">取消选中</a>
 						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" href="javascript:void(0);" id="searchBtn">查找</a>
 						<a class="easyui-linkbutton" iconCls="icon-bin" plain="false" href="javascript:void(0);" id="resetBtn">清空</a>
@@ -78,11 +76,10 @@
 					
 					<%-- 授权栏 --%>
 				    <div class="easyui-accordion" fit="true">
-				    
 				    	<%-- 功能授权 --%>
-				    	<s:if test="0 < #request.pageMenuFuns.{? #this.code.equals('functionEmpowerBtn')}.size()">
+				    	<c:if test="${isFunctionEmpowerBtn eq true}">
 					    <div title="功能授权" data-options="iconCls:'icon-bussAuthorization'" style="overflow:auto;padding:10px;">
-        		    		<div class="well" style="margin:0px;padding:2px" >
+        		    		<div class="well" style="margin:0px;padding:2px;" >
 				    			<a id="functionEmpowerBtn" href="javascript:void(0)" width="80px" class="easyui-linkbutton" data-options="iconCls:'icon-authorization',plain:true">授权</a>
 				    			<a id="functionCheckAllBtn" href="javascript:void(0)" width="80px" class="easyui-linkbutton" data-options="iconCls:'icon-flag_orange',plain:true">全选/取消</a>
 				    			<a id="functionExpandAllBtn" href="javascript:void(0)" width="80px" class="easyui-linkbutton" data-options="iconCls:'icon-arrow_out',plain:true">展开</a>
@@ -90,10 +87,10 @@
 				    		</div>
 					        <ul class="ztree" id="functionTree"></ul>
 					    </div>
-					    </s:if>
+					    </c:if>
 					    
 					    <%-- 账号授权 --%>
-					    <s:if test="0 < #request.pageMenuFuns.{? #this.code.equals('accountEmpowerBtn')}.size()">
+					    <c:if test="${isAccountEmpowerBtn eq true}">
 					    <div title="账号授权" data-options="iconCls:'icon-peopleAuthorization'" style="padding:10px;">
 				        	<div class="well" style="margin:0px;padding:2px" >
 				    			<a id="accountEmpowerBtn" href="javascript:void(0)" width="80px" class="easyui-linkbutton" data-options="iconCls:'icon-authorization',plain:true">授权</a>
@@ -103,7 +100,7 @@
 				    		</div>
 				    		<ul class="ztree" id="accountTree"></ul>
 					    </div>
-					    </s:if>
+					    </c:if>
 					    
 					</div>
 				</div>
@@ -112,10 +109,10 @@
 	</div>
 	
 	<!-- 引入jeasyui.extensions.datagrid.js插件-->
-	<script type="text/javascript" src="<%=basePath%>js/jquery/EasyUi/jquery-easyui-1.3.4/extended/jeasyui.extensions.js"></script>
-	<script type="text/javascript" src="<%=basePath%>js/jquery/EasyUi/jquery-easyui-1.3.4/extended/jeasyui.extensions.menu.js"></script>
-	<script type="text/javascript" src="<%=basePath%>js/jquery/EasyUi/jquery-easyui-1.3.4/extended/jeasyui.extensions.datagrid.js"></script>
-	<script type="text/javascript" src="<%=basePath%>js/jquery/EasyUi/jquery-easyui-1.3.4/extended/jeasyui.icons.all.js"></script>
-	<script src="<%=basePath %>core/role/js/main.js"></script>
+	<script type="text/javascript" src="${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/extended/jeasyui.extensions.js"></script>
+	<script type="text/javascript" src="${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/extended/jeasyui.extensions.menu.js"></script>
+	<script type="text/javascript" src="${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/extended/jeasyui.extensions.datagrid.js"></script>
+	<script type="text/javascript" src="${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/extended/jeasyui.icons.all.js"></script>
+	<script src="${ctx}view/core/role/js/main.js"></script>
 </body>
 </html>
