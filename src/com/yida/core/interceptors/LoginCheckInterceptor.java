@@ -2,6 +2,7 @@ package com.yida.core.interceptors;
 
 import com.tools.sys.SysConstant;
 import com.yida.core.base.entity.Account;
+import com.yida.core.base.entity.Function;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
 	
@@ -36,65 +37,85 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		if(!"/".equals(servletPath) && index==(servletPath.length()-1)){
 			servletPath=servletPath.substring(0, servletPath.length()-1);
 		}
-		System.out.println("----->访问地址："+servletPath);
-		HttpSession session =  request.getSession();
-		Account user = (Account) session.getAttribute(SysConstant.LOGIN_ACCOUNT);
-		Boolean eb=exclude(servletPath,user);
-		boolean isFlag = false;
-		HandlerMethod handlerMethod =(HandlerMethod)obj;
+
+        HandlerMethod handlerMethod =(HandlerMethod)obj;
 		String controller=handlerMethod.getBeanType().getSimpleName();
 		String method=handlerMethod.getMethod().getName();
 		String fowardStr="["+new SimpleDateFormat("MM-dd HH:mm:ss").format(new Date())+"]访问【"+controller+"】=>【"+method+"】";
-		if(eb){
-			isFlag = true;
-            System.out.println("----->正常访问："+fowardStr);
+
+        System.out.println("----->访问地址："+servletPath);
+        HttpSession session =  request.getSession();
+        Account user = (Account) session.getAttribute(SysConstant.LOGIN_ACCOUNT);
+        if(null != user){
+            if(exclude(servletPath)){
+                System.out.println("----->"+fowardStr);
+                return true;
+            }else{
+                Class<?> controllerClass=handlerMethod.getBean().getClass();
+                Permission p = handlerMethod.getMethodAnnotation(Permission.class);
+                this.setpageMenuFuns(user,p,request);
+                System.out.println("----->"+fowardStr);
+                return true;
+            }
         }else{
-            System.out.println("----->异常访问："+fowardStr);
-			Map<String, List<String>> operas  =  (Map<String, List<String>>) session.getAttribute(SysConstant.KEY_SESSION_PERMISSION);
-			outer:
-			for (Map.Entry<String, List<String>> map : operas.entrySet()){
-				for (String opera : map.getValue()){
-					if (servletPath.indexOf(opera) != -1){ 
-						//有权限 (应该把这个模块对应的操作放到Session: 主要对页面的按钮进行控制)
-						isFlag = true;
-						break outer;
-					}
-				}
-			}
-			return true;
-		}
-		if (isFlag){
-			return  true;
-		}else{
-			return false;
-		}
+            if(exclude(servletPath)){
+                System.out.println("----->"+fowardStr);
+                return true;
+            }else{
+                System.out.println("----->"+fowardStr);
+                return false;
+            }
+        }
 	}
 
-	@Override
-	public void postHandle(HttpServletRequest arg0, HttpServletResponse request, Object response, ModelAndView mv)
-			throws Exception {
-		System.out.println("----->访问页面："+mv.getViewName()+".jsp");
-	}
+    @Override
+    public void postHandle(HttpServletRequest arg0, HttpServletResponse request, Object response, ModelAndView mv)
+            throws Exception {
+        System.out.println("----->访问页面："+mv.getViewName()+".jsp");
+    }
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e)
 			throws Exception {
 	}
 
-	private boolean exclude(String servletPath,Account user) {
-		if(user!=null){
-			return true;
-		}else{
-			if(excludeUrls != null) {
-				for (String exc : excludeUrls) {
-					if (servletPath.indexOf(exc)!=-1) {
-						return true;
-					}
-				}
-			}
-		}
+	public boolean exclude(String servletPath) {
+        if(excludeUrls != null) {
+            for (String exc : excludeUrls) {
+                if (servletPath.indexOf(exc)!=-1) {
+                    return true;
+                }
+            }
+        }
 		return false;
 	}
+
+    /**
+     * 获取权限菜单按钮
+     * @param user
+     * @param p
+     * @param request
+     */
+    public void setpageMenuFuns(Account user,Permission p,HttpServletRequest request){
+        List<Function> funs = user.getFunctions();
+        List<Function> pageMenuFuns = new ArrayList<>();
+        if (null != p && null != funs) {
+            for (int i = 0; i < funs.size(); i++) {
+                Function temp = funs.get(i);
+                if (p.code().equals(temp.getCode())) {
+                    for (int j = 0; j < funs.size(); j++) {
+                        Function f = funs.get(j);
+                        if (null != f.getParent() && temp.getId().equals(f.getParent().getId())) {
+                            pageMenuFuns.add(f);
+                            System.out.println(temp.getId() + ":" + temp.getName() + "----------" + f.getParent().getId() + ":" + f.getName());
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        request.setAttribute("pageMenuFuns", pageMenuFuns);
+    }
 
 	public String[] getExcludeUrls() {
 		return excludeUrls;

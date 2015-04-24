@@ -1,26 +1,25 @@
 package com.yida.core.base.controller;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONObject;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Account;
 import com.yida.core.base.entity.Role;
 import com.yida.core.base.vo.ListRoleForm;
 import com.yida.core.base.vo.SaveRoleForm;
+import com.yida.core.common.PageInfo;
 import com.yida.core.common.easyui.EasyUIHelper;
 import com.yida.core.common.easyui.JsonListResultForEasyUI;
 import com.yida.core.interceptors.Permission;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/role")
@@ -38,22 +37,23 @@ public class RoleController extends BaseController {
 	/**
 	 * 角色管理主页面-角色列表（查询操作）
 	 */
+    @ResponseBody
 	@JsonListResultForEasyUI("tree")
 	@RequestMapping("listRole")
-	public String listRole() {
+	public String listRole(ListRoleForm queryRole,PageInfo pageInfo) {
 		try {
 			if (null == this.queryRole) {
-				this.queryRole = new ListRoleForm();
+				queryRole = new ListRoleForm();
 			}
-			this.queryRole.setAuditOrgId(super.getCurrentAuditOrgId());
-			List<Role> list = roleService.listRole(this.queryRole, this.pageInfo);
+			queryRole.setAuditOrgId(super.getCurrentAuditOrgId());
+			List<Role> list = roleService.listRole(queryRole, pageInfo);
 			List<String> includePropertys = Arrays.asList("id", "name", "invalid", "accountNames", "remark");
 			jsonText = "{\"total\": " + pageInfo.getTotalResult() + ", \"rows\":" + StringUtils.toJsonArrayIncludeProperty(list, includePropertys) + "}";
 		} catch (Exception e) {
 			e.printStackTrace();
 			jsonText = "[]";
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class RoleController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("modRole")
-	public String modRole(HttpServletRequest request) {
+	public String modRole(HttpServletRequest request,String roleId) {
 		if (null != super.getCurrentAccount() 
 				&& Account.Type.ADMIN == super.getCurrentAccount().getType()) {
 			request.setAttribute("auditOrgs", orgService.getAuditOrgs(null,true));
@@ -87,8 +87,9 @@ public class RoleController extends BaseController {
 	/**
 	 * 角色管理主页面-删除操作
 	 */
+    @ResponseBody
 	@RequestMapping("delRole")
-	public String delRole() {
+	public String delRole(String roleId) {
 		JSONObject result = new JSONObject();
 		try {
 			this.roleService.deleteRoleByRoleId(roleId);
@@ -98,15 +99,16 @@ public class RoleController extends BaseController {
 			e.printStackTrace();
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 角色增加页面-保存操作
 	 * @return
 	 */
+    @ResponseBody
 	@RequestMapping("saveRole")
-	public String saveRole() {
+	public String saveRole(SaveRoleForm saveRoleForm) {
 		JSONObject result = new JSONObject();
 		try {
 			// 如果非管理员账号，则自动添加角色所属机构为当前账号的所属机构。
@@ -122,14 +124,15 @@ public class RoleController extends BaseController {
 			e.printStackTrace();
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 角色修改页面-保存操作
 	 */
+    @ResponseBody
 	@RequestMapping("updateRole")
-	public String updateRole() {
+	public String updateRole(SaveRoleForm saveRoleForm) {
 		JSONObject result = new JSONObject();
 		try {
 			// 如果非管理员账号，则自动添加角色所属机构为当前账号的所属机构。
@@ -144,14 +147,15 @@ public class RoleController extends BaseController {
 			e.printStackTrace();
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 角色管理主页面功能授权操作
 	 */
+    @ResponseBody
 	@RequestMapping("functionEmpower")
-	public String functionEmpower() {
+	public String functionEmpower(String roleId,String functionIds) {
 		JSONObject result = new JSONObject();
 		try {
 			this.roleService.updateFunctionsForRole(roleId, functionIds);
@@ -161,14 +165,15 @@ public class RoleController extends BaseController {
 			e.printStackTrace();
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 角色管理主页面账号授权操作
 	 */
+    @ResponseBody
 	@RequestMapping("accountEmpower")
-	public String accountEmpower() {
+	public String accountEmpower(String roleId,String accountIds) {
 		JSONObject result = new JSONObject();
 		try {
 			this.roleService.updateAccountsForRole(roleId, accountIds);
@@ -178,15 +183,16 @@ public class RoleController extends BaseController {
 			e.printStackTrace();
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 获取角色列表供jqueryRole-easyui的树形结构选择。
 	 */
+    @ResponseBody
 	@JsonListResultForEasyUI("tree")
 	@RequestMapping("listRoleForSelect")
-	public String listRoleForSelect() {
+	public String listRoleForSelect(String selRoleIds) {
 		try {
 			ListRoleForm lrf = new ListRoleForm();
 			Set<String> checkRoleIdSet = new HashSet<String>();
@@ -201,7 +207,7 @@ public class RoleController extends BaseController {
 			logger.error("listRoleForSelect获取角色信息失败", e);
 			jsonText = "[]";
 		} 
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 }

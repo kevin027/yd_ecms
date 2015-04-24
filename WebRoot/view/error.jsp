@@ -12,18 +12,18 @@
     <link rel="stylesheet" type="text/css" href="${ctx}errorCss/error.css">
 </head> 
 <body>
-<div id="wrapper"><a class="logo" href="/"></a>
+<div id="wrapper"><a class="logo" href="/">www.baidu.com</a>
     <div id="main">
         <header id="header">
             <h1><span class="icon">!</span>Error<span class="sub">page not found</span></h1>
         </header>
         <div id="content">
             <h2>您打开的这个的页面不存在！</h2>
-            <p>当您看到这个页面,表示您的访问出错,这个错误是您打开的页面不存在,请确认您输入的地址是正确的,如果是在本站点击后出现这个页面,请联系管理员及相关人员进行处理,感谢您的支持!</p>
+            <p>当您看到这个页面,表示您的访问出错,这个错误是您打开的页面不存在,请确认您输入的地址是正确的,如果是在本系统点击后出现这个页面,请联系管理员及相关人员进行处理,感谢您的支持!</p>
             <div class="utilities">
                 <form  name="formsearch" action="/plus/search.php" id="formkeyword">
                     <div class="input-container">
-                        <input type="text" class="left" name="q" size="24"  value="在这里搜索..." onfocus="if(this.value=='在这里搜索...'){this.value='';}"  onblur="if(this.value==''){this.value='在这里搜索...';}" id="inputString" onkeyup="lookup(this.value);" onblur="fill();" placeholder="搜索..." />
+                        <input type="text" disabled="true" class="left" name="q" size="24" value="在这里搜索..." onfocus="if(this.value=='在这里搜索...'){this.value='';}"  onblur="if(this.value==''){this.value='在这里搜索...';}" id="inputString" placeholder="搜索..." />
                         <button id="search"></button>
                     </div>
                 </form>

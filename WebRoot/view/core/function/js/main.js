@@ -23,7 +23,7 @@ var funTreeSetting = {
       }
     }
     , onClick: function (event, treeId, treeNode) {
-        $('#functionInfo').load('fun/modFunction.do', {'function.id' : treeNode.id});
+        $('#functionInfo').load('fun/modFunction', {'id' : treeNode.id});
     }
   }
 };
@@ -46,7 +46,7 @@ var funTreeSetting = {
 
 //加载功能树
 function loadFunctionTree() {
-  $.getJSON('fun/listFunctionForSelect.do', function(zTreeNodes) {
+  $.getJSON('fun/listFunctionForSelect', function(zTreeNodes) {
     funTreeObj = $.fn.zTree.init($("#funTree"), funTreeSetting, zTreeNodes);
     $('#functionInfo').html();
   });
@@ -54,10 +54,10 @@ function loadFunctionTree() {
 
 //增加功能按钮事件
 function addFunctionBtnClick() {
-  var url = 'fun/addFunction.do';
+  var url = 'fun/addFunction';
   var nodes = funTreeObj.getSelectedNodes();
   if (1 == nodes.length) {
-    url = url + '?function.parent.id=' + nodes[0].id;
+    url = url + '?parentId=' + nodes[0].id;
   }
   
   modalDialog = parent.sy.modalDialog({
@@ -89,7 +89,7 @@ function delFunctionBtnClick() {
 
   $.messager.confirm('警告', '数据删除后将不能恢复，您确定要删除当前所选项目？', function(r) {
     if (!r) return;
-    var url = 'fun/deleteFunction.do?function.id=' + selNode.id;
+    var url = 'fun/deleteFunction?id=' + selNode.id;
     $.post(url, function(result) {
 	  $.messager.show({
 	    title : '提示'
@@ -115,7 +115,7 @@ function modFunctionBtnClick() {
     return false;
   }
   
-  var url = 'fun/editFunctionPage.action?do.id=' + selNode.id;
+  var url = 'fun/editFunctionPage?id=' + selNode.id;
   $.layer({
       type : 2,
       shade : [0],

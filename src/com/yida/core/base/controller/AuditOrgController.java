@@ -1,18 +1,19 @@
 package com.yida.core.base.controller;
 
+import com.tools.utils.StringUtils;
+import com.yida.core.base.entity.AuditOrg;
+import com.yida.core.base.vo.ListAuditOrgForm;
+import com.yida.core.common.PageInfo;
+import com.yida.core.common.ztree.JsonListResultForZtree;
+import com.yida.core.common.ztree.ZtreeHelper;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.tools.sys.SysConstant;
-import com.tools.utils.StringUtils;
-import com.yida.core.base.entity.AuditOrg;
-import com.yida.core.common.ztree.JsonListResultForZtree;
-import com.yida.core.common.ztree.ZtreeHelper;
 
 @Controller
 @RequestMapping("/auditOrg")
@@ -24,18 +25,17 @@ public class AuditOrgController extends BaseController {
 	}
 	
 	@RequestMapping("listAuditOrg")
-	public String listAuditOrg() {
-		List<AuditOrg> auditOrgs = auditOrgService.listAuditOrg(this.queryOrg, this.pageInfo);
+	public String listAuditOrg(ListAuditOrgForm queryOrg,PageInfo pageInfo) {
+		List<AuditOrg> auditOrgs = auditOrgService.listAuditOrg(queryOrg, pageInfo);
 		List<String> excludePropertys = Arrays.asList( "departments" );
 		jsonText = StringUtils.toJsonArrayExcludeProperty(auditOrgs, excludePropertys);
 		return "listAuditOrg";
 	}
 	
-	private String selAuditOrgIds;
-	
-	@JsonListResultForZtree
+	@ResponseBody
+    @JsonListResultForZtree
 	@RequestMapping("listAuditOrgForSelect")
-	public String listAuditOrgForSelect() {
+	public String listAuditOrgForSelect(ListAuditOrgForm queryOrg,PageInfo pageInfo,String selAuditOrgIds) {
 		try {
 			Set<String> checkAuditOrgIdSet = new HashSet<String>();
 			if (null != selAuditOrgIds) {
@@ -43,13 +43,13 @@ public class AuditOrgController extends BaseController {
 					checkAuditOrgIdSet.add(selAuditOrgId);
 				}
 			}
-			List<AuditOrg> auditOrgs = auditOrgService.listAuditOrg(this.queryOrg, this.pageInfo);
+			List<AuditOrg> auditOrgs = auditOrgService.listAuditOrg(queryOrg, pageInfo);
 			jsonText = StringUtils.toJsonArray(ZtreeHelper.toZtreeData("0", auditOrgs, checkAuditOrgIdSet));
 		} catch (Exception e) {
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);
 			jsonText = "[]";
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("addAuditOrgPage")

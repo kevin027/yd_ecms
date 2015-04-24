@@ -1,24 +1,18 @@
 package com.yida.mail.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONObject;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.tools.sys.SysConstant;
 import com.tools.sys.SysVariable;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.controller.BaseController;
 import com.yida.mail.entity.MailAttach;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/mail")
@@ -37,17 +31,17 @@ public class MailAttachController extends BaseController {
 			result.put(SysConstant.AJAX_MSG, "附件添加失败," + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("downloadAttach")
-	public String downloadAttach(HttpServletRequest request) throws FileNotFoundException, UnsupportedEncodingException {
-		MailAttach attach = this.mailService.getAttachById(request.getParameter("attachId"));
+	public String downloadAttach(HttpServletRequest request,String attachId) throws FileNotFoundException, UnsupportedEncodingException {
+		MailAttach attach = this.mailService.getAttachById(attachId);
 		if (null == attach) {
 			throw new IllegalStateException("没有找到对应的文件记录。");
 		}
-		this.downloadFileName = new String(attach.getUploadFileName().getBytes("GBK"), "ISO8859-1");
-		this.downloadInputStream = new FileInputStream(SysVariable.INSTANCE.getValue("EMAIL_ATTACH_ROOT") + File.separator + attach.getSaveFilePath());
+		String downloadFileName = new String(attach.getUploadFileName().getBytes("GBK"), "ISO8859-1");
+		InputStream downloadInputStream = new FileInputStream(SysVariable.INSTANCE.getValue("EMAIL_ATTACH_ROOT") + File.separator + attach.getSaveFilePath());
 		return "downloadAttach";
 	}
 

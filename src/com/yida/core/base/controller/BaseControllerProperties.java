@@ -1,27 +1,20 @@
 package com.yida.core.base.controller;
 
 import com.yida.basedata.Cache;
-import com.yida.basedata.area.entity.Area;
 import com.yida.basedata.area.service.AreaService;
 import com.yida.basedata.area.vo.ListAreaForm;
-import com.yida.basedata.audittype.entity.AuditType;
 import com.yida.basedata.audittype.service.AuditTypeService;
 import com.yida.basedata.audittype.vo.ListAuditTypeForm;
-import com.yida.basedata.checkcontent.entity.CheckContent;
 import com.yida.basedata.checkcontent.service.CheckContentService;
 import com.yida.basedata.checkcontent.vo.ListCheckContentForm;
-import com.yida.basedata.checkitems.entity.CheckItem;
 import com.yida.basedata.checkitems.service.CheckItemService;
 import com.yida.basedata.checkitems.vo.ListCheckItemForm;
-import com.yida.basedata.major.entity.Major;
 import com.yida.basedata.major.service.MajorService;
 import com.yida.basedata.major.vo.ListMajorForm;
-import com.yida.core.base.entity.*;
 import com.yida.core.base.service.*;
 import com.yida.core.base.vo.*;
 import com.yida.core.common.PageInfo;
 import com.yida.desktop.service.DesktopService;
-import com.yida.file.entity.BusinessFile;
 import com.yida.file.service.BusinessFileService;
 import com.yida.file.service.FileService;
 import com.yida.file.vo.ListBusinessFileForm;
@@ -34,7 +27,6 @@ import org.slf4j.Logger;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -94,25 +86,6 @@ public class BaseControllerProperties {
 	public SaveStaffForm saveStaffForm;
 	public ModifyPasswordForm modifyPasswordForm;
 
-	//参数项
-	public String selDepartmentIds;
-	public String departmentId;
-	public String accountId;
-	public String selRoleId;//选择的角色，用于确定功能树选中默认的节点
-	public String roleId;
-	public String staffId;
-	public String selOrgIds;//部门机构选择树默认选中节点，以逗号为分隔符。
-	public String orgId;
-	public String selRoleIds;
-	public String accountIds;
-	public String functionIds;
-	public String areaId;
-	public String auditTypeId;
-	public String checkContentId;
-	public String checkItemId;
-	public String majorId;
-	public String businessFileId;
-	
 	//mail
 	public String mailId;
 	public String downloadFileName;
@@ -122,20 +95,9 @@ public class BaseControllerProperties {
 	
 	
 	//对象属性
-	public Account account;
-	public Department department;
-	public Function function;
-	public Staff staff;
-	public AuditOrg auditOrg;
 	public Mail mail;
 	public MailInfo mailInfo;
-	public Area area;
-	public AuditType auditType;
-	public CheckContent checkContent;
-	public CheckItem checkItem;
-	public Major major;
-	public BusinessFile businessFile;
-	public InputStream downloadInputStream;
+
 	
 	//-------------------------get...-------set...----------------------------//
 	public Mail getMail() {

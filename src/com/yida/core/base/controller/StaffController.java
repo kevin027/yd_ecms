@@ -1,19 +1,19 @@
 package com.yida.core.base.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
-import net.sf.json.JSONObject;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Staff;
 import com.yida.core.base.vo.ListStaffForm;
 import com.yida.core.base.vo.SaveStaffForm;
+import com.yida.core.common.PageInfo;
 import com.yida.core.common.easyui.JsonListResultForEasyUI;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/staff")
@@ -23,10 +23,11 @@ public class StaffController extends BaseController {
 	public String main() {
 		return "core/staff/jsp/main";
 	}
-	
+
+    @ResponseBody
 	@JsonListResultForEasyUI("tree")
 	@RequestMapping("listStaff")
-	public String listStaff() {
+	public String listStaff(PageInfo pageInfo,ListStaffForm queryStaff) {
 		try {
 			if (null == queryStaff) {
 				queryStaff = new ListStaffForm();
@@ -39,11 +40,12 @@ public class StaffController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
-	
+
+    @ResponseBody
 	@RequestMapping("listStaffForSelect")
-	public String listStaffForSelect() {
+	public String listStaffForSelect(PageInfo pageInfo,ListStaffForm queryStaff) {
 		try {
 			List<Staff> list = this.staffService.listStaff(queryStaff, pageInfo);
 			List<String> includePropertys = Arrays.asList("id", "name", "sex", "email", "phone");
@@ -52,7 +54,7 @@ public class StaffController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("addStaff")
@@ -62,13 +64,14 @@ public class StaffController extends BaseController {
 		}
 		return "core/staff/jsp/addStaff";
 	}
-	
+
+    @ResponseBody
 	@RequestMapping("saveStaff")
-	public String saveStaff() {
+	public String saveStaff(SaveStaffForm form) {
 		JSONObject result = new JSONObject();
 		try {
 			staffTableModifyLock.writeLock().lock();
-			staff = this.staffService.saveStaff(saveStaffForm);
+			Staff staff = this.staffService.saveStaff(form);
 			result.put(SysConstant.AJAX_SUCCESS, "保存成功。");
 			result.put("saveId", staff.getId());
 		} catch (Exception e) {
@@ -77,13 +80,13 @@ public class StaffController extends BaseController {
 			staffTableModifyLock.writeLock().unlock();
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("modStaff")
-	public String modStaff() {
+	public String modStaff(String staffId) {
 		try {
-			staff = this.staffService.getStaffById(staffId);
+			Staff staff = this.staffService.getStaffById(staffId);
 			this.saveStaffForm = new SaveStaffForm(staff);
 			if (null == staff) {
 				throw new IllegalStateException("没有找到的人员信息");
@@ -93,13 +96,14 @@ public class StaffController extends BaseController {
 		}
 		return "core/staff/jsp/modStaff";
 	}
-	
+
+    @ResponseBody
 	@RequestMapping("updateStaff")
-	public String updateStaff() {
+	public String updateStaff(SaveStaffForm saveStaffForm) {
 		JSONObject result = new JSONObject();
 		try {
 			staffTableModifyLock.writeLock().lock();
-			staff = this.staffService.updateStaff(saveStaffForm);
+			Staff staff = this.staffService.updateStaff(saveStaffForm);
 			result.put(SysConstant.AJAX_SUCCESS, "更新成功。");
 			result.put("staffId", staff.getId());
 		} catch (Exception e) {
@@ -108,11 +112,12 @@ public class StaffController extends BaseController {
 			staffTableModifyLock.writeLock().unlock();
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
-	
+
+    @ResponseBody
 	@RequestMapping("deleteStaff")
-	public String deleteStaff() {
+	public String deleteStaff(String staffId) {
 		JSONObject result = new JSONObject();
 		try {
 			this.staffService.deleteStaffById(staffId);
@@ -121,12 +126,12 @@ public class StaffController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "删除失败：" + e.getMessage());
 		} 
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
-	
-	private List<String> staffIds;
+
+    @ResponseBody
 	@RequestMapping("deleteStaffs")
-	public String deleteStaffs() {
+	public String deleteStaffs(List<String> staffIds) {
 		JSONObject result = new JSONObject();
 		try {
 			this.staffService.deleteStaffByIds(staffIds);
@@ -136,7 +141,7 @@ public class StaffController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "删除失败：" + e.getMessage());
 		} 
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 }

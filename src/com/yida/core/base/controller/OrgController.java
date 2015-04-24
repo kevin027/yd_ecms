@@ -1,32 +1,20 @@
 package com.yida.core.base.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONObject;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
-import com.yida.core.base.entity.Account;
-import com.yida.core.base.entity.AuditOrg;
-import com.yida.core.base.entity.Department;
-import com.yida.core.base.entity.Function;
-import com.yida.core.base.entity.Org;
-import com.yida.core.base.entity.Role;
-import com.yida.core.base.entity.Staff;
+import com.yida.core.base.entity.*;
 import com.yida.core.base.vo.SaveAuditOrgForm;
 import com.yida.core.base.vo.SaveDepartmentForm;
 import com.yida.core.common.ztree.JsonListResultForZtree;
 import com.yida.core.common.ztree.ZtreeData;
 import com.yida.core.common.ztree.ZtreeHelper;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @Controller
 @RequestMapping("/org")
@@ -42,6 +30,7 @@ public class OrgController extends BaseController {
 	 * 用于和组织结构选择的有关页面。
 	 * @return
 	 */
+    @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listOrgTreeForOrgSelectWithoutCheckBox")
 	public String listOrgTreeForOrgSelectWithoutCheckBox() {
@@ -55,13 +44,14 @@ public class OrgController extends BaseController {
 			e.printStackTrace();
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 组织机构树，一次性加载，包含人员节点，任何节点不显示checkbox
 	 * 用于组织机构维护页面
 	 */
+    @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listOrgTreeWithoutCheckBox")
 	public String listOrgTreeWithoutCheckBox() {
@@ -74,16 +64,17 @@ public class OrgController extends BaseController {
 			e.printStackTrace();
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 组织机构树，一次性加载，不包含人员节点，所有节点不显示checkbox
 	 * 用于新建人员页面选择所属部门
 	 */
+    @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listOrgTreeForOrgSelect2")
-	public String listOrgTreeForOrgSelect2() {
+	public String listOrgTreeForOrgSelect2(String selOrgIds) {
 		try {
 			Set<String> checkOrgNodeIds = new HashSet<String>();
 			if (null != selOrgIds) {
@@ -98,16 +89,17 @@ public class OrgController extends BaseController {
 			e.printStackTrace();
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 组织机构树，一次性加载，不包含人员节点，所有节点显示checkbox
 	 * 用于新建人员页面选择所属部门
 	 */
+    @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listOrgTreeForOrgSelect")
-	public String listOrgTreeForOrgSelect() {
+	public String listOrgTreeForOrgSelect(String selOrgIds) {
 		try {
 			Set<String> checkOrgNodeIds = new HashSet<String>();
 			if (null != selOrgIds) {
@@ -122,16 +114,17 @@ public class OrgController extends BaseController {
 			e.printStackTrace();
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 组织机构树，一次性加载，包含人员节点。用于选择人员，只在人员节点显示checkbox
 	 * @return
 	 */
+    @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listOrgTreeForStaffSelect")
-	public String listOrgTreeForStaffSelect() {
+	public String listOrgTreeForStaffSelect(String selRoleId) {
 		try {
 			Set<String> checkStaffIdSet = new HashSet<String>();
 			if (null != selRoleId) {
@@ -150,15 +143,16 @@ public class OrgController extends BaseController {
 			e.printStackTrace();
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 组织机构树，一次性加载，只包含机构和账号节点节点。用于选择账号，只在账号节点显示checkbox
 	 */
+    @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listOrgTreeForAccountSelect")
-	public String listOrgTreeForAccountSelect() {
+	public String listOrgTreeForAccountSelect(String selRoleId) {
 		try {
 			Set<String> checkAccountIds = new HashSet<String>();
 			if (null != selRoleId) {
@@ -177,13 +171,14 @@ public class OrgController extends BaseController {
 			e.printStackTrace();
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 部门机构树节点异步加载（包含人员）
 	 * @return
 	 */
+    @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listOrgTreeNode")
 	public String listOrgTreeNode(HttpServletRequest request) {
@@ -204,16 +199,16 @@ public class OrgController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("orgTreeNodeInfo")
-	public String orgTreeNodeInfo() {
+	public String orgTreeNodeInfo(String orgId) {
 		try {
 			Org org = this.orgService.getOrgById(orgId, true);
 			List<Function> funs = super.getCurrentAccount().getFunctions();
 			if (org instanceof AuditOrg) {
-				this.auditOrg = (AuditOrg) org;
+                AuditOrg auditOrg = (AuditOrg) org;
 				this.saveAuditOrgForm = new SaveAuditOrgForm(auditOrg);
 				if (!funs.contains(new Function("900402"))) {
 					return "core/org/jsp/viewAuditOrg";
@@ -221,7 +216,7 @@ public class OrgController extends BaseController {
 					return "core/org/jsp/modAuditOrg";
 				}
 			} else if (org instanceof Department) {
-				this.department = (Department) org;
+                Department department = (Department) org;
 				this.saveDepartmentForm = new SaveDepartmentForm(department);
 				if (!funs.contains(new Function("900405"))) {
 					return "core/org/jsp/viewDepartment";
@@ -246,8 +241,9 @@ public class OrgController extends BaseController {
 	/**
 	 * 保存机构信息
 	 */
+    @ResponseBody
 	@RequestMapping("saveAuditOrg")
-	public String saveAuditOrg() {
+	public String saveAuditOrg(SaveAuditOrgForm saveAuditOrgForm) {
 		JSONObject result = new JSONObject();
 		try {
 			AuditOrg auditOrg = this.auditOrgService.saveAuditOrg(saveAuditOrgForm);
@@ -258,14 +254,14 @@ public class OrgController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "新增失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 新增部门信息
 	 */
 	@RequestMapping("addDepartment")
-	public String addDepartment() {
+	public String addDepartment(String orgId) {
 		if (StringUtils.isMeaningFul(orgId)) {
 			this.saveDepartmentForm = new SaveDepartmentForm();
 			this.saveDepartmentForm.setParentId(orgId);
@@ -276,8 +272,9 @@ public class OrgController extends BaseController {
 	/**
 	 * 保存部门信息
 	 */
+    @ResponseBody
 	@RequestMapping("saveDepartment")
-	public String saveDepartment() {
+	public String saveDepartment(SaveDepartmentForm saveDepartmentForm) {
 		JSONObject result = new JSONObject();
 		try {
 			Department department = this.departmentService.saveDepartment(saveDepartmentForm);
@@ -287,14 +284,15 @@ public class OrgController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "新增失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 删除机构信息
 	 */
+    @ResponseBody
 	@RequestMapping("delAuditOrg")
-	public String delAuditOrg() {
+	public String delAuditOrg(String orgId) {
 		JSONObject result = new JSONObject();
 		try {
 			this.auditOrgService.deleteAuditOrgByAuditOrgId(orgId);
@@ -303,14 +301,15 @@ public class OrgController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "删除失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 删除部门信息
 	 */
+    @ResponseBody
 	@RequestMapping("delDepartment")
-	public String delDepartment() {
+	public String delDepartment(String orgId) {
 		JSONObject result = new JSONObject();
 		try {
 			this.departmentService.deleteDepartmentByDepartmentId(orgId);
@@ -320,15 +319,16 @@ public class OrgController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "删除失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 更新机构信息
 	 * @return
 	 */
+    @ResponseBody
 	@RequestMapping("updateAuditOrg")
-	public String updateAuditOrg() {
+	public String updateAuditOrg(SaveAuditOrgForm saveAuditOrgForm) {
 		JSONObject result = new JSONObject();
 		try {
 			this.auditOrgService.updateAuditOrg(saveAuditOrgForm);
@@ -338,15 +338,16 @@ public class OrgController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "更新失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 更新部门信息
 	 * @return
 	 */
+    @ResponseBody
 	@RequestMapping("updateDepartment")
-	public String updateDepartment() {
+	public String updateDepartment(SaveDepartmentForm saveDepartmentForm) {
 		JSONObject result = new JSONObject();
 		try {
 			this.departmentService.updateDepartment(saveDepartmentForm);
@@ -356,12 +357,13 @@ public class OrgController extends BaseController {
 			result.put(SysConstant.AJAX_ERROR, "更新失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 判断当前登录人员是否有权限添加机构
 	 */
+    @ResponseBody
 	@RequestMapping("canAddAuditOrg")
 	public String canAddAuditOrg() {
 		JSONObject result = new JSONObject();
@@ -373,12 +375,13 @@ public class OrgController extends BaseController {
 			result.put(SysConstant.AJAX_SUCCESS, Boolean.FALSE);
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 判断当前登录人员是否有权限删除机构
 	 */
+    @ResponseBody
 	@RequestMapping("canDelAuditOrg")
 	public String canDelAuditOrg() {
 		JSONObject result = new JSONObject();
@@ -390,7 +393,7 @@ public class OrgController extends BaseController {
 			result.put(SysConstant.AJAX_SUCCESS, Boolean.FALSE);
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 
 }

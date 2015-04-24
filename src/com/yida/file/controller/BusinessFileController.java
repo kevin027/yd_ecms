@@ -1,20 +1,19 @@
 package com.yida.file.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONObject;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.controller.BaseController;
+import com.yida.core.common.PageInfo;
 import com.yida.file.entity.BusinessFile;
 import com.yida.file.entity.FileInfo;
+import com.yida.file.vo.ListBusinessFileForm;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/file")
@@ -23,7 +22,7 @@ public class BusinessFileController extends BaseController {
 	//business/basedata/businessFile/jsp/main.jsp
 	
 	@RequestMapping("listBusinessFile")
-	public String listBusinessFile() {
+	public String listBusinessFile(ListBusinessFileForm query,PageInfo pageInfo) {
 		try {
 			List<BusinessFile> list = this.businessFileService.listBusinessFile(query, pageInfo);
 			List<String> excludePropertys = Arrays.asList("refModule", "upload", "uploadFileName", "uploadContentType", "receiveStaff", "keeper");
@@ -31,21 +30,19 @@ public class BusinessFileController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("addBusinessFile") 
 	public String addBusinessFile() {
-		if (null == businessFile) {
-			businessFile = new BusinessFile();
-		}
+        BusinessFile businessFile = new BusinessFile();
 		businessFile.setReceiveStaff(super.getCurrentStaff());
 		businessFile.setKeeper(super.getCurrentStaff());
-		return "business/file/businessFile/jsp/addBusinessFile";
+		return "file/businessFile/jsp/addBusinessFile";
 	}
 	
 	@RequestMapping("saveBusinessFile")
-	public String saveBusinessFile() {
+	public String saveBusinessFile(BusinessFile businessFile) {
 		JSONObject result = new JSONObject();
 		try {
 			BusinessFile saveEntity = this.businessFileService.saveBusinessFile(businessFile);
@@ -57,19 +54,19 @@ public class BusinessFileController extends BaseController {
 			result.put(SysConstant.AJAX_MSG, "新增失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("modBusinessFile") 
-	public String modBusinessFile(HttpServletRequest request) {
-		businessFile = businessFileService.getBusinessFileById(businessFile.getId());
+	public String modBusinessFile(HttpServletRequest request,String id) {
+		BusinessFile businessFile = businessFileService.getBusinessFileById(id);
 		List<FileInfo> fileInfos = this.fileService.listFile(businessFile.getRefModule(), businessFile.getId(), null);
 		request.setAttribute("fileInfos", fileInfos);
-		return "business/file/businessFile/jsp/modBusinessFile";
+		return "file/businessFile/jsp/modBusinessFile";
 	}
 	
 	@RequestMapping("updateBusinessFile")
-	public String updateBusinessFile() {
+	public String updateBusinessFile(BusinessFile businessFile) {
 		JSONObject result = new JSONObject();
 		try {
 			this.businessFileService.updateBusinessFile(businessFile);
@@ -80,14 +77,14 @@ public class BusinessFileController extends BaseController {
 			result.put(SysConstant.AJAX_MSG, "修改失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("delBusinessFile")
-	public String delBusinessFile() {
+	public String delBusinessFile(String id) {
 		JSONObject result = new JSONObject();
 		try {
-			this.businessFileService.delBusinessFileById(businessFileId);
+			this.businessFileService.delBusinessFileById(id);
 			result.put(SysConstant.AJAX_REQ_STATUS, true);
 			result.put(SysConstant.AJAX_MSG, "删除成功。");
 		} catch (Exception e) {
@@ -95,7 +92,7 @@ public class BusinessFileController extends BaseController {
 			result.put(SysConstant.AJAX_MSG, "删除成功，" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 
 }

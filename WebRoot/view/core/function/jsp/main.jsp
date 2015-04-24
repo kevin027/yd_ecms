@@ -1,20 +1,16 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%    
-	response.setHeader("Cache-Control","no-cache"); //HTTP 1.1    
-	response.setHeader("Pragma","no-cache"); //HTTP 1.0    
-	response.setDateHeader ("Expires", 0); //prevents caching at the proxy server    
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName()+":" + request.getServerPort() + path + "/";
-%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="<%=basePath %>"/>
+	<base href="${ctx}"/>
 	<title>系统功能管理主页面</title>
 	<meta charset="utf-8" />
 	<jsp:include page="/view/inc.jsp"></jsp:include>
-	<link type="text/css" href="js/jquery/zTree3.5.14/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
+	<link type="text/css" href="${ctx}js/jquery/zTree3.5.14/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
 </head>
 <body>
 	<input type="hidden" id="ztreeNodes" value='${ztreeNodes}' />
@@ -32,8 +28,8 @@
 			<div id="functionInfo"></div>
 	    </div>
 	</div>
-	<script type="text/javascript" src="js/dynamicloader.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
-	<script type="text/javascript" src="core/function/js/main.js"></script>
+	<script type="text/javascript" src="${ctx}js/dynamicloader.js"></script>
+	<script type="text/javascript" src="${ctx}js/common.js"></script>
+	<script type="text/javascript" src="${ctx}view/core/function/js/main.js"></script>
 </body>
 </html>

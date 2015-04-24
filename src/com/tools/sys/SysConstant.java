@@ -26,4 +26,5 @@ public class SysConstant {
 	public static final int OP_UPLOADFILE_ERROR = 10;//上传文件出错
 	public static final int OP_PROJECT_FLOW = 11;//项目操作过程
 	public static final int OP_SAVE = 12;//保存
+
 }

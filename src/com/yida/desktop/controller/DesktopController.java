@@ -18,7 +18,7 @@ public class DesktopController extends BaseController {
 	
 	@RequestMapping("main")
 	public String main() {
-		return "/view/desktop/jsp/main";
+		return "desktop/jsp/main";
 	}
 	
 
@@ -31,7 +31,7 @@ public class DesktopController extends BaseController {
 		try {
 			List<DevMark> list = desktopService.getSystemDevMark(getCurrentAccount(), null);
 			request.setAttribute("list", list);
-			return "/view/desktop/jsp/systemDevMark";
+			return "desktop/jsp/systemDevMark";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,17 +40,17 @@ public class DesktopController extends BaseController {
 	
 	@RequestMapping("personalMails")
 	public String personalMails() {
-		return "/view/desktop/jsp/personalMails";
+		return "desktop/jsp/personalMails";
 	}
 	
 	@RequestMapping("applyNotices")
 	public String applyNotices() {
-		return "/view/desktop/jsp/applyNotices";
+		return "desktop/jsp/applyNotices";
 	}
 	
 	@RequestMapping("publicNotices")
 	public String publicNotices() {
-		return "/view/desktop/jsp/publicNotices";
+		return "desktop/jsp/publicNotices";
 	}
 
 }

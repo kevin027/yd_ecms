@@ -274,7 +274,9 @@
         if (coreEasyui.messager != $.messager) { coreEasyui.messager.progress("close"); }
         var msg = (XMLHttpRequest && !$.string.isNullOrWhiteSpace(XMLHttpRequest.responseText) ?
                 "如果该问题重复出现，请联系您的系统管理员并反馈该故障。<br />" +
-                "错误号：" + XMLHttpRequest.status + "(" + XMLHttpRequest.statusText + ")；<hr /><a class=\"\" style=\"margin-left:210px\" href=\"javascript:void(0);\" id=\"detailBtn\">详细信息</a><div id='detailDiv' style='display:none'>" + XMLHttpRequest.responseText :
+                "错误号：" + XMLHttpRequest.status + "(" + XMLHttpRequest.statusText + ")。<hr />" +
+                "<a class=\"\" style=\"margin-left:210px\" href=\"javascript:void(0);\" id=\"detailBtn\">详细信息</a>" +
+                "<div id='detailDiv' style='display:'>" :
                 "系统出现了一个未指明的错误，如果该问题重复出现，请联系您的系统管理员并反馈该故障。</div>");
         var win = coreEasyui.messager.alert("错误提醒", msg, "error"),
             opts = win.window("options"), panel = win.window("panel"), width = panel.outerWidth(), height = panel.outerHeight();

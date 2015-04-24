@@ -1,25 +1,26 @@
 package com.yida.core.base.controller;
 
+import com.tools.utils.StringUtils;
+import com.yida.core.base.entity.Department;
+import com.yida.core.base.vo.ListDepartmentForm;
+import com.yida.core.common.ztree.JsonListResultForZtree;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.tools.sys.SysConstant;
-import com.tools.utils.StringUtils;
-import com.yida.core.base.entity.Department;
-import com.yida.core.common.ztree.JsonListResultForZtree;
-
 @Controller
 @RequestMapping("/department")
 public class DepartmentController extends BaseController {
-	
+
+    @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listDepartmentForSelect")
-	public String listDepartmentForSelect() {
+	public String listDepartmentForSelect(ListDepartmentForm queryDep,String selDepartmentIds) {
 		try {
 			Set<String> checkDepartmentIdSet = new HashSet<String>();
 			if (null != selDepartmentIds) {
@@ -28,18 +29,18 @@ public class DepartmentController extends BaseController {
 				}
 			}
 			
-			List<Department> list = departmentService.listDepartment(this.queryDep, null);
+			List<Department> list = departmentService.listDepartment(queryDep, null);
 			List<String> includePropertys = Arrays.asList("id", "name");
 			jsonText = "{\"rows\":" + StringUtils.toJsonArrayIncludeProperty(list, includePropertys) + "}";
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	@RequestMapping("add")
-	public void add() {
+	public void add(Department department) {
 		try {
 			this.departmentService.saveDepartment(department);
 		} catch (Exception e) {
@@ -48,7 +49,7 @@ public class DepartmentController extends BaseController {
 	}
 	
 	@RequestMapping("delete")
-	public void delete() {
+	public void delete(String departmentId) {
 		try {
 			this.departmentService.deleteDepartmentByDepartmentId(departmentId);
 		} catch (Exception e) {

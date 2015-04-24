@@ -1,8 +1,8 @@
-var addActionUrl = 'account/addAccount.do';
-var modActionUrl = 'account/modAccount.do';
-var delActionUrl = 'account/delAccount.do';
-var listActionUrl = 'account/listAccount.do';
-var resetPasswordUrl = 'account/resetAccountPassword.do';
+var addActionUrl = 'account/addAccount';
+var modActionUrl = 'account/modAccount';
+var delActionUrl = 'account/delAccount';
+var listActionUrl = 'account/listAccount';
+var resetPasswordUrl = 'account/resetAccountPassword';
 
 // 搜索栏
 var queryBar = $('#queryBar');

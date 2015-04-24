@@ -82,7 +82,7 @@ public class IndexController extends BaseController {
             request.setAttribute("error_msg", "帐号或密码错误。");
             return "login";
         }
-        return this.index(request,null);
+        return "redirect:/index";
     }
 
 	@RequestMapping("index")

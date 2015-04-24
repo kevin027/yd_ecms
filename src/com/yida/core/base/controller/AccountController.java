@@ -1,15 +1,5 @@
 package com.yida.core.base.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONObject;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Account;
@@ -17,7 +7,16 @@ import com.yida.core.base.vo.ListAccountForm;
 import com.yida.core.base.vo.ListRoleForm;
 import com.yida.core.base.vo.ModifyPasswordForm;
 import com.yida.core.base.vo.SaveAccountForm;
+import com.yida.core.common.PageInfo;
 import com.yida.core.interceptors.Permission;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 账号模块
@@ -32,14 +31,15 @@ public class AccountController extends BaseController {
 	@RequestMapping("main")
 	@Permission(code="MANAGE_ACCOUNT")
 	public String main() {
-		return "core/account/jsp/main";
-	}
-	
-	/**
+        return "core/account/jsp/main";
+    }
+
+    /**
 	 * 账号管理的主页面-查询操作（账号列表）
 	 */
+    @ResponseBody
 	@RequestMapping("listAccount")
-	public String listAccount() {
+	public String listAccount(PageInfo pageInfo,ListAccountForm queryAccount) {
 		try {
 			if (null == queryAccount) {
 				queryAccount = new ListAccountForm();
@@ -52,7 +52,7 @@ public class AccountController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
@@ -70,7 +70,7 @@ public class AccountController extends BaseController {
 	 * 账号新增页面-保存操作
 	 */
 	@RequestMapping("saveAccount")
-	public String saveAccount() {
+	public String saveAccount(SaveAccountForm saveAccountForm) {
 		JSONObject result = new JSONObject();
 		try {
 			if (null != super.getCurrentAccount()) {
@@ -89,7 +89,7 @@ public class AccountController extends BaseController {
 	 * 账号管理主页面-修改操作
 	 */
 	@RequestMapping("modAccount") 
-	public String modAccount(HttpServletRequest request) {
+	public String modAccount(HttpServletRequest request,String accountId) {
 		ListRoleForm roleForm = new ListRoleForm();
 		roleForm.setAuditOrgId(super.getCurrentAuditOrgId());
 		request.setAttribute("roles", roleService.listRole(roleForm, null));
@@ -101,10 +101,10 @@ public class AccountController extends BaseController {
 	 * 账号修改页面-保存修改操作
 	 */
 	@RequestMapping("updateAccount")
-	public String updateAccount() {
+	public String updateAccount(SaveAccountForm saveAccountForm) {
 		JSONObject result = new JSONObject();
 		try {
-			account = accountService.updateAccount(saveAccountForm);
+			Account account = accountService.updateAccount(saveAccountForm);
 			result.put(SysConstant.AJAX_SUCCESS, "修改成功。");
 		} catch (Exception e) {
 			result.put(SysConstant.AJAX_ERROR, "修改失败：" + e.getMessage());
@@ -117,10 +117,10 @@ public class AccountController extends BaseController {
 	 * 账号管理主页面-删除操作
 	 */
 	@RequestMapping("delAccount")
-	public String delAccount() {
+	public String delAccount(String accountId) {
 		JSONObject result = new JSONObject();
 		try {
-			account = accountService.delAccountById(accountId);
+			Account account = accountService.delAccountById(accountId);
 			result.put(SysConstant.AJAX_REQ_STATUS, true);
 			result.put(SysConstant.AJAX_MSG, "删除成功。");
 		} catch (Exception e) {
@@ -132,7 +132,7 @@ public class AccountController extends BaseController {
 	}
 	
 	@RequestMapping("modAccountPassword")
-	public String modAccountPassword() {
+	public String modAccountPassword(ModifyPasswordForm modifyPasswordForm) {
 		JSONObject result = new JSONObject();
 		try {
 			if (null == modifyPasswordForm) {
@@ -150,14 +150,14 @@ public class AccountController extends BaseController {
 	}
 	
 	@RequestMapping("resetAccountPassword")
-	public String resetAccountPassword() {
+	public String resetAccountPassword(ModifyPasswordForm modifyPasswordForm,String accountId) {
 		JSONObject result = new JSONObject();
 		try {
 			if (null == modifyPasswordForm) {
 				modifyPasswordForm = new ModifyPasswordForm();
 			}
 			modifyPasswordForm.setId(super.getCurrentAccount().getId());
-			accountService.resetAccountPassword(this.accountId);
+			accountService.resetAccountPassword(accountId);
 			result.put(SysConstant.AJAX_REQ_STATUS, true);
 			result.put(SysConstant.AJAX_MSG, "重置成功。");
 			super.getCurrentAccount().setPassword(modifyPasswordForm.getNewPassword());
