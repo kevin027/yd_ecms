@@ -3,6 +3,7 @@ package com.yida.core.base.controller;
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Account;
+import com.yida.core.base.entity.Function;
 import com.yida.core.base.entity.Role;
 import com.yida.core.base.vo.ListRoleForm;
 import com.yida.core.base.vo.SaveRoleForm;
@@ -30,8 +31,23 @@ public class RoleController extends BaseController {
 	 */
 	@RequestMapping("main")
 	@Permission(code="MANAGE_ROLE")
-	public String main() {
-		return "core/role/jsp/main";
+	public String main(HttpServletRequest request) {
+        Boolean isFunctionEmpowerBtn=false;
+        Boolean isAccountEmpowerBtn=false;
+        List<Function> pageMenuFuns = (List<Function>)request.getAttribute("pageMenuFuns");
+        if (null != pageMenuFuns) {
+            for (int i = 0; i < pageMenuFuns.size(); i++) {
+                if("functionEmpowerBtn".equals(pageMenuFuns.get(i).getCode())){
+                    isFunctionEmpowerBtn=true;
+                }
+                if("accountEmpowerBtn".equals(pageMenuFuns.get(i).getCode())){
+                    isAccountEmpowerBtn=true;
+                }
+            }
+        }
+        request.setAttribute("isFunctionEmpowerBtn",isFunctionEmpowerBtn);
+        request.setAttribute("isAccountEmpowerBtn",isAccountEmpowerBtn);
+        return "core/role/jsp/main";
 	}
 	
 	/**
