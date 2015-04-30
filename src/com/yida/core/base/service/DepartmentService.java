@@ -6,7 +6,7 @@ import com.yida.core.base.entity.Org;
 import com.yida.core.base.entity.Staff;
 import com.yida.core.base.vo.ListDepartmentForm;
 import com.yida.core.base.vo.SaveDepartmentForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
 import com.yida.core.exception.NameRepeatException;
 import org.springframework.context.annotation.Lazy;

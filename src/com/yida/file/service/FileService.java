@@ -21,7 +21,7 @@ import com.tools.sys.SysVariable;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Staff;
 import com.yida.core.base.service.BaseService;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.file.entity.FileInfo;
 import com.yida.file.entity.FileOpConfig;
 import com.yida.file.entity.FileOpLog;

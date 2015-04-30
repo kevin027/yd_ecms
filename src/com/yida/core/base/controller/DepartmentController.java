@@ -20,7 +20,7 @@ public class DepartmentController extends BaseController {
     @ResponseBody
 	@JsonListResultForZtree
 	@RequestMapping("listDepartmentForSelect")
-	public String listDepartmentForSelect(ListDepartmentForm queryDep,String selDepartmentIds) {
+	public String listDepartmentForSelect(ListDepartmentForm query,String selDepartmentIds) {
 		try {
 			Set<String> checkDepartmentIdSet = new HashSet<String>();
 			if (null != selDepartmentIds) {
@@ -29,7 +29,7 @@ public class DepartmentController extends BaseController {
 				}
 			}
 			
-			List<Department> list = departmentService.listDepartment(queryDep, null);
+			List<Department> list = departmentService.listDepartment(query, null);
 			List<String> includePropertys = Arrays.asList("id", "name");
 			jsonText = "{\"rows\":" + StringUtils.toJsonArrayIncludeProperty(list, includePropertys) + "}";
 		} catch (RuntimeException e) {

@@ -12,7 +12,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 
 @Repository
 public class SqlCommonDao extends BaseDao<Object, Serializable> {

@@ -1,26 +1,23 @@
 package com.yida.mail.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONObject;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.tools.sys.Page;
+import com.tools.sys.PageInfo;
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.controller.BaseController;
-import com.yida.core.common.PageInfo;
 import com.yida.mail.entity.Mail;
 import com.yida.mail.entity.MailParty;
 import com.yida.mail.entity.MailParty.PartyType;
 import com.yida.mail.vo.MailInfo;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/mail")
@@ -36,13 +33,13 @@ public class MailController extends BaseController {
 	 * 收件箱
 	 */
 	@RequestMapping("showInboxMailInfo")
-	public String showInboxMailInfo(HttpServletRequest request) {
-		Page<MailInfo> page = this.mailService.listInboxMail(super.getCurrentStaff().getId(), queryMail, getPage(), getRows());
-		request.setAttribute("list", page.getRows());
+	public String showInboxMailInfo(HttpServletRequest request,Integer page,Integer rows) {
+		Page<MailInfo> pages = this.mailService.listInboxMail(super.getCurrentStaff().getId(), queryMail, page, rows);
+		request.setAttribute("list", pages.getRows());
 		PageInfo pageInfo = new PageInfo();
-		pageInfo.setCurrentPage(getPage());
-		pageInfo.setMaxResult(getRows());
-		pageInfo.setTotalResult(page.getTotal());
+		pageInfo.setCurrentPage(page);
+		pageInfo.setMaxResult(rows);
+		pageInfo.setTotalResult(pages.getTotal());
 		request.setAttribute("pageInfo", pageInfo);
 		return "business/mail/jsp/inbox";
 	}
@@ -51,24 +48,24 @@ public class MailController extends BaseController {
 	 * 发件箱
 	 */
 	@RequestMapping("showOutboxMailInfo")
-	public String showOutboxMailInfo(HttpServletRequest request) {
-		Page<MailInfo> p = this.mailService.listOutboxMail(super.getCurrentStaff().getId(), queryMail, getPage(), getRows());
+	public String showOutboxMailInfo(HttpServletRequest request,Integer page,Integer rows) {
+		Page<MailInfo> p = this.mailService.listOutboxMail(super.getCurrentStaff().getId(), queryMail, page, rows);
 		request.setAttribute("list", p.getRows());
 		PageInfo pageInfo = new PageInfo();
-		pageInfo.setCurrentPage(getPage());
-		pageInfo.setMaxResult(getRows());
+		pageInfo.setCurrentPage(page);
+		pageInfo.setMaxResult(rows);
 		pageInfo.setTotalResult(p.getTotal());
 		request.setAttribute("pageInfo", pageInfo);
 		return "business/mail/jsp/outbox";
 	}
 	
 	@RequestMapping("showRecycleMailInfo") 
-	public String showRecycleMailInfo(HttpServletRequest request) {
-		Page<MailInfo> p = this.mailService.listRecycleMail(super.getCurrentStaff().getId(), queryMail, getPage(), getRows());
+	public String showRecycleMailInfo(HttpServletRequest request,Integer page,Integer rows) {
+		Page<MailInfo> p = this.mailService.listRecycleMail(super.getCurrentStaff().getId(), queryMail, page, rows);
 		request.setAttribute("list", p.getRows());
 		PageInfo pageInfo = new PageInfo();
-		pageInfo.setCurrentPage(getPage());
-		pageInfo.setMaxResult(getRows());
+		pageInfo.setCurrentPage(page);
+		pageInfo.setMaxResult(rows);
 		pageInfo.setTotalResult(p.getTotal());
 		request.setAttribute("pageInfo", pageInfo);
 		return "business/mail/jsp/recycle";
@@ -78,22 +75,22 @@ public class MailController extends BaseController {
 	 * 显示邮件列表
 	 */
 	@RequestMapping("listMailInfo")
-	public String listMailInfo(HttpServletRequest request) {
+	public String listMailInfo(HttpServletRequest request,Integer page,Integer rows) {
 		int flag = Integer.parseInt(request.getParameter("flag"));
 		String partyId = super.getCurrentStaff().getId();
-		pageInfo = new PageInfo();
-		pageInfo.setCurrentPage(getPage());
-		pageInfo.setMaxResult(getRows());
+		PageInfo pageInfo = new PageInfo();
+		pageInfo.setCurrentPage(page);
+		pageInfo.setMaxResult(rows);
 		
 		Page<?> p = null;
 		if (0 == flag) {
-			p = this.mailService.listDraftMail(partyId, queryMail, getPage(), getRows());
+			p = this.mailService.listDraftMail(partyId, queryMail, page, rows);
 		} else if (1 == flag) {
-			p = this.mailService.listOutboxMail(partyId, queryMail, getPage(), getRows());
+			p = this.mailService.listOutboxMail(partyId, queryMail, page, rows);
 		} else if (2 == flag) {
-			p = this.mailService.listInboxMail(partyId, queryMail, getPage(), getRows());
+			p = this.mailService.listInboxMail(partyId, queryMail, page, rows);
 		} else if (3 == flag) {
-			p = this.mailService.listRecycleMail(partyId, queryMail, getPage(), getRows());
+			p = this.mailService.listRecycleMail(partyId, queryMail, page, rows);
 		}
 		pageInfo.setTotalResult(p.getTotal());
 		request.setAttribute("list", p.getRows());

@@ -13,7 +13,7 @@ import com.tools.utils.StringUtils;
 import com.yida.basedata.audittype.entity.AuditType;
 import com.yida.basedata.audittype.vo.ListAuditTypeForm;
 import com.yida.core.base.service.BaseService;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
 
 @Service("auditTypeService")

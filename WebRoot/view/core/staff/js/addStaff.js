@@ -16,7 +16,7 @@ $(document).ready(function() {
 });
 
 function loadOrgZtree() {
-  $.getJSON('org/listOrgTreeForOrgSelect.do', function(zTreeNodes) {
+  $.getJSON('org/listOrgTreeForOrgSelect', function(zTreeNodes) {
     // 树显示的一些设置
     var setting = {
       view: {
@@ -71,7 +71,7 @@ function saveBtnClick(ev) {
   
   if (!staffId) {
     $('#u_form').form('submit', {
-	  url:"staff/saveStaff.do"
+	  url:"staff/saveStaff"
 	  ,success : function(result) {
 		result = JSON.parse(result);
         var resultMessage;
@@ -91,7 +91,7 @@ function saveBtnClick(ev) {
     });
   } else {
     $('#u_form').form('submit', {
-      url:"staff/updateStaff.do"
+      url:"staff/updateStaff"
       ,success : function(result) {
     	result = JSON.parse(result);
 	    var resultMessage;

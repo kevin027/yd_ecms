@@ -8,7 +8,7 @@ import com.yida.core.base.entity.Staff;
 import com.yida.core.base.vo.ListAccountForm;
 import com.yida.core.base.vo.ModifyPasswordForm;
 import com.yida.core.base.vo.SaveAccountForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
@@ -157,9 +157,11 @@ public class AccountService extends BaseService {
 		
 		if (StringUtils.isMeaningFul(saveAccountForm.getRoleIds())) {
 			String[] roleIds = saveAccountForm.getRoleIds().split(",");
-			Set<Role> roles = new HashSet<Role>(roleIds.length);
+			Set<Role> roles = new HashSet<>(roleIds.length);
 			for (String roleId : roleIds) {
-				roles.add(new Role(roleId));
+                if(StringUtils.isMeaningFul(roleId)) {
+                    roles.add(this.roleDao.get(roleId));
+                }
 			}
 			o.setRoles(roles);
 		}

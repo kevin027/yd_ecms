@@ -1,27 +1,23 @@
 package helper.service;
 
+import com.tools.sys.PageInfo;
+import com.tools.utils.StringUtils;
+import com.yida.core.exception.EntityNotFoundException;
 import helper.dao.GenTemplateDao;
 import helper.entity.GenTemplate;
 import helper.vo.ListGenTemplateForm;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tools.utils.StringUtils;
-import com.yida.core.common.PageInfo;
-import com.yida.core.exception.EntityNotFoundException;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GenTemplateService {
-	
-	private @Resource GenTemplateDao genTemplateDao;
-	
-	
+
+    public @Resource GenTemplateDao genTemplateDao;
+
 	public List<GenTemplate> listGenTemplate(ListGenTemplateForm query, PageInfo pageInfo) {
 		StringBuilder fromBuilder = new StringBuilder(" from ").append(genTemplateDao.getTableName() + " o where 1=1");
 		

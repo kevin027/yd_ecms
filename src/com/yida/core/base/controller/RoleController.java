@@ -7,7 +7,7 @@ import com.yida.core.base.entity.Function;
 import com.yida.core.base.entity.Role;
 import com.yida.core.base.vo.ListRoleForm;
 import com.yida.core.base.vo.SaveRoleForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.common.easyui.EasyUIHelper;
 import com.yida.core.common.easyui.JsonListResultForEasyUI;
 import com.yida.core.interceptors.Permission;
@@ -56,13 +56,13 @@ public class RoleController extends BaseController {
     @ResponseBody
 	@JsonListResultForEasyUI("tree")
 	@RequestMapping("listRole")
-	public String listRole(ListRoleForm queryRole,PageInfo pageInfo) {
+	public String listRole(ListRoleForm query,PageInfo pageInfo) {
 		try {
-			if (null == this.queryRole) {
-				queryRole = new ListRoleForm();
+			if (null == this.query) {
+                query = new ListRoleForm();
 			}
-			queryRole.setAuditOrgId(super.getCurrentAuditOrgId());
-			List<Role> list = roleService.listRole(queryRole, pageInfo);
+            query.setAuditOrgId(super.getCurrentAuditOrgId());
+			List<Role> list = roleService.listRole(query, pageInfo);
 			List<String> includePropertys = Arrays.asList("id", "name", "invalid", "accountNames", "remark");
 			jsonText = "{\"total\": " + pageInfo.getTotalResult() + ", \"rows\":" + StringUtils.toJsonArrayIncludeProperty(list, includePropertys) + "}";
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class RoleController extends BaseController {
 			request.setAttribute("auditOrgs", orgService.getAuditOrgs(null,true));
 		}
 		Role r = roleService.getRoleById(roleId);
-		saveRoleForm = new SaveRoleForm(r);
+		request.setAttribute("form",new SaveRoleForm(r));
 		return "core/role/jsp/modRole";
 	}
 	
@@ -124,15 +124,15 @@ public class RoleController extends BaseController {
 	 */
     @ResponseBody
 	@RequestMapping("saveRole")
-	public String saveRole(SaveRoleForm saveRoleForm) {
+	public String saveRole(SaveRoleForm form) {
 		JSONObject result = new JSONObject();
 		try {
 			// 如果非管理员账号，则自动添加角色所属机构为当前账号的所属机构。
 			if (null != super.getCurrentAccount()
 					&& Account.Type.ADMIN != super.getCurrentAccount().getType()){
-				saveRoleForm.setAuditOrgId(super.getCurrentAuditOrgId());
+				form.setAuditOrgId(super.getCurrentAuditOrgId());
 			}
-			Role r = this.roleService.saveRole(saveRoleForm);
+			Role r = this.roleService.saveRole(form);
 			result.put(SysConstant.AJAX_SUCCESS, "新增成功。");
 			result.put("saveId", r.getId());
 		} catch (Exception e) {
@@ -148,15 +148,15 @@ public class RoleController extends BaseController {
 	 */
     @ResponseBody
 	@RequestMapping("updateRole")
-	public String updateRole(SaveRoleForm saveRoleForm) {
+	public String updateRole(SaveRoleForm form) {
 		JSONObject result = new JSONObject();
 		try {
 			// 如果非管理员账号，则自动添加角色所属机构为当前账号的所属机构。
 			if (null != super.getCurrentAccount()
 					&& Account.Type.ADMIN != super.getCurrentAccount().getType()){
-				saveRoleForm.setAuditOrgId(super.getCurrentAuditOrgId());
+				form.setAuditOrgId(super.getCurrentAuditOrgId());
 			}
-			this.roleService.updateRole(saveRoleForm);
+			this.roleService.updateRole(form);
 			result.put(SysConstant.AJAX_SUCCESS, "更新成功。");
 		} catch (Exception e) {
 			result.put(SysConstant.AJAX_ERROR, "更新失败：" + e.getMessage());

@@ -2,18 +2,11 @@ package com.yida.core.base.controller;
 
 import com.yida.basedata.Cache;
 import com.yida.basedata.area.service.AreaService;
-import com.yida.basedata.area.vo.ListAreaForm;
 import com.yida.basedata.audittype.service.AuditTypeService;
-import com.yida.basedata.audittype.vo.ListAuditTypeForm;
 import com.yida.basedata.checkcontent.service.CheckContentService;
-import com.yida.basedata.checkcontent.vo.ListCheckContentForm;
 import com.yida.basedata.checkitems.service.CheckItemService;
-import com.yida.basedata.checkitems.vo.ListCheckItemForm;
 import com.yida.basedata.major.service.MajorService;
-import com.yida.basedata.major.vo.ListMajorForm;
 import com.yida.core.base.service.*;
-import com.yida.core.base.vo.*;
-import com.yida.core.common.PageInfo;
 import com.yida.desktop.service.DesktopService;
 import com.yida.file.service.BusinessFileService;
 import com.yida.file.service.FileService;
@@ -22,7 +15,6 @@ import com.yida.log.service.LogService;
 import com.yida.mail.entity.Mail;
 import com.yida.mail.service.MailService;
 import com.yida.mail.vo.ListMailQuery;
-import com.yida.mail.vo.MailInfo;
 import org.slf4j.Logger;
 
 import javax.annotation.Resource;
@@ -57,48 +49,24 @@ public class BaseControllerProperties {
 	public @Resource MajorService majorService;
 	public @Resource BusinessFileService businessFileService;
 	public @Resource FileService fileService;
-	
+
 	//系统属性
 	public String jsonText = "[]";
 	public Logger logger;
-	public PageInfo pageInfo;
-	public Integer page;
-	public Integer rows;
 	
 	//系统管理的查询条件
-	public ListAccountForm queryAccount;
-	public ListAuditOrgForm queryOrg;
-	public ListDepartmentForm queryDep;
-	public ListRoleForm queryRole;
-	public ListStaffForm queryStaff;
 	public ListMailQuery queryMail;
-	public ListAreaForm queryArea;
-	public ListAuditTypeForm queryAuditType;
-	public ListCheckContentForm queryCheckContent;
-	public ListCheckItemForm queryCheckItem;
-	public ListMajorForm queryMajor;
 	public ListBusinessFileForm query;
-	
-	public SaveAccountForm saveAccountForm;
-	public SaveAuditOrgForm saveAuditOrgForm;
-	public SaveDepartmentForm saveDepartmentForm;
-	public SaveRoleForm saveRoleForm;
-	public SaveStaffForm saveStaffForm;
-	public ModifyPasswordForm modifyPasswordForm;
 
 	//mail
 	public String mailId;
-	public String downloadFileName;
 	public List<File> upload;
 	public List<String> uploadFileName;
 	public List<String> uploadContentType;
 	
-	
 	//对象属性
 	public Mail mail;
-	public MailInfo mailInfo;
 
-	
 	//-------------------------get...-------set...----------------------------//
 	public Mail getMail() {
 		return mail;

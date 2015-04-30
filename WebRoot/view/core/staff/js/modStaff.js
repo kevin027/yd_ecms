@@ -16,7 +16,7 @@ $(document).ready(function() {
 });
 
 function loadOrgZtree() {
-  $.getJSON('org/listOrgTreeForOrgSelect2.do?selOrgIds=' + $('#orgIds').val(), function(zTreeNodes) {
+  $.getJSON('org/listOrgTreeForOrgSelect2?selOrgIds=' + $('#orgIds').val(), function(zTreeNodes) {
     // 树显示的一些设置
     var setting = {
       view: {
@@ -70,7 +70,7 @@ function saveBtnClick(ev) {
   } 
   
   $('#u_form').form('submit', {
-	url:"staff/updateStaff.do"
+	url:"staff/updateStaff"
 	,success : function(data) {
       data = JSON.parse(data);
       var resultMessage;

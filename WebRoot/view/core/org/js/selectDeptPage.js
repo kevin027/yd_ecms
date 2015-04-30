@@ -7,7 +7,7 @@ $(document).ready(function() {
 });
 
 function loadOrgTree() {
-  $.get('org/listOrgTreeForOrgSelect.do', function(zTreeNodes) {
+  $.get('org/listOrgTreeForOrgSelect', function(zTreeNodes) {
     // 树显示的一些设置
     var setting = {
       view: {
@@ -22,7 +22,7 @@ function loadOrgTree() {
             tmp = _orgTreeObj.getNodeByParam('id', tmp.pid);
             _selDeptFullName = tmp.name + '->' + _selDeptFullName;
           }
-          $.getJSON('department/listDepartmentForSelect.do?query.orgId=' + treeNode.id, function(result) {
+          $.getJSON('department/listDepartmentForSelect?orgId=' + treeNode.id, function(result) {
         	 var tempUl = $('<ul style="list-style:none;margin:0px"/>');
              $.each(result.rows, function() {
                 var chk = $('<input type="checkbox" name="sc" />').val(this.id).attr('alt', _selDeptFullName);

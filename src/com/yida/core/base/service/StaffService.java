@@ -7,7 +7,7 @@ import com.yida.core.base.entity.Org;
 import com.yida.core.base.entity.Staff;
 import com.yida.core.base.vo.ListStaffForm;
 import com.yida.core.base.vo.SaveStaffForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

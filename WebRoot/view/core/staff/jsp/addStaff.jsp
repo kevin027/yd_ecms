@@ -1,34 +1,32 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- 引入bootstrap.plugins.js插件 上图预览图片-->
-<script id="pluginsBootstrap" type="text/javascript" src="<%=basePath %>core/staff/js/bootstrap.plugins.js"></script>
+<script id="pluginsBootstrap" type="text/javascript" src="${ctx}view/core/staff/js/bootstrap.plugins.js"></script>
 
 <style type="text/css">
-.ztree li span.button.auditOrg_ico_open{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/server_chart.png")}
-.ztree li span.button.auditOrg_ico_close{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/server_chart.png")}
-.ztree li span.button.auditOrg_ico_docu{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/server_chart.png")}
-.ztree li span.button.department_ico_open{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/shape_align_left.png")}
-.ztree li span.button.department_ico_close{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/shape_align_left.png")}
-.ztree li span.button.department_ico_docu{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/shape_align_left.png")}
-.ztree li span.button.female_ico_open{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user_female.png")}
-.ztree li span.button.female_ico_close{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user_female.png")}
-.ztree li span.button.female_ico_docu{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user_female.png")}
-.ztree li span.button.male_ico_open{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user.png")}
-.ztree li span.button.male_ico_close{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user.png")}
-.ztree li span.button.male_ico_docu{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("<%=basePath %>js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user.png")}
+.ztree li span.button.company_ico_open{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/server_chart.png")}
+.ztree li span.button.company_ico_close{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/server_chart.png")}
+.ztree li span.button.company_ico_docu{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/server_chart.png")}
+.ztree li span.button.department_ico_open{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/shape_align_left.png")}
+.ztree li span.button.department_ico_close{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/shape_align_left.png")}
+.ztree li span.button.department_ico_docu{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/shape_align_left.png")}
+.ztree li span.button.female_ico_open{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user_female.png")}
+.ztree li span.button.female_ico_close{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user_female.png")}
+.ztree li span.button.female_ico_docu{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user_female.png")}
+.ztree li span.button.male_ico_open{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user.png")}
+.ztree li span.button.male_ico_close{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user.png")}
+.ztree li span.button.male_ico_docu{margin-right:2px; vertical-align:top; *vertical-align:middle; background-image:url("${ctx}js/jquery/EasyUi/jquery-easyui-1.3.4/themes/extjs_icons/user/user.png")}
 
 .file{filter:alpha(opacity:0);opacity: 0;}
 </style>
 
 <!--[if lte IE 8]>
 
-    <script src="<%=basePath%>core/staff/js/imgPreview/CJL.0.1.min.js"></script>
-    <script src="<%=basePath%>core/staff/js/imgPreview/QuickUpload.js"></script>
-    <script src="<%=basePath%>core/staff/js/imgPreview/ImagePreviewd.js"></script>
+    <script src="${ctx}view/core/staff/js/imgPreview/CJL.0.1.min.js"></script>
+    <script src="${ctx}view/core/staff/js/imgPreview/QuickUpload.js"></script>
+    <script src="${ctx}view/core/staff/js/imgPreview/ImagePreviewd.js"></script>
 
     <script type="text/javascript">
 	var ip = new ImagePreview( $$("fileinput"), $$("idImg"), {
@@ -45,9 +43,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <![endif]-->
 
 <div class="row-fluid" style="margin:0px;">
-	<s:form id="u_form" class="form-horizontal form_validation_ttip">
-		<s:hidden name="saveStaffForm.staffId" id="staffId"></s:hidden>
-		<s:hidden name="saveStaffForm.orgIds" id="orgIds"></s:hidden>
+	<form id="u_form" class="form-horizontal form_validation_ttip">
+        <input type="hidden" id="staffId" name="staffId" value="${form.staffId}"/>
+        <input type="hidden" id="orgIds" name="orgIds" value="${form.orgIds}"/>
 		<fieldset>
 			<div class="span12" style="padding-bottom:0px">
 				<!-- 流式布局  用户名  用户头像 密码-->
@@ -89,12 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<label class="control-label" style="width:auto">姓名<span
 								class="f_req">*</span></label>
 							<div class="controls " style="margin-left:0px">
-								<s:textfield 
-									cssClass="easyui-validatebox input-large" 
-									cssStyle="margin-left:13px"
-									data-options="required:true"
-								 	name="saveStaffForm.name"
-								></s:textfield>
+                                <input type="text" name="name" style="margin-left:13px" class="easyui-validatebox input-large" data-options="required:true" value="${form.name}">
 							</div>
 						</div>
 
@@ -102,13 +95,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<label class="control-label" style="width:auto">手机号码<span
 								class="f_req">*</span></label>
 							<div class="controls " style="margin-left:0px">
-								<s:textfield 
-									cssClass="easyui-validatebox easyui-numberbox input-large" 
-									cssStyle="margin-left:13px"
-									data-options="required:true"
-							 		name="saveStaffForm.phone"
-								></s:textfield>
-							</div>
+                                <input type="text" name="phone" style="margin-left:13px" class="easyui-validatebox easyui-numberbox input-large" data-options="required:true" value="${form.phone}">
+                            </div>
 						</div>
 					</div>
 
@@ -117,24 +105,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<label class="control-label" style="width:auto">性别<span
 								class="f_req">*</span></label>
 							<div class="controls " style="margin-left:0px">
-								<s:select 
-								height="50px"
-								cssStyle="margin-left:13px;width:224px"
-								name="saveStaffForm.sex" 
-								list="#{'FEMALE':'女', 'MALE':'男'}" />
+                                <select name="sex" style="margin-left:13px;">
+                                    <option value="MALE">男</option>
+                                    <option value="FEMALE">女</option>
+                                </select>
 							</div>
 						</div>
 						<div class="control-group">
 							<label for="u_password" class="control-label" style="width:auto">电子邮箱<span class="f_req">*</span></label>
 							<div class="controls" style="margin-left:0px">
 								<div class="sepH_b" style="margin-left:0px">
-									<s:textfield 
-										cssClass="easyui-validatebox input-large" 
-										cssStyle="margin-left:13px"
-										data-options="required:true,validType:'email'" 
-								 		name="saveStaffForm.email"
-									></s:textfield>
-								</div>
+                                    <input type="text" name="email" style="margin-left:13px" class="easyui-validatebox input-large" data-options="required:true" value="${form.email}">
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -186,10 +168,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 			</div>
 		</fieldset>
-	</s:form>
+	</form>
 </div>
 
-<script src="<%=basePath%>core/staff/js/addStaff.js" ></script>
+<script src="${ctx}view/core/staff/js/addStaff.js" ></script>
 
 <!--[if lte IE 8]>
 <script type="text/javascript">

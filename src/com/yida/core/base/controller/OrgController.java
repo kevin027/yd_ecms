@@ -35,8 +35,7 @@ public class OrgController extends BaseController {
 	@RequestMapping("listOrgTreeForOrgSelectWithoutCheckBox")
 	public String listOrgTreeForOrgSelectWithoutCheckBox() {
 		try {
-			List<Org> list = this.orgService.getAuditOrgs(
-					Account.Type.ADMIN == super.getCurrentAccount().getType() ? null : super.getCurrentAuditOrgId(),true);
+			List<Org> list = this.orgService.getAuditOrgs(Account.Type.ADMIN == super.getCurrentAccount().getType() ? null : super.getCurrentAuditOrgId(),true);
 			// List<Org> list = this.orgService.getAuditOrgs(super.getCurrentAuditOrgId());
 			List<String> includeProps = Arrays.asList("id", "name", "pid", "isOrg", "nocheck", "open", "iconSkin", "fullName", "children");
 			jsonText = StringUtils.toJsonArrayIncludeProperty(ZtreeHelper.orgTreeWithoutCheckbox(null, list, false), includeProps);
@@ -56,8 +55,7 @@ public class OrgController extends BaseController {
 	@RequestMapping("listOrgTreeWithoutCheckBox")
 	public String listOrgTreeWithoutCheckBox() {
 		try {
-			List<Org> list = this.orgService.getAuditOrgs(
-					Account.Type.ADMIN == super.getCurrentAccount().getType() ? null : super.getCurrentAuditOrgId(),false);
+			List<Org> list = this.orgService.getAuditOrgs(Account.Type.ADMIN == super.getCurrentAccount().getType() ? null : super.getCurrentAuditOrgId(),false);
 			List<String> includeProps = Arrays.asList("id", "name", "pid", "isOrg", "nocheck", "open", "iconSkin", "fullName", "children");
 			jsonText = StringUtils.toJsonArrayIncludeProperty(ZtreeHelper.orgTreeWithoutCheckbox(null, list, true), includeProps);
 		} catch (Exception e) {
@@ -153,7 +151,7 @@ public class OrgController extends BaseController {
 	@JsonListResultForZtree
 	@RequestMapping("listOrgTreeForAccountSelect")
 	public String listOrgTreeForAccountSelect(String selRoleId) {
-		try {
+        try {
 			Set<String> checkAccountIds = new HashSet<String>();
 			if (null != selRoleId) {
 				Role selRole = roleService.getRoleById(selRoleId);
@@ -203,13 +201,13 @@ public class OrgController extends BaseController {
 	}
 	
 	@RequestMapping("orgTreeNodeInfo")
-	public String orgTreeNodeInfo(String orgId) {
+	public String orgTreeNodeInfo(HttpServletRequest request,String orgId) {
 		try {
 			Org org = this.orgService.getOrgById(orgId, true);
 			List<Function> funs = super.getCurrentAccount().getFunctions();
 			if (org instanceof AuditOrg) {
                 AuditOrg auditOrg = (AuditOrg) org;
-				this.saveAuditOrgForm = new SaveAuditOrgForm(auditOrg);
+				request.setAttribute("form",new SaveAuditOrgForm(auditOrg));
 				if (!funs.contains(new Function("900402"))) {
 					return "core/org/jsp/viewAuditOrg";
 				} else {
@@ -217,7 +215,7 @@ public class OrgController extends BaseController {
 				}
 			} else if (org instanceof Department) {
                 Department department = (Department) org;
-				this.saveDepartmentForm = new SaveDepartmentForm(department);
+                request.setAttribute("form",new SaveDepartmentForm(department));
 				if (!funs.contains(new Function("900405"))) {
 					return "core/org/jsp/viewDepartment";
 				} else {
@@ -243,10 +241,10 @@ public class OrgController extends BaseController {
 	 */
     @ResponseBody
 	@RequestMapping("saveAuditOrg")
-	public String saveAuditOrg(SaveAuditOrgForm saveAuditOrgForm) {
+	public String saveAuditOrg(SaveAuditOrgForm form) {
 		JSONObject result = new JSONObject();
 		try {
-			AuditOrg auditOrg = this.auditOrgService.saveAuditOrg(saveAuditOrgForm);
+			AuditOrg auditOrg = this.auditOrgService.saveAuditOrg(form);
 			result.put(SysConstant.AJAX_SUCCESS, "新增成功。");
 			result.put("saveId", auditOrg.getId());
 		} catch (Exception e) {
@@ -261,10 +259,11 @@ public class OrgController extends BaseController {
 	 * 新增部门信息
 	 */
 	@RequestMapping("addDepartment")
-	public String addDepartment(String orgId) {
+	public String addDepartment(HttpServletRequest request,String orgId) {
 		if (StringUtils.isMeaningFul(orgId)) {
-			this.saveDepartmentForm = new SaveDepartmentForm();
-			this.saveDepartmentForm.setParentId(orgId);
+            SaveDepartmentForm saveDepartmentForm = new SaveDepartmentForm();
+			saveDepartmentForm.setParentId(orgId);
+            request.setAttribute("form",saveDepartmentForm);
 		}
 		return "core/org/jsp/addDepartment";
 	}
@@ -274,10 +273,10 @@ public class OrgController extends BaseController {
 	 */
     @ResponseBody
 	@RequestMapping("saveDepartment")
-	public String saveDepartment(SaveDepartmentForm saveDepartmentForm) {
+	public String saveDepartment(SaveDepartmentForm form) {
 		JSONObject result = new JSONObject();
 		try {
-			Department department = this.departmentService.saveDepartment(saveDepartmentForm);
+			Department department = this.departmentService.saveDepartment(form);
 			result.put(SysConstant.AJAX_SUCCESS, "新增成功。");
 			result.put("saveId", department.getId());
 		} catch (Exception e) {
@@ -328,10 +327,10 @@ public class OrgController extends BaseController {
 	 */
     @ResponseBody
 	@RequestMapping("updateAuditOrg")
-	public String updateAuditOrg(SaveAuditOrgForm saveAuditOrgForm) {
+	public String updateAuditOrg(SaveAuditOrgForm form) {
 		JSONObject result = new JSONObject();
 		try {
-			this.auditOrgService.updateAuditOrg(saveAuditOrgForm);
+			this.auditOrgService.updateAuditOrg(form);
 			result.put(SysConstant.AJAX_SUCCESS, "更新成功。");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -347,10 +346,10 @@ public class OrgController extends BaseController {
 	 */
     @ResponseBody
 	@RequestMapping("updateDepartment")
-	public String updateDepartment(SaveDepartmentForm saveDepartmentForm) {
+	public String updateDepartment(SaveDepartmentForm form) {
 		JSONObject result = new JSONObject();
 		try {
-			this.departmentService.updateDepartment(saveDepartmentForm);
+			this.departmentService.updateDepartment(form);
 			result.put(SysConstant.AJAX_SUCCESS, "更新成功。");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -368,8 +367,7 @@ public class OrgController extends BaseController {
 	public String canAddAuditOrg() {
 		JSONObject result = new JSONObject();
 		Account loginAccount = super.getCurrentAccount();
-		if (null != loginAccount
-				&& Account.Type.ADMIN == loginAccount.getType()) {
+		if (null != loginAccount && Account.Type.ADMIN == loginAccount.getType()) {
 			result.put(SysConstant.AJAX_SUCCESS, Boolean.TRUE);
 		} else {
 			result.put(SysConstant.AJAX_SUCCESS, Boolean.FALSE);
@@ -386,8 +384,7 @@ public class OrgController extends BaseController {
 	public String canDelAuditOrg() {
 		JSONObject result = new JSONObject();
 		Account loginAccount = super.getCurrentAccount();
-		if (null != loginAccount
-				&& Account.Type.ADMIN == loginAccount.getType()) {
+		if (null != loginAccount && Account.Type.ADMIN == loginAccount.getType()) {
 			result.put(SysConstant.AJAX_SUCCESS, Boolean.TRUE);
 		} else {
 			result.put(SysConstant.AJAX_SUCCESS, Boolean.FALSE);

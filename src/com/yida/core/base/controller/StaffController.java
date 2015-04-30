@@ -5,13 +5,15 @@ import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Staff;
 import com.yida.core.base.vo.ListStaffForm;
 import com.yida.core.base.vo.SaveStaffForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.common.easyui.JsonListResultForEasyUI;
+import com.yida.core.interceptors.Permission;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 public class StaffController extends BaseController {
 	
 	@RequestMapping("main")
+    @Permission(code = "MANAGE_STAFF")
 	public String main() {
 		return "core/staff/jsp/main";
 	}
@@ -27,13 +30,13 @@ public class StaffController extends BaseController {
     @ResponseBody
 	@JsonListResultForEasyUI("tree")
 	@RequestMapping("listStaff")
-	public String listStaff(PageInfo pageInfo,ListStaffForm queryStaff) {
+	public String listStaff(PageInfo pageInfo,ListStaffForm query) {
 		try {
-			if (null == queryStaff) {
-				queryStaff = new ListStaffForm();
+			if (null == query) {
+				query = new ListStaffForm();
 			}
-			queryStaff.setAuditOrgId(super.getCurrentAuditOrgId());
-			List<Staff> list = this.staffService.listStaff(queryStaff, pageInfo);
+			query.setAuditOrgId(super.getCurrentAuditOrgId());
+			List<Staff> list = this.staffService.listStaff(query, pageInfo);
 			List<String> includePropertys = Arrays.asList("id", "name", "sex", "email", "phone", "roleNames", "orgNames", "createDate", "isOrg");
 			jsonText = "{\"total\": " + pageInfo.getTotalResult() + ", \"rows\":" + StringUtils.toJsonArrayIncludeProperty(list, includePropertys) + "}";
 			System.out.println(jsonText);
@@ -45,9 +48,9 @@ public class StaffController extends BaseController {
 
     @ResponseBody
 	@RequestMapping("listStaffForSelect")
-	public String listStaffForSelect(PageInfo pageInfo,ListStaffForm queryStaff) {
+	public String listStaffForSelect(PageInfo pageInfo,ListStaffForm query) {
 		try {
-			List<Staff> list = this.staffService.listStaff(queryStaff, pageInfo);
+			List<Staff> list = this.staffService.listStaff(query, pageInfo);
 			List<String> includePropertys = Arrays.asList("id", "name", "sex", "email", "phone");
 			jsonText = "{\"rows\":" + StringUtils.toJsonArrayIncludeProperty(list, includePropertys) + "}";
 			System.out.println(jsonText);
@@ -84,10 +87,10 @@ public class StaffController extends BaseController {
 	}
 	
 	@RequestMapping("modStaff")
-	public String modStaff(String staffId) {
+	public String modStaff(HttpServletRequest request,String staffId) {
 		try {
 			Staff staff = this.staffService.getStaffById(staffId);
-			this.saveStaffForm = new SaveStaffForm(staff);
+			request.setAttribute("form",new SaveStaffForm(staff));
 			if (null == staff) {
 				throw new IllegalStateException("没有找到的人员信息");
 			}
@@ -99,11 +102,11 @@ public class StaffController extends BaseController {
 
     @ResponseBody
 	@RequestMapping("updateStaff")
-	public String updateStaff(SaveStaffForm saveStaffForm) {
+	public String updateStaff(SaveStaffForm form) {
 		JSONObject result = new JSONObject();
 		try {
 			staffTableModifyLock.writeLock().lock();
-			Staff staff = this.staffService.updateStaff(saveStaffForm);
+			Staff staff = this.staffService.updateStaff(form);
 			result.put(SysConstant.AJAX_SUCCESS, "更新成功。");
 			result.put("staffId", staff.getId());
 		} catch (Exception e) {

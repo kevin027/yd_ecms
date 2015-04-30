@@ -8,6 +8,7 @@ import com.yida.mail.entity.MailAttach;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
@@ -17,7 +18,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/mail")
 public class MailAttachController extends BaseController {
-	
+
+    @ResponseBody
 	@RequestMapping("uploadAttach")
 	public String uploadAttach() {
 		JSONObject result = new JSONObject();

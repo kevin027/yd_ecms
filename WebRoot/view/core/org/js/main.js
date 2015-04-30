@@ -2,7 +2,7 @@
 var orgTreeObj;
 
 // 组织机构树ztree异步加载节点的URL
-var orgTreeAsyncUrl = "org/listOrgTreeNode.do";
+var orgTreeAsyncUrl = "org/listOrgTreeNode";
 
 // 组织机构树ztree的配置
 var orgTreeSetting = {
@@ -21,7 +21,7 @@ var orgTreeSetting = {
       }
     }
     ,onClick: function(event, treeId, treeNode) {
-      $('#orgInfo').load('org/orgTreeNodeInfo.do', {'orgId' : treeNode.id});
+      $('#orgInfo').load('org/orgTreeNodeInfo', {'orgId' : treeNode.id});
     }
   }
 };
@@ -42,7 +42,7 @@ $(document).ready(function() {
 
 // 加载树方法
 function reloadZtree() {
-  $.getJSON('org/listOrgTreeWithoutCheckBox.do', function(orgTreeData) {
+  $.getJSON('org/listOrgTreeWithoutCheckBox', function(orgTreeData) {
     orgTreeObj = $.fn.zTree.init($("#orgTree"), orgTreeSetting, orgTreeData);
     $('#orgInfo').html('');
   });
@@ -53,10 +53,10 @@ function addOrgBtnClick(ev) {
   var nodes = orgTreeObj.getSelectedNodes();
   
   var title = '新增机构';
-  var url = 'org/addAuditOrg.do';
+  var url = 'org/addAuditOrg';
   if (0 < nodes.length) {
     var selNode = nodes[0];
-    if ('auditOrg' != selNode.iconSkin && 'department' != selNode.iconSkin) {
+    if ('company' != selNode.iconSkin && 'department' != selNode.iconSkin) {
     	$.messager.alert('提示', '该页面不支持对人员节点进行操作，请选择一个机构或部门。', 'error');
     	return false;
     }
@@ -67,14 +67,14 @@ function addOrgBtnClick(ev) {
     }
     
     title = '新增部门'	;
-    url = 'org/addDepartment.do';
+    url = 'org/addDepartment';
     url += '?orgId=' + selNode.id;
   }
   
   if (title == '新增机构') {
 	var canAddAuditOrg = false;
 	$.ajax({
-	  url:'org/canAddAuditOrg.do'
+	  url:'org/canAddAuditOrg'
 	  ,type:'get'
 	  ,dataType:'json'
 	  ,cache:false
@@ -93,7 +93,7 @@ function addOrgBtnClick(ev) {
 	id:'u_frame'
 	,title: title
 	,width: 700
-	,height: 600
+	,height: 400
 	,href: url
 	,onDestroy: function() {
       reloadZtree();
@@ -112,7 +112,7 @@ function delOrgBtnClick(ev) {
   }
   
   var selNode = nodes[0];
-  if ('auditOrg' != selNode.iconSkin && 'department' != selNode.iconSkin) {
+  if ('company' != selNode.iconSkin && 'department' != selNode.iconSkin) {
     $.messager.alert('提示', '该页面不支持对人员节点进行操作，请选择一个机构或部门。', 'error');
     return false;
   }
@@ -125,7 +125,7 @@ function delOrgBtnClick(ev) {
   if (!selNode.pid) {
     var canDelAuditOrg = false;
     $.ajax({
-      url:'org/canDelAuditOrg.do'
+      url:'org/canDelAuditOrg'
       ,type:'get'
       ,dataType:'json'
       ,cache:false
@@ -142,7 +142,7 @@ function delOrgBtnClick(ev) {
   
   $.messager.confirm('警告', '数据删除后将不能恢复，您确定要删除当前所选项目？', function(r) {
 	if (!r) return;
-    var url = ('auditOrg' == selNode.iconSkin) ? 'org/delAuditOrg.do' : 'org/delDepartment.do';
+    var url = ('company' == selNode.iconSkin) ? 'org/delAuditOrg' : 'org/delDepartment';
     $.post(url, {'orgId' : selNode.id}, function(result) {
       $.messager.show({
         title : '提示'
@@ -154,4 +154,12 @@ function delOrgBtnClick(ev) {
     }, 'json');
   });
   return false;
+}
+
+function expandOrgBtnClick(){
+    orgTreeObj.expandAll(true);
+}
+
+function collapseOrgBtnClick(){
+    orgTreeObj.expandAll(false);
 }

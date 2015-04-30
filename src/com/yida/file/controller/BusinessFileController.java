@@ -3,7 +3,7 @@ package com.yida.file.controller;
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.controller.BaseController;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.file.entity.BusinessFile;
 import com.yida.file.entity.FileInfo;
 import com.yida.file.vo.ListBusinessFileForm;

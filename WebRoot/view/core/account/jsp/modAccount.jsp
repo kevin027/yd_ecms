@@ -1,11 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+ request.getContextPath()+"/"; %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!-- 引入自定义样式  -->
-<link href="core/role/js/plugin/css/chosen.css" rel="stylesheet" type="text/css" />
-<s:form id="modAccount_form" namespace="/account" action="updateAccount" method="post" cssStyle="padding-top:10px; padding-bottom:0px;">
-	<s:hidden name="saveAccountForm.id" />
-	<s:hidden name="saveAccountForm.roleIds" />
+<link href="${ctx}view/core/role/js/plugin/css/chosen.css" rel="stylesheet" type="text/css" />
+<form id="modAccount_form" action="${ctx}account/updateAccount" method="post" style="padding-top:10px; padding-bottom:0px;">
+    <input type="hidden" name="id" value="${form.id}"/>
 		<!-- 响应式布局类  table-responsive-->
 		<div class="table-responsive " style="padding:10px">
 		    <div class="row">
@@ -14,33 +15,36 @@
 			<table class="table" style="margin-top:10px">
 				<tr>
 					<td>账号名称：</td>
-					<td><s:textfield name="saveAccountForm.accounts" /></td>
+					<td><input type="text" name="accounts" value="${form.accounts}"/></td>
 				</tr>
 				<tr>
 					<td>是否有效：</td>
-					<td><s:select name="saveAccountForm.invalid" height="50px" list="#{false:'有效', true:'无效'}" /></td>
+					<td>
+                        <select id="invalid" name="invalid">
+                            <option value="0" <c:if test="${form.invalid eq false }">selected="selected"</c:if>>有效</option>
+                            <option value="1" <c:if test="${form.invalid eq true }">selected="selected"</c:if>>无效</option>
+                        </select>
+                    </td>
 				</tr>
 				<tr>
 					<td>角色选择： </td>
 					<td>
-						<select name="roleSlelect" style="width:400px" id="user_languages" multiple="true" data-placeholder="选择角色..." cssClass="span8">
-							<s:iterator id="cur" value="#request.roles">
-								<option value="<s:property value="#cur.id" />"
-									<s:if test="null != saveAccountForm.roleIds && saveAccountForm.roleIds.contains(#cur.id)">selected="true"</s:if>
-								>
-									<s:property value="#cur.name" />
+						<select name="roleIds" style="width:400px" id="user_languages" multiple="true" data-placeholder="选择角色..." class="span8">
+                            <c:forEach items="${roles}" var="r" varStatus="st">
+								<option value="${r.id}" <c:if test="${fn:contains(form.roleIds,r.id)}">selected="true"</c:if>>
+									${r.name}
 								</option>
-							</s:iterator>
+							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>关联人员: </td>
 					<td>
-					   <s:hidden id="accountId" name="saveAccountForm.staffId"></s:hidden>
+                        <input type="hidden" id="accountId" name="staffId" value="${form.staffId}"/>
 					   	<div style="width:345px" class="input-append">
 						<span style="float:left">
-					    <s:textfield id="accountName" name="saveAccountForm.staffName" readonly="true"></s:textfield>
+                            <input type="text" id="accountName" value="${form.staffName}" readonly="true"/>
 						</span>
 					    <button class="btn" name="chooseBtn">选择</button>
 					    <button class="btn" name="cancelBtn">取消</button>
@@ -50,8 +54,8 @@
 				
 			</table>
 		</div>
-</s:form>
-<script src="core/role/js/plugin/chosen.jquery.js" /></script>
-<script src="core/role/js/plugin/jquery.autosize.js" /></script>
-<script src="core/role/js/plugin/gebo_user_profile.js" /></script>
-<script src="core/account/js/modAccount.js"></script>
+</form>
+<script src="${ctx}view/core/role/js/plugin/chosen.jquery.js" /></script>
+<script src="${ctx}view/core/role/js/plugin/jquery.autosize.js" /></script>
+<script src="${ctx}view/core/role/js/plugin/gebo_user_profile.js" /></script>
+<script src="${ctx}view/core/account/js/modAccount.js"></script>

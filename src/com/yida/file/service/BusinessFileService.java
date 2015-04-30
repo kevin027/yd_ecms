@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tools.utils.StringUtils;
 import com.yida.core.base.service.BaseService;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.file.entity.BusinessFile;
 import com.yida.file.entity.FileInfo;
 import com.yida.file.vo.FileUploadForm;

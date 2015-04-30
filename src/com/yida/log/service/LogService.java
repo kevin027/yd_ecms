@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.controller.BaseController;
 import com.yida.core.base.service.BaseService;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
 import com.yida.log.entity.Log;
 import com.yida.log.vo.ListLogForm;

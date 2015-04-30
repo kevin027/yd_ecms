@@ -3,7 +3,7 @@ $(function(){
   //$("table tr td").css("line-height","50px");
 	
   $('#funAddForm').find('[name=saveBtn]').on('click', function() {
-	var idInput = $('#funAddForm').find('[name="function.id"]');
+	var idInput = $('#funAddForm').find('[name="id"]');
 	if ('' != idInput.val()) {
 	  $.messager.show({
 	    title:'提示'

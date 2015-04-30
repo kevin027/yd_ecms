@@ -20,7 +20,7 @@ function saveBtnClick(ev) {
   var roleId = $('#roleId').val();
   if (!roleId) {
     $('#u_form').form('submit', {
-	  url:"role/saveRole.do"
+	  url:"role/saveRole"
 	  ,success : function(result) {
 		result = JSON.parse(result);
         var resultMessage;
@@ -40,7 +40,7 @@ function saveBtnClick(ev) {
     });
   } else {
     $('#u_form').form('submit', {
-      url:"role/updateRole.do"
+      url:"role/updateRole"
       ,success : function(result) {
     	result = JSON.parse(result);
 	    var resultMessage;

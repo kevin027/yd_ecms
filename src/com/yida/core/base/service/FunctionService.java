@@ -5,7 +5,7 @@ import com.yida.core.base.entity.Account;
 import com.yida.core.base.entity.Function;
 import com.yida.core.base.entity.Role;
 import com.yida.core.base.vo.ListFunctionForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.interfaces.IFunctionTreeFilter;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;

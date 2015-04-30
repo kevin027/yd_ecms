@@ -13,7 +13,7 @@ import com.tools.utils.StringUtils;
 import com.yida.basedata.checkcontent.entity.CheckContent;
 import com.yida.basedata.checkcontent.vo.ListCheckContentForm;
 import com.yida.core.base.service.BaseService;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
 
 @Service("checkContentService")

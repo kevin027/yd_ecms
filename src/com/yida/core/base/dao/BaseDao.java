@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 
 public class BaseDao <E, PK extends Serializable> extends HibernateDaoSupport{
 	

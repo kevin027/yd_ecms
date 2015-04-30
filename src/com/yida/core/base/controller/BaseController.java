@@ -1,29 +1,12 @@
 package com.yida.core.base.controller;
 
-import java.beans.PropertyEditorSupport;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.tools.sys.DateTypeEditor;
+import com.tools.sys.SysConstant;
+import com.yida.core.base.entity.Account;
+import com.yida.core.base.entity.Function;
+import com.yida.core.base.entity.Staff;
 import net.sf.json.JSONObject;
 import net.sf.jxls.transformer.XLSTransformer;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
@@ -37,12 +20,20 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.tools.sys.DateTypeEditor;
-import com.tools.sys.SysConstant;
-import com.yida.core.base.entity.Account;
-import com.yida.core.base.entity.Function;
-import com.yida.core.base.entity.Staff;
-import com.yida.core.common.PageInfo;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.beans.PropertyEditorSupport;
+import java.io.*;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @描述 基础Controller
@@ -139,35 +130,7 @@ public class BaseController extends BaseControllerProperties{
 		if(rows!=null) return Integer.valueOf(rows);
 		return 0;
 	}
-	
-	public void setPage(Integer page) {
-		this.page = page;
-		if (null != page && !"".equals(page)) {
-			if (null == pageInfo) {
-				pageInfo = new PageInfo();
-			}
-			pageInfo.setCurrentPage(page);
-		}
-	}
 
-	public void setRows(Integer rows) {
-		this.rows = rows;
-		if (null != rows && !"".equals(rows)) {
-			if (null == pageInfo) {
-				pageInfo = new PageInfo();
-			}
-			pageInfo.setMaxResult(rows);
-		}
-	}
-	
-	public Integer getPage() {
-		return page;
-	}
-	
-	public Integer getRows() {
-		return rows;
-	}
-	
 	/**
 	 * jxls模板导出
 	 * @param beans

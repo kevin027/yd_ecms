@@ -5,7 +5,7 @@ import com.tools.utils.StringUtils;
 import com.yida.basedata.area.entity.Area;
 import com.yida.basedata.area.vo.ListAreaForm;
 import com.yida.core.base.controller.BaseController;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

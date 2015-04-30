@@ -1,20 +1,11 @@
 package com.yida.core.base.service;
 
-import javax.annotation.Resource;
-
 import com.yida.basedata.area.dao.AreaDao;
 import com.yida.basedata.audittype.dao.AuditTypeDao;
 import com.yida.basedata.checkcontent.dao.CheckContentDao;
 import com.yida.basedata.checkitems.dao.CheckItemDao;
 import com.yida.basedata.major.dao.MajorDao;
-import com.yida.core.base.dao.AccountDao;
-import com.yida.core.base.dao.AuditOrgDao;
-import com.yida.core.base.dao.DepartmentDao;
-import com.yida.core.base.dao.FunctionDao;
-import com.yida.core.base.dao.OrgDao;
-import com.yida.core.base.dao.RoleDao;
-import com.yida.core.base.dao.SqlCommonDao;
-import com.yida.core.base.dao.StaffDao;
+import com.yida.core.base.dao.*;
 import com.yida.file.dao.BusinessFileDao;
 import com.yida.file.dao.FileDao;
 import com.yida.file.dao.FileOpConfigDao;
@@ -23,6 +14,8 @@ import com.yida.log.dao.LogDao;
 import com.yida.mail.dao.MailAttachDao;
 import com.yida.mail.dao.MailDao;
 import com.yida.mail.dao.MailPartyDao;
+
+import javax.annotation.Resource;
 
 /**
  * @描述 所有dao集合
@@ -52,5 +45,5 @@ public class BaseServiceProperties {
 	public @Resource FileOpLogDao fileOpLogDao;
 	public @Resource FileOpConfigDao fileOpConfigDao;
 	public @Resource LogDao logDao;
-	
+
 }

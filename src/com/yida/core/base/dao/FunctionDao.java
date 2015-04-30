@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yida.core.base.entity.Function;
 import com.yida.core.base.vo.ListFunctionForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 
 @Repository
 public class FunctionDao extends BaseDao<Function, String> {

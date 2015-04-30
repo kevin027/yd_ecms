@@ -1,4 +1,4 @@
-package com.yida.core.common;
+package com.tools.sys;
 
 public class PageInfo {
 	
@@ -13,7 +13,11 @@ public class PageInfo {
 	
 	//合计页数，初始无值，在totalResult被设置时同时计算得到。
 	private Integer totalPage;
-	
+
+    private Integer page;
+
+    private Integer rows;
+
 	public PageInfo() {
 		this.currentPage = 1;
 	}
@@ -51,5 +55,26 @@ public class PageInfo {
 	public Integer getFirstResult() {
 		return (currentPage-1) * maxResult;
 	}
-	
+
+    public void setPage(Integer page) {
+        this.page = page;
+        if (null != page && !"".equals(page)) {
+            this.setCurrentPage(page);
+        }
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
+        if (null != rows && !"".equals(rows)) {
+            this.setMaxResult(rows);
+        }
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
 }

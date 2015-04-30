@@ -29,13 +29,13 @@ var funTreeObj;
       }
       , onClick: function (event, treeId, treeNode) {
     	selNode = treeNode;
-        $('#orgInfo').load('org/orgTreeNodeInfo.do', {'orgId' : treeNode.id});
+        $('#orgInfo').load('org/orgTreeNodeInfo', {'orgId' : treeNode.id});
       }
     }
   };
   
   function loadZtree() {
-    $.get('fun/listFunctionForSelect.do', function(zTreeNodes) {
+    $.get('fun/listFunctionForSelect', function(zTreeNodes) {
       funTreeObj = $.fn.zTree.init($("#funTree"), funTreeSetting, zTreeNodes);
     }, 'json');
   }
@@ -49,7 +49,7 @@ var funTreeObj;
     	  showTips('请选择一个节点进行操作。');
     	  return false;
     	}
-    	var url = 'fun/addFunctionPage.action?function.parent.id=' + selNode.id;
+    	var url = 'fun/addFunctionPage?parentId=' + selNode.id;
     	$.layer({
       		type : 2,
       		shade : [0],
@@ -70,7 +70,7 @@ var funTreeObj;
     		showTips('请选择一个节点进行操作。');
         	return false;
         }
-      	var url = 'fun/editFunctionPage.action?function.id=' + selNode.id;
+      	var url = 'fun/editFunctionPage?id=' + selNode.id;
       	$.layer({
       		type : 2,
       		shade : [0],
@@ -95,7 +95,7 @@ var funTreeObj;
     		showTips('要删除该节点请先删除该节点下的所有子节点。');
         	return false;
     	}
-    	var url = 'fun/deleteFunction.action';
+    	var url = 'fun/deleteFunction';
     	showConfirm('删除数据后将不可回恢，确定删除吗?', function() {
     		$.post(url, {'function.id' : selNode.id}, function(json) {
     			if (json.success) {

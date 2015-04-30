@@ -25,7 +25,7 @@ var dataGridDefault = {
 
 // 表格自定义数据
 var dataGridCustom = {
-  url : 'staff/listStaff.do'
+  url : 'staff/listStaff'
   ,toolbar : '#toolbar'
   ,frozenColumns : [[ 
     {checkbox : true}
@@ -88,7 +88,7 @@ function addUserBaseInfoClick(ev){
 		title: '新增用户信息',
 		selected: true,
 		closable : true,
-		content : '<iframe scrolling="auto" frameborder="0"  src="core/staff/jsp/addStaffInfo.jsp" style="width:100%;height:98%;"></iframe>'
+		content : '<iframe scrolling="auto" frameborder="0"  src="view/core/staff/jsp/addStaffInfo.jsp" style="width:100%;height:98%;"></iframe>'
 	  }
   );
 }
@@ -106,7 +106,7 @@ function addStaffBtnClick(ev) {
 	,title : '添加用户'
 	,width : 800
 	,height : 600
-	,href : 'staff/addStaff.do'
+	,href : 'staff/addStaff'
     ,onDestroy : function() {
       datagrid.datagrid('unselectAll');
 	  datagrid.datagrid('reload');
@@ -141,7 +141,7 @@ function modStaffBtnClick(ev) {
 	,title : '编辑用户'
 	,width : 800
 	,height : 600
-	,href : 'staff/modStaff.do?staffId=' + rows[0].id
+	,href : 'staff/modStaff?staffId=' + rows[0].id
     ,onDestroy : function() {
       datagrid.datagrid('unselectAll');
 	  datagrid.datagrid('reload');	
@@ -169,7 +169,7 @@ function delStaffBtnClick(ev) {
 		
 		// 通过ajax请求删除人员。
         $.ajax({
-          url : 'staff/deleteStaffs.do'
+          url : 'staff/deleteStaffs'
 		  ,data : data
 		  ,cache : false
 		  ,dataType : "json"

@@ -1,12 +1,11 @@
 package com.yida.core.base.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Org;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class OrgDao extends BaseDao<Org, String> {

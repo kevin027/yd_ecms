@@ -3,7 +3,7 @@ package com.yida.core.base.controller;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.AuditOrg;
 import com.yida.core.base.vo.ListAuditOrgForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.common.ztree.JsonListResultForZtree;
 import com.yida.core.common.ztree.ZtreeHelper;
 import org.springframework.stereotype.Controller;
@@ -25,8 +25,8 @@ public class AuditOrgController extends BaseController {
 	}
 	
 	@RequestMapping("listAuditOrg")
-	public String listAuditOrg(ListAuditOrgForm queryOrg,PageInfo pageInfo) {
-		List<AuditOrg> auditOrgs = auditOrgService.listAuditOrg(queryOrg, pageInfo);
+	public String listAuditOrg(ListAuditOrgForm query,PageInfo pageInfo) {
+		List<AuditOrg> auditOrgs = auditOrgService.listAuditOrg(query, pageInfo);
 		List<String> excludePropertys = Arrays.asList( "departments" );
 		jsonText = StringUtils.toJsonArrayExcludeProperty(auditOrgs, excludePropertys);
 		return "listAuditOrg";
@@ -35,7 +35,7 @@ public class AuditOrgController extends BaseController {
 	@ResponseBody
     @JsonListResultForZtree
 	@RequestMapping("listAuditOrgForSelect")
-	public String listAuditOrgForSelect(ListAuditOrgForm queryOrg,PageInfo pageInfo,String selAuditOrgIds) {
+	public String listAuditOrgForSelect(ListAuditOrgForm query,PageInfo pageInfo,String selAuditOrgIds) {
 		try {
 			Set<String> checkAuditOrgIdSet = new HashSet<String>();
 			if (null != selAuditOrgIds) {
@@ -43,7 +43,7 @@ public class AuditOrgController extends BaseController {
 					checkAuditOrgIdSet.add(selAuditOrgId);
 				}
 			}
-			List<AuditOrg> auditOrgs = auditOrgService.listAuditOrg(queryOrg, pageInfo);
+			List<AuditOrg> auditOrgs = auditOrgService.listAuditOrg(query, pageInfo);
 			jsonText = StringUtils.toJsonArray(ZtreeHelper.toZtreeData("0", auditOrgs, checkAuditOrgIdSet));
 		} catch (Exception e) {
 			logger.error("listAuditOrgForSelect获取机构信息失败", e);

@@ -1,14 +1,13 @@
 package com.yida.core.base.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.tools.utils.StringUtils;
+import com.yida.core.base.entity.Org;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.tools.utils.StringUtils;
-import com.yida.core.base.entity.Org;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("orgService")
 @Scope("singleton")
@@ -26,7 +25,7 @@ public class OrgService extends BaseService {
 
 	/**
 	 * 根据父级组织机构节点ID，查找其子级组织机构。
-	 * @param orgId 机构节点ID，为空时则说明从根节点开始查找
+	 * @param parentId 机构节点ID，为空时则说明从根节点开始查找
 	 * @param withCascadeChildren 获取的子级组织机构是否包含级联的子组织机构
 	 * @return 树结构的Org列表对象，列表中关联的所有对象非持久化对象。
 	 */
@@ -65,7 +64,7 @@ public class OrgService extends BaseService {
 
 	/**
 	 * 根据部门主任ID找出所管辖的部门
-	 * @param id
+	 * @param leaderId
 	 * @return
 	 */
 	public List<Org> listOrgByLeaderId(String leaderId) {

@@ -13,7 +13,7 @@ import com.yida.core.base.entity.AuditOrg;
 import com.yida.core.base.entity.Staff;
 import com.yida.core.base.vo.ListAuditOrgForm;
 import com.yida.core.base.vo.SaveAuditOrgForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
 import com.yida.core.exception.NameRepeatException;
 

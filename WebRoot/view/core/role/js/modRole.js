@@ -18,7 +18,7 @@ function clearBtnClick(ev) {
 //jquery事件函数，保存按钮事件
 function saveBtnClick(ev) {
   $('#u_form').form('submit', {
-	url:"role/updateRole.do"
+	url:"role/updateRole"
 	,success : function(data) {
       data = JSON.parse(data);
       var resultMessage;

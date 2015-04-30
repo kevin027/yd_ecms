@@ -1,6 +1,7 @@
 package helper.controller;
 
 
+import com.tools.sys.PageInfo;
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.controller.BaseController;
@@ -10,26 +11,27 @@ import helper.vo.ListGenTemplateForm;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("/gen")
 public class GenTemplateController extends BaseController {
-    private @Resource
-    GenTemplateService genTemplateService;
-    private GenTemplate genTemplate;
-    private ListGenTemplateForm query;
+
+    public @Resource GenTemplateService genTemplateService;
 
     @RequestMapping("main")
     public String main() {
         return "main";
     }
 
+    @ResponseBody
     @RequestMapping("listGenTemplate")
-    public String listGenTemplate() {
+    public String listGenTemplate(ListGenTemplateForm query,PageInfo pageInfo) {
         try {
             List<GenTemplate> list = this.genTemplateService.listGenTemplate(query, pageInfo);
             List<String> includePropertys = Arrays.asList("id", "name", "invalid", "remark");
@@ -37,7 +39,7 @@ public class GenTemplateController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SysConstant.JSON_RESULT_PAGE;
+        return jsonText;
     }
 
     @RequestMapping("addGenTemplate")
@@ -45,8 +47,9 @@ public class GenTemplateController extends BaseController {
         return "addGenTemplate";
     }
 
+    @ResponseBody
     @RequestMapping("saveGenTemplate")
-    public String saveGenTemplate() {
+    public String saveGenTemplate(GenTemplate genTemplate) {
         JSONObject result = new JSONObject();
         try {
             GenTemplate saveEntity = this.genTemplateService.saveGenTemplate(genTemplate);
@@ -56,17 +59,19 @@ public class GenTemplateController extends BaseController {
             result.put(SysConstant.AJAX_ERROR, "新增失败：" + e.getMessage());
         }
         jsonText = result.toString();
-        return SysConstant.JSON_RESULT_PAGE;
+        return jsonText;
     }
 
     @RequestMapping("modGenTemplate")
-    public String modGenTemplate() {
-        genTemplate = genTemplateService.getGenTemplateById(genTemplate.getId());
+    public String modGenTemplate(HttpServletRequest request,String id) {
+        GenTemplate genTemplate = genTemplateService.getGenTemplateById(id);
+        request.setAttribute("form",genTemplate);
         return "modGenTemplate";
     }
 
+    @ResponseBody
     @RequestMapping("updateGenTemplate")
-    public String updateGenTemplate() {
+    public String updateGenTemplate(GenTemplate genTemplate) {
         JSONObject result = new JSONObject();
         try {
             this.genTemplateService.updateGenTemplate(genTemplate);
@@ -75,13 +80,12 @@ public class GenTemplateController extends BaseController {
             result.put(SysConstant.AJAX_ERROR, "修改失败：" + e.getMessage());
         }
         jsonText = result.toString();
-        return SysConstant.JSON_RESULT_PAGE;
+        return jsonText;
     }
 
-    private String genTemplateId;
-
+    @ResponseBody
     @RequestMapping("delGenTemplate")
-    public String delGenTemplate() {
+    public String delGenTemplate(String genTemplateId) {
         JSONObject result = new JSONObject();
         try {
             this.genTemplateService.delGenTemplateById(genTemplateId);
@@ -90,31 +94,7 @@ public class GenTemplateController extends BaseController {
             result.put(SysConstant.AJAX_ERROR, "删除失败：" + e.getMessage());
         }
         jsonText = result.toString();
-        return SysConstant.JSON_RESULT_PAGE;
-    }
-
-    public GenTemplate getGenTemplate() {
-        return genTemplate;
-    }
-
-    public void setGenTemplate(GenTemplate genTemplate) {
-        this.genTemplate = genTemplate;
-    }
-
-    public ListGenTemplateForm getQuery() {
-        return query;
-    }
-
-    public void setQuery(ListGenTemplateForm query) {
-        this.query = query;
-    }
-
-    public String getGenTemplateId() {
-        return genTemplateId;
-    }
-
-    public void setGenTemplateId(String genTemplateId) {
-        this.genTemplateId = genTemplateId;
+        return jsonText;
     }
 
 }

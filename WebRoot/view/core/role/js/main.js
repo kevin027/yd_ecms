@@ -24,7 +24,7 @@ var dataGridDefault = {
 
 // 表格自定义数据
 var dataGridCustom = {
-  url : 'role/listRole.do'
+  url : 'role/listRole'
   ,idField: 'id'
   ,toolbar: '#toolbar'	
   ,frozenColumns : [[ 
@@ -88,7 +88,7 @@ function addRoleBtnClick(ev) {
 	,iconCls:'icon-user'
 	,width : 700
 	,height : 450
-	,href : 'role/addRole.do'
+	,href : 'role/addRole'
     ,onDestroy : function() {
       datagrid.datagrid('unselectAll');
 	  datagrid.datagrid('reload');	
@@ -114,7 +114,7 @@ function modRoleBtnClick(ev) {
 	,title : '编辑用户'
 	,width : 700
 	,height : 600
-	,href : 'role/modRole.do?roleId=' + rows[0].id
+	,href : 'role/modRole?roleId=' + rows[0].id
     ,onDestroy : function() {
       datagrid.datagrid('unselectAll');
 	  datagrid.datagrid('reload');	
@@ -141,7 +141,7 @@ function delRoleBtnClick(ev) {
     	  
 		// 通过ajax请求删除。
         $.ajax({
-          url : 'role/delRole.do'
+          url : 'role/delRole'
 		  ,data : data
 		  ,cache : false
 		  ,dataType : "json"
@@ -181,7 +181,7 @@ function loadFunctionTreeAfterSelectRole() {
   var rows = datagrid.datagrid('getSelections');
   if (rows.length > 0) {
     var roleId = rows[0].id;
-    $.get('fun/listFunctionForSelect.do?selRoleId=' + roleId, function(zTreeNodes) {
+    $.get('fun/listFunctionForSelect?selRoleId=' + roleId, function(zTreeNodes) {
       // 树显示的一些设置
       var setting = {
         view: {
@@ -216,7 +216,7 @@ function loadAccountTreeAfterSelectRole() {
   var rows = datagrid.datagrid('getSelections');
   if (rows.length > 0) {
     var roleId = rows[0].id;
-    $.get('org/listOrgTreeForAccountSelect.do?selRoleId=' + roleId, function(zTreeNodes) {
+    $.get('org/listOrgTreeForAccountSelect?selRoleId=' + roleId, function(zTreeNodes) {
       // 树显示的一些设置
       var setting = {
         view: {
@@ -273,7 +273,7 @@ function functionEmpowerBtnClick(ev) {
         ,'functionIds' : ids.join(',')
       };
     	  
-      $.post('role/functionEmpower.do', data, function(result) {
+      $.post('role/functionEmpower', data, function(result) {
     	var rmsg = result.success ? result.success : result.error;
     	$.messager.alert('提示', rmsg, 'info');
     	if (result.success) {
@@ -336,7 +336,7 @@ function accountEmpowerBtnClick(ev) {
         ,'accountIds' : ids.join(',')
       };
     	  
-      $.post('role/accountEmpower.do', data, function(result) {
+      $.post('role/accountEmpower', data, function(result) {
     	var rmsg = result.success ? result.success : result.error;
     	$.messager.alert('提示', rmsg, 'info');
     	if (result.success) {

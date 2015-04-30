@@ -17,7 +17,7 @@ import com.yida.core.base.entity.Function;
 import com.yida.core.base.entity.Role;
 import com.yida.core.base.vo.ListRoleForm;
 import com.yida.core.base.vo.SaveRoleForm;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.core.exception.EntityNotFoundException;
 
 @Service("roleService")

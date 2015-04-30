@@ -65,11 +65,12 @@ public class FunctionController extends BaseController {
 	
 	@RequestMapping("addFunction")
 	public String addFunction(HttpServletRequest request,String parentId) {
-        Function function = this.functionService.getById(parentId);
-		if (null != function && null != function.getParent() && StringUtils.isMeaningFul(function.getParent().getId())) {
-			Function parent = this.functionService.getById(function.getParent().getId());
+        Function function = new Function();
+		if (null != parentId && StringUtils.isMeaningFul(parentId)) {
+			Function parent = this.functionService.getById(parentId);
 			function.setParent(parent);
 		}
+        request.setAttribute("function",function);
 		request.setAttribute("functionTypeList", Function.Type.values());
 		return "core/function/jsp/addFunction";
 	}
@@ -127,11 +128,11 @@ public class FunctionController extends BaseController {
 
     @ResponseBody
 	@RequestMapping("deleteFunction")
-	public String deleteFunction(Function function) {
+	public String deleteFunction(String id) {
 		JSONObject r = new JSONObject();
 		try {
 			// 根据ID删除功能
-			this.functionService.delFunctionById(function.getId());
+			this.functionService.delFunctionById(id);
 			
 			// 调整当前登录人员的权限
 			try {

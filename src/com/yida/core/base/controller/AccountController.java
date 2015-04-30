@@ -1,5 +1,6 @@
 package com.yida.core.base.controller;
 
+import com.tools.sys.PageInfo;
 import com.tools.sys.SysConstant;
 import com.tools.utils.StringUtils;
 import com.yida.core.base.entity.Account;
@@ -7,7 +8,6 @@ import com.yida.core.base.vo.ListAccountForm;
 import com.yida.core.base.vo.ListRoleForm;
 import com.yida.core.base.vo.ModifyPasswordForm;
 import com.yida.core.base.vo.SaveAccountForm;
-import com.yida.core.common.PageInfo;
 import com.yida.core.interceptors.Permission;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -39,13 +39,13 @@ public class AccountController extends BaseController {
 	 */
     @ResponseBody
 	@RequestMapping("listAccount")
-	public String listAccount(PageInfo pageInfo,ListAccountForm queryAccount) {
+	public String listAccount(PageInfo pageInfo,ListAccountForm query) {
 		try {
-			if (null == queryAccount) {
-				queryAccount = new ListAccountForm();
+			if (null == query) {
+                query = new ListAccountForm();
 			}
-			queryAccount.setAuditOrgId(super.getCurrentAuditOrgId());
-			List<Account> list = this.accountService.listAccount(queryAccount, pageInfo);
+            query.setAuditOrgId(super.getCurrentAuditOrgId());
+			List<Account> list = this.accountService.listAccount(query, pageInfo);
 			
 			List<String> includePropertys = Arrays.asList("id", "accounts", "invalid", "createDate", "roleNames", "staffName");
 			jsonText = "{\"total\": " + pageInfo.getTotalResult() + ", \"rows\":" + StringUtils.toJsonArrayIncludeProperty(list, includePropertys) + "}";
@@ -69,20 +69,21 @@ public class AccountController extends BaseController {
 	/**
 	 * 账号新增页面-保存操作
 	 */
+    @ResponseBody
 	@RequestMapping("saveAccount")
-	public String saveAccount(SaveAccountForm saveAccountForm) {
+	public String saveAccount(SaveAccountForm form) {
 		JSONObject result = new JSONObject();
 		try {
 			if (null != super.getCurrentAccount()) {
-				saveAccountForm.setAuditOrgId(super.getCurrentAuditOrgId());
+				form.setAuditOrgId(super.getCurrentAuditOrgId());
 			}
-			this.accountService.saveAccount(saveAccountForm);
+			this.accountService.saveAccount(form);
 			result.put(SysConstant.AJAX_SUCCESS, "新增成功。");
 		} catch (Exception e) {
 			result.put(SysConstant.AJAX_ERROR, "新增失败：" + e.getMessage());
 		}
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
@@ -93,29 +94,31 @@ public class AccountController extends BaseController {
 		ListRoleForm roleForm = new ListRoleForm();
 		roleForm.setAuditOrgId(super.getCurrentAuditOrgId());
 		request.setAttribute("roles", roleService.listRole(roleForm, null));
-		saveAccountForm = new SaveAccountForm(this.accountService.getAccountById(accountId));
+        request.setAttribute("form",new SaveAccountForm(this.accountService.getAccountById(accountId)));
 		return "core/account/jsp/modAccount";
 	}
 	
 	/**
 	 * 账号修改页面-保存修改操作
 	 */
+    @ResponseBody
 	@RequestMapping("updateAccount")
-	public String updateAccount(SaveAccountForm saveAccountForm) {
+	public String updateAccount(SaveAccountForm form) {
 		JSONObject result = new JSONObject();
 		try {
-			Account account = accountService.updateAccount(saveAccountForm);
+			Account account = accountService.updateAccount(form);
 			result.put(SysConstant.AJAX_SUCCESS, "修改成功。");
 		} catch (Exception e) {
 			result.put(SysConstant.AJAX_ERROR, "修改失败：" + e.getMessage());
 		} 
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 	/**
 	 * 账号管理主页面-删除操作
 	 */
+    @ResponseBody
 	@RequestMapping("delAccount")
 	public String delAccount(String accountId) {
 		JSONObject result = new JSONObject();
@@ -128,45 +131,47 @@ public class AccountController extends BaseController {
 			result.put(SysConstant.AJAX_MSG, "删除失败：" + e.getMessage());
 		} 
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
-	
+
+    @ResponseBody
 	@RequestMapping("modAccountPassword")
-	public String modAccountPassword(ModifyPasswordForm modifyPasswordForm) {
+	public String modAccountPassword(ModifyPasswordForm form) {
 		JSONObject result = new JSONObject();
 		try {
-			if (null == modifyPasswordForm) {
-				modifyPasswordForm = new ModifyPasswordForm();
+			if (null == form) {
+				form = new ModifyPasswordForm();
 			}
-			modifyPasswordForm.setId(super.getCurrentAccount().getId());
-			accountService.modAccountPassword(modifyPasswordForm);
+			form.setId(super.getCurrentAccount().getId());
+			accountService.modAccountPassword(form);
 			result.put(SysConstant.AJAX_SUCCESS, "修改成功。");
-			super.getCurrentAccount().setPassword(modifyPasswordForm.getNewPassword());
+			super.getCurrentAccount().setPassword(form.getNewPassword());
 		} catch (Exception e) {
 			result.put(SysConstant.AJAX_ERROR, "修改失败：" + e.getMessage());
 		} 
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
-	
+
+    @ResponseBody
 	@RequestMapping("resetAccountPassword")
-	public String resetAccountPassword(ModifyPasswordForm modifyPasswordForm,String accountId) {
+	public String resetAccountPassword(ModifyPasswordForm form,String accountId) {
 		JSONObject result = new JSONObject();
 		try {
-			if (null == modifyPasswordForm) {
-				modifyPasswordForm = new ModifyPasswordForm();
+			if (null == form) {
+                form = new ModifyPasswordForm();
 			}
-			modifyPasswordForm.setId(super.getCurrentAccount().getId());
+            form.setId(super.getCurrentAccount().getId());
 			accountService.resetAccountPassword(accountId);
 			result.put(SysConstant.AJAX_REQ_STATUS, true);
 			result.put(SysConstant.AJAX_MSG, "重置成功。");
-			super.getCurrentAccount().setPassword(modifyPasswordForm.getNewPassword());
+			super.getCurrentAccount().setPassword(form.getNewPassword());
 		} catch (Exception e) {
 			result.put(SysConstant.AJAX_REQ_STATUS, false);
 			result.put(SysConstant.AJAX_MSG, "重置失败：" + e.getMessage());
 		} 
 		jsonText = result.toString();
-		return SysConstant.JSON_RESULT_PAGE;
+		return jsonText;
 	}
 	
 }

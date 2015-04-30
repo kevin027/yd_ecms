@@ -2,7 +2,7 @@ package com.yida.desktop.service;
 
 import com.yida.core.base.entity.Account;
 import com.yida.core.base.service.BaseService;
-import com.yida.core.common.PageInfo;
+import com.tools.sys.PageInfo;
 import com.yida.desktop.entity.DevMark;
 import org.springframework.stereotype.Service;
 
