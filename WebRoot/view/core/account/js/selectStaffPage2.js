@@ -7,7 +7,7 @@ $(document).ready(function() {
 });
 
 function loadOrgTree() {
-  $.get('org/listOrgTreeForOrgSelectWithoutCheckBox.do', function(zTreeNodes) {
+  $.get('org/listOrgTreeForOrgSelectWithoutCheckBox', function(zTreeNodes) {
     // 树显示的一些设置
     var setting = {
       view: {
@@ -27,7 +27,7 @@ function loadOrgTree() {
           
           $('#_staffList').find('._deptGroup').hide();
           
-          $.getJSON('staff/listStaffForSelect.do?query.orgId=' + treeNode.id, function(result) {
+          $.getJSON('staff/listStaffForSelect?orgId=' + treeNode.id, function(result) {
         	 var tempUl = $('<ul style="list-style:none;margin:0px" class="_deptGroup" id="' + treeNode.id + '" />');
              $.each(result.rows, function() {
                 var chk = $('<input type="checkbox" name="sc_' + treeNode.id + '"/>')

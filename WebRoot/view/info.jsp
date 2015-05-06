@@ -7,11 +7,9 @@ if (null == request.getSession(false)) {
 	response.sendRedirect("login.jsp");
 	return;
 }
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-    <jsp:include page="/view/inc.jsp"></jsp:include>
+<jsp:include page="/view/inc.jsp"></jsp:include>
   
 <body class="easyui-layout" style="overflow-y: hidden"  scroll="no" >
 	
@@ -29,11 +27,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <table class="table table-bordered table-condensed"  style="height:100%">
            <tr>
            		<td style="text-align:center;border-left:none;width:100px">用户</td>
-           		<td style="text-align:left"><s:property value="#session.LOGIN_ACCOUNT.showName" /></td>
+           		<td style="text-align:left">${LOGIN_ACCOUNT.showName}</td>
            	</tr>
            <tr>
            		<td style="text-align:center;border-left:none;width:100px">账号</td>
-           		<td style="text-align:left"><s:property value="#session.LOGIN_ACCOUNT.accounts" /></td>
+           		<td style="text-align:left">${LOGIN_ACCOUNT.accounts}</td>
            	</tr>
            <tr>
            		<td style="border-left:none;text-align:center">密码</td>
@@ -41,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            	</tr>
            <tr>
            		<td style="border-left:none;text-align:center">E-mail</td>
-           		<td style="text-align:left"><s:property value="#session.LOGIN_ACCOUNT.staff.email" /></td>
+           		<td style="text-align:left">${LOGIN_ACCOUNT.staff.email}</td>
            	</tr>
            <tr>
            		<td style="border-left:none;text-align:center">最近工作：</td>

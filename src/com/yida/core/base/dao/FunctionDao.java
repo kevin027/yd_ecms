@@ -57,7 +57,7 @@ public class FunctionDao extends BaseDao<Function, String> {
 			@Override
 			public List<Function> doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String subSql = "select r.id from mp_account_role mar inner join s_role r on mar.roleId = r.id where mar.accountId = ? and r.audit_org_id = ? and r.invalid <> 1";
+				String subSql = "select r.id from mp_account_role mar inner join s_role r on mar.roleId = r.id where mar.accountId = ? and r.auditOrgId = ? and r.invalid <> 1";
 				StringBuilder sb = new StringBuilder("select distinct o.* from s_function o inner join mp_role_function mrf on o.id = mrf.functionId where mrf.roleId in (").append(subSql).append(")");
 				sb.append(" order by o.hierarchy, o.sortCode");
 				SQLQuery q = session.createSQLQuery(sb.toString());

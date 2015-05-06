@@ -5,8 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<base href="${ctx}" />
 <title></title>
-<jsp:include page="${ctx}view/inc.jsp"></jsp:include>
+
+<jsp:include page="/view/inc.jsp"></jsp:include>
+
 <script type="text/javascript" charset="utf-8">
 	var portalLayout;
 	var portal;
@@ -32,14 +35,14 @@
 				handler:function(){
 					parent.$("#tabs").tabs("add", {
 						  title : "待办任务",
-					      content : '<iframe scrolling="auto" frameborder="0" src="${ctx}desktop/personalTodosMore" style="width:100%;height:99%;"></iframe>',
+					      content : '<iframe scrolling="auto" frameborder="0" src="desktop/personalTodosMore" style="width:100%;height:99%;"></iframe>',
 						  closable : true
 						});
 				}
 			}],
 			collapsible : true,
 			closable:false,
-			href : '${ctx}desktop/personalTodos'
+			href : 'desktop/personalTodos'
 		}, {
 			id : 'p2',
 			title : '邮件通讯<span class="badge badge-important" style="margin-left:10px;cursor:default"></span>',
@@ -47,7 +50,7 @@
 			iconCls:'icon-email',
 			collapsible : true,
 			closable:false,
-			href : '${ctx}desktop/personalMails',
+			href : 'desktop/personalMails',
 			tools:[{
 				iconCls:'more',
 				handler:function(){
@@ -79,7 +82,7 @@
 			iconCls:'icon-comments',
 			collapsible : true,
 			closable:false,
-			href : '${ctx}desktop/publicNotices',
+			href : 'desktop/publicNotices',
 			tools:[{
 				iconCls:'more',
 				handler:function(){
@@ -93,7 +96,7 @@
 			iconCls:'icon-user_comment',
 			collapsible : true,
 			closable:false,
-			href : '${ctx}desktop/applyNotices',
+			href : 'desktop/applyNotices',
 			tools:[{
 				iconCls:'more',
 				handler:function(){
@@ -107,7 +110,7 @@
 			iconCls:'icon-server',
 			collapsible : true,
 			closable:false,
-			href : '${ctx}desktop/systemDevMark',
+			href : 'desktop/systemDevMark',
 			tools:[{
 				iconCls:'more',
 				handler:function(){

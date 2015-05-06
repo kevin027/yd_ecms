@@ -135,7 +135,7 @@ $(function(){
     	    minimizable:false,
     	    maximizable:false,
     	    resizable:false,
-    	    content:"<iframe src='info.jsp' style='width:100%;height:98%;border:none'></iframe>"
+    	    content:"<iframe src='view/info.jsp' style='width:100%;height:98%;border:none'></iframe>"
     	}); 
     	
     }

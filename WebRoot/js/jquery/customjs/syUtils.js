@@ -246,7 +246,7 @@ function chooseStaff(scope, chooseStaffCallback) {
     title : '人员选择',
     width : 630,
     height : 550,
-    href : 'core/account/jsp/selectStaffPage.jsp'
+    href : 'view/core/account/jsp/selectStaffPage.jsp'
     ,onDestroy : function() {
       if (_success) {
         chooseStaffCallback(_selStaff);  
@@ -281,7 +281,7 @@ function chooseStaff2(scope, chooseStaffCallback) {
     title : '人员选择',
     width : 630,
     height : 550,
-    href : 'core/account/jsp/selectStaffPage2.jsp'
+    href : 'view/core/account/jsp/selectStaffPage2.jsp'
     ,onDestroy : function() {
       if (_success) {
         chooseStaffCallback(_selStaff);  
@@ -325,7 +325,7 @@ function chooseDept(scope, chooseDeptCallback) {
     title : '部门选择',
     width : 630,
     height : 550,
-    href : 'core/org/jsp/selectDeptPage.jsp'
+    href : 'view/core/org/jsp/selectDeptPage.jsp'
     ,onDestroy : function() {
       if (_selDeptSuccess) {
         chooseDeptCallback(_selDept);  

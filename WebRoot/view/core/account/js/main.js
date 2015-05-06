@@ -43,7 +43,7 @@ var dataGridCustom = {
     }
   ]]
   ,columns : [[ 
-   {field:'staffName', title:'关联人员', width:120}
+   {field:'staffName', title:'关联人员', width:160}
    ,{field:'roleNames', title:'关联角色', width:400, tooltip:true}
    ,{field:'createDate', title:'创建日期', width:150}
    ,{field:'invalid', title:'是否有效', width:80, align:'left', formatter:function(value, rowData, rowIndex) {return ("0" == value)?"有效":"<span style='color:red'>无效</span>";}}

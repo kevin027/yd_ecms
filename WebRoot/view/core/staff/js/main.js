@@ -38,7 +38,7 @@ var dataGridCustom = {
     }
   ]]
   ,columns : [[ 
-    {field : 'sex', title : '性别', width : 60, align : 'left', formatter : function(value, rowData, rowIndex) {switch(value){case "MALE": return "男"; case "FEMALE" : return "女"; default: return "";}}}
+    {field : 'sex', title : '性别', width : 60, align : 'left', formatter : function(value, rowData, rowIndex) {switch(value){case "MALE": return "男"; case "FEMALE" : return "女"; default: return "其他";}}}
    ,{field : 'orgNames', title : '所属机构', width : 300, tooltip:true}
    ,{field : 'isOrg', title : '人员类型', width : 120, align : 'left', formatter : function(value, rowData, rowIndex) {switch(value){case 1: return "<span style='color:red;'>中介单位人员</span>"; case 2 : return "<span style='color:red;'>建设单位人员</span>"; default: return "中心人员";}}}
    ,{field : 'createDate', title : '创建日期', width : 100, tooltip:true}
