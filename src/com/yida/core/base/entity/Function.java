@@ -1,24 +1,11 @@
 package com.yida.core.base.entity;
 
+import com.yida.core.common.ztree.IZtreeData;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
-import com.yida.core.common.ztree.IZtreeData;
 
 @Entity
 @Table(name="s_function")
@@ -40,35 +27,65 @@ public class Function implements Serializable, IZtreeData<Function> {
 	@Id
 	@Column(name="id", columnDefinition="nvarchar(20)")
 	private String id;
-	
+
+    /**
+     * 功能名称
+     */
 	@Column(name="name", columnDefinition="nvarchar(20)", nullable=false)
 	private String name;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="type", columnDefinition="VARCHAR(20)", nullable=false)
 	private Type type;
-	
+
+    /**
+     * 功能是否隐藏，超级管理员可以通过设置该字段来控制系统是否拥有该功能。
+     */
+    @Column(name="isHide")
+    private Boolean isHide;
+
+    /**
+     * 功能是否有效，系统管理员可以通过设置该字段来控制用户能否使用该功能。
+     */
 	@Column(name="invalid", columnDefinition="tinyint", nullable=false)
 	private Boolean invalid;
-	
+
+    /**
+     * 功能所属的层级，用数字代表所属的层级，从1开始。该字段属于冗余，方便查询，提高效率。
+     */
 	@Column(name="hierarchy", columnDefinition="tinyint", nullable=false)
-	private Integer hierarchy;
+	private Integer hierarchy = Integer.valueOf(1);
 	
 	@Column(name="isSys", columnDefinition="tinyint", nullable=false)
 	private Boolean isSys;
-	
+
+    /**
+     * 功能排序码，针对兄弟节点功能的而言的排序码，和层级字段配合可以生成树状顺序的列表。
+     */
 	@Column(name="sortCode", length=2, columnDefinition="varchar(10)")
 	private String sortCode;
-	
+
+    /**
+     * 功能编码，用于编码人员获取指定功能，属于编码辅助字段。
+     */
 	@Column(name="code", columnDefinition="varchar(100)")
 	private String code;
-	
+
+    /**
+     * 功能代表的图标信息
+     */
 	@Column(name="icon", columnDefinition="varchar(50)")
 	private String icon;
-	
+
+    /**
+     * 功能请求的资源地址
+     */
 	@Column(name="href", columnDefinition="varchar(100)")
 	private String href;
-	
+
+    /**
+     * 功能的分组标识，针对兄弟节点功能的而言的分组标识，属于编码辅助字段。
+     */
 	@Column(name="groups", columnDefinition="varchar(100)")
 	private String groups;
 	

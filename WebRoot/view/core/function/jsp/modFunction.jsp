@@ -32,6 +32,14 @@
 			</td>
 		</tr>
 
+        <tr>
+            <td style="color:red">是否隐藏：</td>
+            <td style="text-align:left">
+                <input name="isHide" type="radio" value="true" <c:if test="${true == function.isHide}" >checked="checked"</c:if> /><span>否</span>
+                <input name="isHide" type="radio" value="false" <c:if test="${false == function.isHide}" >checked="checked"</c:if> /><span>是</span>
+            </td>
+        </tr>
+
 		<tr>
 			<td>功能链接：</td>
 			<td style="text-align:left">
