@@ -1,13 +1,7 @@
 package com.excepttion;
 
-import java.io.IOException;
-import java.sql.DataTruncation;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.tools.sys.ExceptionTool;
 import net.sf.json.JSONObject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,7 +9,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tools.sys.ExceptionTool;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.DataTruncation;
 /**
  * spring MVC
  * @author kevin
@@ -41,7 +37,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 			rb=hm.getMethodAnnotation(ResponseBody.class);
 		}
 		if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))||rb!=null){
-			try {
+            try {
 				JSONObject json=new JSONObject();
 				json.put("success", false);
 				json.put("msg", msg);
@@ -51,7 +47,9 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("text/json");
 				response.getWriter().write(json.toString());
-			} catch (IOException e) {}
+			} catch (Exception e) {
+                System.out.println("出现全局异常！");
+            }
 			return new ModelAndView();
 		}
 		ModelAndView mv=new ModelAndView("error");

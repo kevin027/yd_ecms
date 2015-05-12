@@ -31,7 +31,7 @@
   
   <!-- Spring MVC配置 -->
   <servlet>
-    <servlet-name>springmvc</servlet-name>
+    <servlet-name>spring</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
@@ -39,9 +39,9 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  
+
   <servlet-mapping>
-    <servlet-name>springmvc</servlet-name>
+    <servlet-name>spring</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
@@ -49,32 +49,23 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.jpg</url-pattern>
     </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.png</url-pattern>
-    </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.gif</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.xls</url-pattern>
+        <url-pattern>*.png</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.js</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
     </servlet-mapping>
-  
+
   <!-- OpenSessionInViewFilter过滤器 -->
   <filter>
     <filter-name>lazyLoadingFilter</filter-name>
@@ -84,7 +75,7 @@
   </filter>
     <filter-mapping>
         <filter-name>lazyLoadingFilter</filter-name>
-        <servlet-name>springmvc</servlet-name>
+        <servlet-name>spring</servlet-name>
     </filter-mapping>
   
   <!--Spring MVC FORM 的 Method 转换 -->
@@ -95,7 +86,7 @@
   
   <filter-mapping>
     <filter-name>hiddenHttpMethodFilter</filter-name>
-    <servlet-name>springmvc</servlet-name>
+    <servlet-name>spring</servlet-name>
   </filter-mapping>
   
   <!-- 使用spring的编码器 -->

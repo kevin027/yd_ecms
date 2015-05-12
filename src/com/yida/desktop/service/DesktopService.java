@@ -12,7 +12,7 @@ import java.util.List;
 public class DesktopService extends BaseService {
 
 	public List<DevMark> getSystemDevMark(Account currentAccount, PageInfo pageInfo) {
-		return sqlCommonDao.findEntityListBySql(DevMark.class,"from " + DevMark.class.getCanonicalName());
+		return sqlCommonDao.findEntityListBySql(DevMark.class,"select * from s_dev_mark" );
 	}
 	
 }

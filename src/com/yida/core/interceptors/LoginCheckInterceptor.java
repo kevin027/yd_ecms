@@ -71,7 +71,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest arg0, HttpServletResponse request, Object response, ModelAndView mv)
             throws Exception {
-        System.out.println("----->访问页面："+mv.getViewName()+".jsp");
+        if(null != mv) {
+            System.out.println("----->访问页面：" + mv.getViewName() + ".jsp");
+        }
     }
 
 	@Override

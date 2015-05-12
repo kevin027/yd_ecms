@@ -73,7 +73,7 @@ public class BaseController extends BaseControllerProperties{
 
 			@Override
 			public String getAsText() {
-				return new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format((Date) getValue());
+				return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format((Date) getValue());
 			}
 		});
 	
